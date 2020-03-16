@@ -1,0 +1,219 @@
+package guideline
+dialect  "mvel"
+
+import cdss.kb.core.patient.Patient;
+import cdss.kb.core.patient.MedicalRecord
+import cdss.kb.core.patient.EpidemicHistory;
+import java.util.ArrayList
+import cdss.kb.core.patient.Diagnosis
+import cdss.kb.core.patient.PhysicalSign
+import cdss.kb.core.patient.Symptom
+import cdss.kb.core.patient.ImgExamResult
+import cdss.kb.core.patient.*
+
+import cdss.kb.core.RuleIdentification
+import java.util.Date
+import java.text.SimpleDateFormat
+
+
+rule "有流行病学史"
+ salience 1020
+ lock-on-active true
+ agenda-group "流行病学史"
+ when
+     $p:Patient($medicalRecordList: medicalRecordList);
+     $medicalRecords: ArrayList(size>0) from collect (MedicalRecord(
+                         (text=="History of travel to Wuhan and its surrounding areas within 14 days prior to the onset of the disease"
+                         ||text=="History of residence in Wuhan and its surrounding areas within 14 days prior to the onset of the disease"
+                         ||text=="History of travel to other communities where cases have been reported within 14 days prior to the onset of the disease"
+                         ||text=="History of residence in other communities where cases have been reported within 14 days prior to the onset of the disease")
+                         ||text=="In contact with novel coronavirus infected people (with positive results for the nucleic acid test) within 14 days prior to the onset of the disease"
+                         ||(text=="In contact with patients who have fever symptoms from Wuhan and its surrounding area within 14 days before the onset of the disease"
+                              ||text=="In contact with patients who have respiratory symptoms from Wuhan and its surrounding area within 14 days before the onset of the disease"
+                              ||text=="In contact with patients who have fever symptoms from communities where confirmed cases have been reported within 14 days before the onset of the disease"
+                              ||text=="In contact with patients who have respiratory symptoms from communities where confirmed cases have been reported within 14 days before the onset of the disease")
+                         ||text=="Cluster onset"
+                         )from $medicalRecordList);
+//     $medicalRecords: ArrayList(size>0) from collect (MedicalRecord(type=="流行病学史")from $medicalRecordList);
+    $hisList : ArrayList( size > 0)
+                             from accumulate( MedicalRecord($text: text) from $medicalRecords,
+                                              init( ArrayList arrayList=new ArrayList(); ),
+                                              action( arrayList.add($text); ),
+                                              result( arrayList ) );
+
+     $r: RuleIdentification($CurrentName: RuleIdentification);
+ then
+ System.out.println("流行病学史");
+     $p.epidemicHistory.setHisList($hisList);
+     $r.getRuleIdentification().add("有流行病学史");
+     Diagnosis diagnosis = new Diagnosis();
+     diagnosis.setItemName("新冠肺炎");diagnosis.setCategory("Medical observation period");
+     PastHistory pastHistory = new PastHistory();
+     pastHistory.getItems().add(diagnosis);
+     $p.getPastHistoryList().add(pastHistory);
+     drools.setFocus("诊断-疑似");
+  end
+
+rule "无明确流行病学史"
+ salience 1010
+ lock-on-active true
+ agenda-group "流行病学史"
+ when
+     $p:Patient($medicalRecordList: medicalRecordList);
+     $medicalRecords: ArrayList(size>0) from collect (MedicalRecord(
+                         (text!="History of travel to Wuhan and its surrounding areas within 14 days prior to the onset of the disease"
+                         &&text!="History of residence in Wuhan and its surrounding areas within 14 days prior to the onset of the disease"
+                         &&text!="History of travel to other communities where cases have been reported within 14 days prior to the onset of the disease"
+                         &&text!="History of residence in other communities where cases have been reported within 14 days prior to the onset of the disease")
+                         &&text!="In contact with novel coronavirus infected people (with positive results for the nucleic acid test) within 14 days prior to the onset of the disease"
+                         &&(text!="In contact with patients who have fever symptoms from Wuhan and its surrounding area within 14 days before the onset of the disease"
+                              &&text!="In contact with patients who have respiratory symptoms from Wuhan and its surrounding area within 14 days before the onset of the disease"
+                              &&text!="In contact with patients who have fever symptoms from communities where confirmed cases have been reported within 14 days before the onset of the disease"
+                              &&text!="In contact with patients who have respiratory symptoms from communities where confirmed cases have been reported within 14 days before the onset of the disease")
+                         &&text!="Cluster onset"
+                         )from $medicalRecordList) or
+     $medicalRecords2: ArrayList(size==0) from collect (MedicalRecord()from $medicalRecordList);
+     $r: RuleIdentification($CurrentName: RuleIdentification);
+ then
+ System.out.println("无明确流行病学史");
+//     $p.epidemicHistory.setValue("unclear");
+     $r.getRuleIdentification().add("无明确流行病学史");
+     Diagnosis diagnosis = new Diagnosis();
+     diagnosis.setItemName("新冠肺炎");diagnosis.setCategory("Healthy");
+     PastHistory pastHistory = new PastHistory();
+     pastHistory.getItems().add(diagnosis);
+     $p.getPastHistoryList().add(pastHistory);
+//     $p.getEpidemicHistory().setValue("无明确流行病学史");
+     drools.setFocus("诊断-疑似");
+  end
+
+rule "发热"
+    salience 1000
+    lock-on-active true
+    agenda-group "诊断-疑似"
+when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+        $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+        $labTestResultList:labTestResultList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (PhysicalSign(itemName=="Body_temperature") from $physicalSignList)
+then
+ System.out.println("发热");
+    Float Temp = Float.parseFloat($p.getPhysicalSign("Body_temperature").getValue());
+    Date date = new Date();
+    if(Temp > 37.8){
+        $r.getRuleIdentification().add("发热");
+        Symptom symptom = new Symptom();
+        symptom.setText("Fever");
+        symptom.setReportDateTime(date);
+        $p.getSymptomList().add(symptom);
+    }
+ end
+
+rule "有呼吸道症状"
+ salience 990
+    lock-on-active true
+    agenda-group "诊断-疑似"
+ when
+     $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+         $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+         $labTestResultList:labTestResultList);
+     $sypmtom: Symptom(text == "Respiratory symptoms" ) from $sypmtomList;
+     $r: RuleIdentification($ruleIdentification: RuleIdentification);
+ then
+  System.out.println("有呼吸道症状");
+
+    $r.getRuleIdentification().add("有呼吸道症状");
+  end
+
+rule "具有上述肺炎影像学特征"
+    salience 980
+    lock-on-active true
+    agenda-group "诊断-疑似"
+ when
+     $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+         $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+         $labTestResultList:labTestResultList);
+     $imgExamResult: ImgExamResult(description == "The aforementioned imaging characteristics of NCP" && itemName=="Chest CT" ) from $imgExamResultList;
+     $r: RuleIdentification($ruleIdentification: RuleIdentification);
+ then
+   System.out.println("具有上述肺炎影像学特征");
+
+    $r.getRuleIdentification().add("具有上述肺炎影像学特征");
+  end
+
+rule "白细胞计数"
+ salience 970
+ lock-on-active true
+    agenda-group "诊断-疑似"
+ when
+     $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+         $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+         $labTestResultList:labTestResultList);
+     $WBC_G: ArrayList(size>0) from collect (LabTestResult(itemName=="WBC") from $labTestResultList);
+     $r: RuleIdentification($ruleIdentification: RuleIdentification);
+ then
+    System.out.println("白细胞计数");
+
+     Float num = Float.parseFloat("0.0");
+     if($p.getLabTestResultList("WBC").toArray().length!=0){
+         num = Float.parseFloat($p.getLabTestResult("WBC").getResult());
+         if(num<3.8){
+                 $r.getRuleIdentification().add("白细胞计数降低");
+             }else if(num>11){
+                 $r.getRuleIdentification().add("白细胞计数升高");
+             }else{
+                 $r.getRuleIdentification().add("白细胞计数正常");
+             }
+     }
+  end
+
+rule "淋巴细胞计数"
+ salience 960
+ lock-on-active true
+    agenda-group "诊断-疑似"
+ when
+     $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+         $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+         $labTestResultList:labTestResultList);
+     $WBC_G: ArrayList(size>0) from collect (LabTestResult(itemName=="Lymphocyte count") from $labTestResultList);
+     $r: RuleIdentification($ruleIdentification: RuleIdentification);
+ then
+     System.out.println("淋巴细胞计数");
+
+     Float num = Float.parseFloat("0.0");
+     if($p.getLabTestResultList("Lymphocyte count").toArray().length!=0){
+         num = Float.parseFloat($p.getLabTestResult("Lymphocyte count").getResult());
+         if(num<1.0){
+                 $r.getRuleIdentification().add("淋巴细胞计数降低");
+             }else if(num>3.9){
+                 $r.getRuleIdentification().add("淋巴细胞计数升高");
+             }else{
+                 $r.getRuleIdentification().add("淋巴细胞计数正常");
+             }
+     }
+//     System.out.println($r.getRuleIdentification().toString());
+  end
+
+rule "疑似"
+salience 950
+  lock-on-active true
+    agenda-group "诊断-疑似"
+  when
+     $p: Patient($pastHistoryList: pastHistoryList);
+     $r: RuleIdentification($ruleIdentification: RuleIdentification);
+  then
+       System.out.println("疑似");
+
+    c1 = $r.getRuleIdentification().contains("发热") || $r.getRuleIdentification().contains("有呼吸道症状");
+    c2 = $r.getRuleIdentification().contains("具有上述肺炎影像学特征");
+    c3 = ($r.getRuleIdentification().contains("白细胞计数降低")||$r.getRuleIdentification().contains("白细胞计数正常"))&&($r.getRuleIdentification().contains("淋巴细胞计数降低")||$r.getRuleIdentification().contains("淋巴细胞计数正常"));
+    summary = ($r.getRuleIdentification().contains("有流行病学史")&&((c1&&c2)||(c1&&c3)||(c2&&c3)))||($r.getRuleIdentification().contains("无明确流行病学史")&&(c1&&c2&&c3));
+//    summary = true;
+    if(summary){
+        $r.getRuleIdentification().add("疑似");
+        length = $p.getPastHistoryList().size();
+        $p.getPastHistoryList().get(length-1).getDiagnosis("新冠肺炎").setCategory("Suspected");
+        drools.setFocus("诊断-确诊");
+    }
+   end

@@ -1,0 +1,220 @@
+{
+  "id": "COVID_Body_Temperature_Monitor.v0",
+  "gdl_version": "2.0",
+  "concept": "gt0001",
+  "language": {
+    "original_language": "ISO_639-1::en"
+  },
+  "description": {
+    "original_author": {
+      "date": "2020-03-12",
+      "name": "Hongshuo Feng",
+      "organisation": "Zhejiang University",
+      "email": "842089819@qq.com"
+    },
+    "other_contributors": [
+      "Tianhua Tang",
+      "Shan Nan",
+      "Yijie Wang"
+    ],
+    "lifecycle_state": "Author draft",
+    "details": {
+      "en": {
+        "id": "en",
+        "purpose": "Monitor the change of body temperature for COVID-19 patients.",
+        "keywords": [
+          "COVID-19"
+        ],
+        "use": "COVID-19 diagnosis and treatment decision support.",
+        "copyright": "Zhejiang University"
+      }
+    },
+    "other_details": {
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
+    }
+  },
+  "definition": {
+    "data_bindings": {
+      "gt0018": {
+        "id": "gt0018",
+        "model_id": "openEHR-EHR-OBSERVATION.body_temperature.v2",
+        "template_id": "openEHR-EHR-OBSERVATION.body_temperature.v2",
+        "type": "INPUT",
+        "elements": {
+          "gt0019": {
+            "id": "gt0019",
+            "path": "/data[at0002]/events[at0003]/data[at0001]/items[at0063]"
+          },
+          "gt0039": {
+            "id": "gt0039",
+            "path": "/data[at0002]/events[at0003]/data[at0001]/items[at0004]"
+          },
+          "gt0040": {
+            "id": "gt0040",
+            "path": "/data/events/time"
+          }
+        }
+      },
+      "gt0035": {
+        "id": "gt0035",
+        "model_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "template_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0037": {
+            "id": "gt0037",
+            "path": "/data[at0001]/items[at0073]"
+          }
+        }
+      },
+      "gt0044": {
+        "id": "gt0044",
+        "model_id": "openEHR-EHR-OBSERVATION.body_temperature.v2",
+        "template_id": "openEHR-EHR-OBSERVATION.body_temperature.v2",
+        "type": "OUTPUT",
+        "elements": {
+          "gt0045": {
+            "id": "gt0045",
+            "path": "/data[at0002]/events[at0003]/data[at0001]/items[at0063]"
+          },
+          "gt0046": {
+            "id": "gt0046",
+            "path": "/data/events/time"
+          }
+        }
+      }
+    },
+    "rules": {
+      "gt0051": {
+        "id": "gt0051",
+        "priority": 5,
+        "when": [
+          "$gt0037|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0039|Temperature|<37.2,Cel",
+          "($gt0019|Comment|==null)||($gt0019|Comment|=='Body temperature is greater than 37.2 degrees Celsius')"
+        ],
+        "then": [
+          "$gt0045|Body temperature comment|='The temperature is less than 37.2 degrees Celsius in the first measurement'",
+          "$gt0046|Temperature event time|=$currentDateTime"
+        ]
+      },
+      "gt0052": {
+        "id": "gt0052",
+        "priority": 4,
+        "when": [
+          "$gt0037|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0039|Temperature|<37.2,Cel",
+          "$gt0019|Comment|=='The temperature is less than 37.2 degrees Celsius in the first measurement'",
+          "$gt0040|Temperature event time|<($currentDateTime-1,d)"
+        ],
+        "then": [
+          "$gt0045|Body temperature comment|='Body temperature is normal for two consecutive days'",
+          "$gt0046|Temperature event time|=$currentDateTime"
+        ]
+      },
+      "gt0053": {
+        "id": "gt0053",
+        "priority": 3,
+        "when": [
+          "$gt0037|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0039|Temperature|<37.2,Cel",
+          "$gt0019|Comment|=='Body temperature is normal for two consecutive days'",
+          "$gt0040|Temperature event time|<($currentDateTime-1,d)"
+        ],
+        "then": [
+          "$gt0045|Body temperature comment|='Body temperature is normal for three consecutive days'",
+          "$gt0046|Temperature event time|=$currentDateTime"
+        ]
+      },
+      "gt0054": {
+        "id": "gt0054",
+        "priority": 2,
+        "when": [
+          "$gt0037|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0039|Temperature|>=37.2,Cel"
+        ],
+        "then": [
+          "$gt0045|Body temperature comment|='Body temperature is greater than 37.2 degrees Celsius'"
+        ]
+      },
+      "gt0055": {
+        "id": "gt0055",
+        "priority": 1,
+        "when": [
+          "$gt0037|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0039|Temperature|<37.2,Cel",
+          "$gt0040|Temperature event time|<($currentDateTime-1,d)",
+          "($gt0019|Comment|=='Body temperature is normal for three consecutive days')||($gt0019|Comment|=='Body temperature is normal for more than three consecutive days')"
+        ],
+        "then": [
+          "$gt0045|Body temperature comment|='Body temperature is normal for more than three consecutive days'",
+          "$gt0046|Temperature event time|=$currentDateTime"
+        ]
+      }
+    }
+  },
+  "ontology": {
+    "term_definitions": {
+      "en": {
+        "id": "en",
+        "terms": {
+          "gt0001": {
+            "id": "gt0001",
+            "text": "COVID_Body_Temperature_Monitor",
+            "description": "Monitor the change of body temperature for COVID-19 patients."
+          },
+          "gt0019": {
+            "id": "gt0019",
+            "text": "Comment",
+            "description": "Additional comment about the body temperature measurement not captured in other fields."
+          },
+          "gt0037": {
+            "id": "gt0037",
+            "text": "Diagnostic certainty",
+            "description": "The level of confidence in the identification of the diagnosis."
+          },
+          "gt0039": {
+            "id": "gt0039",
+            "text": "Temperature",
+            "description": "The measured body temperature (as a surrogate for the core of the body)."
+          },
+          "gt0040": {
+            "id": "gt0040",
+            "text": "Temperature event time",
+            "description": "The exact time of a single timed event during the Observation. Can represent either a specific point-in-time or an interval event."
+          },
+          "gt0045": {
+            "id": "gt0045",
+            "text": "Body temperature comment",
+            "description": "Additional comment about the body temperature measurement not captured in other fields."
+          },
+          "gt0046": {
+            "id": "gt0046",
+            "text": "Temperature event time",
+            "description": "The exact time of a single timed event during the Observation. Can represent either a specific point-in-time or an interval event."
+          },
+          "gt0051": {
+            "id": "gt0051",
+            "text": "Body temperature1"
+          },
+          "gt0052": {
+            "id": "gt0052",
+            "text": "Body temperature2"
+          },
+          "gt0053": {
+            "id": "gt0053",
+            "text": "Body temperature3"
+          },
+          "gt0054": {
+            "id": "gt0054",
+            "text": "Body temperature4"
+          },
+          "gt0055": {
+            "id": "gt0055",
+            "text": "Body temperature5"
+          }
+        }
+      }
+    }
+  }
+}

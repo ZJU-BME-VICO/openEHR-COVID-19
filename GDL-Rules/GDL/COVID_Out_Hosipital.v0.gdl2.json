@@ -1,0 +1,223 @@
+{
+  "id": "COVID_Out_Hosipital.v0",
+  "gdl_version": "2.0",
+  "concept": "gt0001",
+  "language": {
+    "original_language": "ISO_639-1::en"
+  },
+  "description": {
+    "original_author": {
+      "date": "2020-03-12",
+      "name": "Hongshuo Feng",
+      "organisation": "Zhejiang University",
+      "email": "842089819@qq.com"
+    },
+    "other_contributors": [
+      "Tianhua Tang",
+      "Shan Nan",
+      "Yijie Wang"
+    ],
+    "lifecycle_state": "Author draft",
+    "details": {
+      "en": {
+        "id": "en",
+        "purpose": "Discharge diagnosis for COVID-19 patients.",
+        "keywords": [
+          "COVID-19"
+        ],
+        "use": "COVID-19 diagnosis and treatment decision support.",
+        "copyright": "Zhejiang University"
+      }
+    },
+    "other_details": {
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
+    }
+  },
+  "definition": {
+    "data_bindings": {
+      "gt0018": {
+        "id": "gt0018",
+        "model_id": "openEHR-EHR-OBSERVATION.body_temperature.v2",
+        "template_id": "openEHR-EHR-OBSERVATION.body_temperature.v2",
+        "type": "INPUT",
+        "elements": {
+          "gt0019": {
+            "id": "gt0019",
+            "path": "/data[at0002]/events[at0003]/data[at0001]/items[at0063]"
+          }
+        }
+      },
+      "gt0020": {
+        "id": "gt0020",
+        "model_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt0038": {
+            "id": "gt0038",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_result-covid_19.v0]/items[at0001.1]/items[at0.15]"
+          }
+        }
+      },
+      "gt0023": {
+        "id": "gt0023",
+        "model_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
+        "template_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0025": {
+            "id": "gt0025",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0057]"
+          }
+        }
+      },
+      "gt0030": {
+        "id": "gt0030",
+        "model_id": "openEHR-EHR-OBSERVATION.story.v1",
+        "template_id": "openEHR-EHR-OBSERVATION.story.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0032": {
+            "id": "gt0032",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0180]"
+          },
+          "gt0033": {
+            "id": "gt0033",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0001]"
+          }
+        }
+      },
+      "gt0035": {
+        "id": "gt0035",
+        "model_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "template_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0037": {
+            "id": "gt0037",
+            "path": "/data[at0001]/items[at0073]"
+          }
+        }
+      },
+      "gt0039": {
+        "id": "gt0039",
+        "model_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "template_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "type": "OUTPUT",
+        "elements": {
+          "gt0044": {
+            "id": "gt0044",
+            "path": "/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v1]/items[at0083]"
+          }
+        }
+      },
+      "gt0042": {
+        "id": "gt0042",
+        "model_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "template_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0043": {
+            "id": "gt0043",
+            "path": "/data[at0001]/items[at0002]"
+          }
+        }
+      }
+    },
+    "rules": {
+      "gt0028": {
+        "id": "gt0028",
+        "priority": 2,
+        "when": [
+          "$gt0019|Comment|=='Body temperature is normal for more than three consecutive days'",
+          "$gt0025|Conclusion|=='Continuous twice negative results on nucleic acid detection of respiratory specimen(the interval time of sampling is at least 1 day)'",
+          "((($gt0033|Symptom/Sign name|=='Dry Cough')||($gt0033|Symptom/Sign name|=='Rhinorrhea'))||($gt0033|Symptom/Sign name|=='Nasal Congestion'))||(($gt0033|Symptom/Sign name|=='Pain in throat')||($gt0033|Symptom/Sign name|=='Difficulty breathing'))",
+          "$gt0032|Progression|==local::at0184|Resolved|",
+          "$gt0037|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0038|Progression of acute exudative lesions|==local::at0.18|Resolved|",
+          "$gt0043|Problem/Diagnosis name|==local::at0082|COVID-19|"
+        ],
+        "then": [
+          "$gt0044|Resolution phase|=local::at0084|Resolved|"
+        ]
+      },
+      "gt0034": {
+        "id": "gt0034",
+        "priority": 1,
+        "when": [
+          "!fired($gt0028)"
+        ],
+        "then": [
+          "$gt0044|Resolution phase|=local::at0087|Indeterminate|"
+        ]
+      }
+    }
+  },
+  "ontology": {
+    "term_definitions": {
+      "en": {
+        "id": "en",
+        "terms": {
+          "gt0001": {
+            "id": "gt0001",
+            "text": "COVID_Out_Hosipital",
+            "description": "Discharge diagnosis for COVID-19 patients."
+          },
+          "gt0019": {
+            "id": "gt0019",
+            "text": "Comment",
+            "description": "Additional comment about the body temperature measurement not captured in other fields."
+          },
+          "gt0025": {
+            "id": "gt0025",
+            "text": "Conclusion",
+            "description": "Narrative description of the key findings."
+          },
+          "gt0028": {
+            "id": "gt0028",
+            "text": "Out_hospital_Diagnosis1"
+          },
+          "gt0032": {
+            "id": "gt0032",
+            "text": "Progression",
+            "description": "Description progression of the symptom or sign at the time of reporting."
+          },
+          "gt0033": {
+            "id": "gt0033",
+            "text": "Symptom/Sign name",
+            "description": "The name of the reported symptom or sign."
+          },
+          "gt0034": {
+            "id": "gt0034",
+            "text": "Out_hospital_Diagnosis2"
+          },
+          "gt0037": {
+            "id": "gt0037",
+            "text": "Diagnostic certainty",
+            "description": "The level of confidence in the identification of the diagnosis."
+          },
+          "gt0038": {
+            "id": "gt0038",
+            "text": "Progression of acute exudative lesions",
+            "description": "*"
+          },
+          "gt0041": {
+            "id": "gt0041",
+            "text": "Resolution phase",
+            "description": "Phase of healing for an acute problem or diagnosis."
+          },
+          "gt0043": {
+            "id": "gt0043",
+            "text": "Problem/Diagnosis name",
+            "description": "Identification of the problem or diagnosis, by name."
+          },
+          "gt0044": {
+            "id": "gt0044",
+            "text": "Resolution phase",
+            "description": "Phase of healing for an acute problem or diagnosis."
+          }
+        }
+      }
+    }
+  }
+}

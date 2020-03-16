@@ -1,0 +1,110 @@
+package guideline
+
+dialect  "mvel"
+
+import cdss.kb.core.patient.Patient;
+import cdss.kb.core.patient.MedicalRecord
+import cdss.kb.core.patient.EpidemicHistory;
+import java.util.ArrayList
+import cdss.kb.core.patient.Diagnosis
+import cdss.kb.core.patient.PhysicalSign
+import cdss.kb.core.patient.Symptom
+import cdss.kb.core.patient.ImgExamResult
+import cdss.kb.core.patient.*
+
+import cdss.kb.core.RuleIdentification
+import java.util.Date
+import java.text.SimpleDateFormat
+
+
+rule "PCR"
+   salience 940
+   lock-on-active true
+       agenda-group "诊断-确诊"
+   when
+       $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+            $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+            $labTestResultList:labTestResultList);
+       $r: RuleIdentification($ruleIdentification: RuleIdentification);
+       ArrayList(size>0) from collect (LabTestResult(itemName=="rRT-PCR") from $labTestResultList)
+   then
+          System.out.println("PCR");
+
+       result1 = $p.getLabTestResult("rRT-PCR").getResult();
+       if(result1.equals("positive")){
+           $r.getRuleIdentification().add("实时荧光RT-PCR检测新型冠状病毒核酸阳性");
+       }
+    end
+
+rule "病毒基因测序"
+salience 930
+ lock-on-active true
+    agenda-group "诊断-确诊"
+when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+         $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+         $labTestResultList:labTestResultList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (LabTestResult(itemName=="High-throughput sequencing") from $labTestResultList)
+then
+          System.out.println("病毒基因测序");
+
+    result2 = $p.getLabTestResult("Viral gene sequence").getResult();
+    if(result2.equals("Highly homologous to known new coronaviruses")){
+        $r.getRuleIdentification().add("病毒基因测序与新冠病毒高度同源");
+    }
+ end
+
+rule "新冠病毒特异性抗体"
+salience 925
+ lock-on-active true
+    agenda-group "诊断-确诊"
+when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+         $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+         $labTestResultList:labTestResultList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (LabTestResult(itemName=="COVID-19 IgG antibody") from $labTestResultList);
+then
+    System.out.println("新型冠状病毒特异性抗体");
+    result1 = $p.getLabTestResult("COVID-19 IgG antibody").getResult();
+    if(result1.equals("positive")){
+        if(!$p.getLabTestResult("COVID-19 IgM antibody").getItemName().isEmpty()){
+            if($p.getLabTestResult("COVID-19 IgM antibody").getResult().equals("positive")){
+                System.out.println("新冠病毒特异性抗体阳性");
+                $r.getRuleIdentification().add("新冠病毒特异性抗体阳性");
+            }
+        }
+    }else if(result1.equals("From negative to positive")){
+        System.out.println("新冠病毒特异性抗体阳性");
+        $r.getRuleIdentification().add("新冠病毒特异性抗体阳性");
+    }else if(result1.equals("The recovery period is 4 times and more than the acute period")){
+        System.out.println("新冠病毒特异性抗体阳性");
+        $r.getRuleIdentification().add("新冠病毒特异性抗体阳性");
+    }else{}
+
+ end
+
+rule "确诊"
+salience 920
+ lock-on-active true
+    agenda-group "诊断-确诊"
+when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+         $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+         $labTestResultList:labTestResultList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+then
+System.out.println("确诊");
+    c1 = $r.getRuleIdentification().contains("实时荧光RT-PCR检测新型冠状病毒核酸阳性");
+    c2 = $r.getRuleIdentification().contains("病毒基因测序与新冠病毒高度同源");
+    c3 = $r.getRuleIdentification().contains("新冠病毒特异性抗体阳性");
+    summary = $r.getRuleIdentification().contains("疑似")&&(c1||c2||c3);
+    if(summary){
+        $r.getRuleIdentification().remove("疑似");
+        $r.getRuleIdentification().add("确诊");
+        length = $p.getPastHistoryList().size();
+        $p.getPastHistoryList().get(length-1).getDiagnosis("新冠肺炎").setCategory("Confirmed");
+        drools.setFocus("诊断-分型");
+    }
+ end

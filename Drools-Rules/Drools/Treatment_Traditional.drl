@@ -1,0 +1,413 @@
+package guideline
+
+dialect  "mvel"
+
+import cdss.kb.core.patient.Patient;
+import cdss.kb.core.patient.MedicalRecord
+import cdss.kb.core.patient.EpidemicHistory;
+import java.util.ArrayList
+import cdss.kb.core.patient.Diagnosis
+import cdss.kb.core.patient.PhysicalSign
+import cdss.kb.core.patient.Symptom
+import cdss.kb.core.patient.ImgExamResult
+import cdss.kb.core.patient.*
+
+import cdss.kb.core.RuleIdentification
+import java.util.Date
+import java.text.SimpleDateFormat
+
+
+rule "治疗-中医-医学观察期-1"
+  salience 660
+    lock-on-active true
+      agenda-group "治疗-中医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    $diagnosis_G : ArrayList( size > 0)
+                             from accumulate( PastHistory($items: items) from $pastHistoryList,
+                                              init( ArrayList arrayList=new ArrayList(); ),
+                                              action( arrayList.addAll($items); ),
+                                              result( arrayList ) );
+    ArrayList(size>0) from collect (Diagnosis(itemName=="Medical observation period") from $diagnosis_G);
+    ArrayList(size>0) from collect (Symptom(text=="Fatigue") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Gastrointestinal discomfort") from $sypmtomList);
+ then
+   System.out.println("治疗-中医-1");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Recommended Chinese patent medicine: Huoxiang Zhengqi capsules (pills, liquid, or oral solution)");order1.setStatus("Not executed");
+    order1.setType("Medications");
+    $p.getOrderList().add(order1);
+ end
+
+rule "治疗-中医-医学观察期-2"
+  salience 650
+    lock-on-active true
+      agenda-group "治疗-中医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    $diagnosis_G : ArrayList( size > 0)
+                             from accumulate( PastHistory($items: items) from $pastHistoryList,
+                                              init( ArrayList arrayList=new ArrayList(); ),
+                                              action( arrayList.addAll($items); ),
+                                              result( arrayList ) );
+    ArrayList(size>0) from collect (Diagnosis(itemName=="Medical observation period") from $diagnosis_G);
+    ArrayList(size>0) from collect (Symptom(text=="Fatigue") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Fever") from $sypmtomList);
+ then
+   System.out.println("治疗-中医-2");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Recommended Chinese patent medicine: Jinhua Qinggan granules, Lianhua Qingwen capsules (granules), Shufeng Jiedu capsules (granules), Fangfeng Tongsheng pills(granules)");order1.setStatus("Not executed");
+    order1.setType("Medications");
+    $p.getOrderList().add(order1);
+ end
+
+rule "治疗-中医-清肺排毒汤"
+  salience 640
+    lock-on-active true
+      agenda-group "治疗-中医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+ then
+   System.out.println("治疗-中医-3");
+    c1 = $r.getRuleIdentification().contains("轻型");
+    c2 = $r.getRuleIdentification().contains("普通型");
+    c3 = $r.getRuleIdentification().contains("重型");
+    c4 = $r.getRuleIdentification().contains("危重型");
+    c5 = $r.getRuleIdentification().contains("确诊");
+    summary = c1 || c2 || c3 || c4 || c5;
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Recommended prescription: Ephedra 9g, Zhigancao 6g, Almond 9g, Gypsum 15-30g(fried first), Guizhi 9g, Zixie 9g, Zhuling 9g, Baizhu 9g, Zhiling 15g, Bupleurum 16g, Scutellaria baicalensis 6g, and Pinellia 9g , Ginger 9g, aster 9g, winter flower 9g, shoot dry 9g, asarum 6g, yam 12g, coriander fruit 6g, tangerine peel 6g, aquilegia 9g" );
+    order1.setStatus("Not executed");
+    order1.setType("Medications");
+
+    if(summary){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-中医-轻型-寒湿郁肺证"
+  salience 630
+    lock-on-active true
+      agenda-group "治疗-中医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Fever") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Fatigue") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Sore body") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Cough") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Expectoration") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Chest tightness") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Suffocation") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Loss of appetite") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Nausea") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Vomiting") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Sticky stools") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Tongue has thin fat tooth mark or is faint red") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="The coating is white thick rot or white greasy") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="The pulse is moisten or slippery") from $sypmtomList);
+ then
+   System.out.println("治疗-中医-4");
+    c1 = $r.getRuleIdentification().contains("轻型");
+    c2 = $r.getRuleIdentification().contains("普通型");
+    c3 = $r.getRuleIdentification().contains("重型");
+    c4 = $r.getRuleIdentification().contains("危重型");
+    summary = c1 || c2 || c3 || c4;
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Recommended prescription: Raw ephedra 6g, raw gypsum 15g, almond 9g, loquat 15g, gardenia 15g, Guanzhong 9g, Dilong 15g, Xu Changqing 15g, Huoxiang 15g, Peilan 9g, Cangzhu 15g, Yunling 45g, Atractylodes 30g, Jiao Sanxian 9g each , Magnolia officinalis 15g, betel coconut 9g, yarrow C56fruit 9g, ginger 15g.");
+    order1.setStatus("Not executed");
+    order1.setType("Medications");
+
+    if(summary){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-中医-轻型-湿热蕴肺证"
+  salience 610
+    lock-on-active true
+      agenda-group "治疗-中医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Low fever"||text=="No fever") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Slight chills") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Fatigue") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Heavy head and body") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Muscle soreness") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Dry cough"||text=="Low phlegm") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Sore throat") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Dry mouth"||text=="Chest tightness") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="No sweat"||text=="Sweating"||text=="Loss of appetite") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Diarrhea"||text=="Sticky stool") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="The tongue is reddish") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="The coating is white, thick and greasy"||text=="The coating is thin yellow") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Pulse is slippery or sloppy") from $sypmtomList);
+ then
+   System.out.println("治疗-中医-6");
+    c1 = $r.getRuleIdentification().contains("轻型");
+    summary = c1 ;
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Recommended prescription: Betel nut 10g, apple 10g, Magnolia 10g, Zhimu 10g, scutellaria baicalensis 10g, Bupleurum 10g, red peony 10g, forsythia 15g, artemisia annua 10g (decocted later), 10g of green leaves, 10g of green leaves, 5g of raw licorice");
+    order1.setStatus("Not executed");
+    order1.setType("Medications");
+    if(summary){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-中医-普通型-湿毒郁肺证"
+  salience 600
+    lock-on-active true
+      agenda-group "治疗-中医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Fever") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Low cough"||text=="Sputum"||text=="Yellow sputum") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Suffocation"||text=="Shortness of breath") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Bloating") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Constipation") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="The tongue is dark red and fat") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="The coating is greasy or yellow") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="The pulse is slippery or stringy") from $sypmtomList);
+ then
+   System.out.println("治疗-中医-7");
+    c1 = $r.getRuleIdentification().contains("普通型");
+    summary = c1 ;
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Recommended prescription: raw ephedra 6g, bitter almond 15g, raw gypsum 30g, raw coix seed 30g, grass root 10g, patchouli 15g, artemisia annua 12g, Polygonum cuspidatum 20g, verbena 30g, dried reed root 30g, gardenia 15g 15g of orange red, 10g of raw licorice");
+    order1.setStatus("Not executed");
+    order1.setType("Medications");
+    if(summary){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-中医-普通型-寒湿阻肺证"
+  salience 590
+    lock-on-active true
+      agenda-group "治疗-中医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Low fever") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Low body temperature"||text=="no heat") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Dry cough") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Low sputum") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Fatigue") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Chest tightness") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Nausea"||text=="Nausea") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="The tongue is pale or red") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="The coating is white or greasy") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="The veins are pulsating") from $sypmtomList);
+ then
+   System.out.println("治疗-中医-8");
+    c1 = $r.getRuleIdentification().contains("普通型");
+    summary = c1 ;
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Recommended prescription: Atractylodes lancea 15g, Chenpi 10g, Magnolia 10g, Aquilegia 10g, grass fruit 6g, raw ephedra 6g, Zhihuo 10g, ginger 10g, betel nut 10g.");
+    order1.setStatus("Not executed");
+    order1.setType("Medications");
+    if(summary){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-中医-重型-疫毒闭肺证"
+  salience 580
+    lock-on-active true
+      agenda-group "治疗-中医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Fever") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Flushing") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Cough") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Yellowish phlegm"||text=="Blood in sputum") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Wheezing"||text=="Shortness of breath") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Tiredness"||text=="Fatigue") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Dryness and stickiness") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Nausea"||text=="Food loss") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Poor stool") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Short urination") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Red tongue") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Yellow greasy coating") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Slippery pulses") from $sypmtomList);
+ then
+   System.out.println("治疗-中医-9");
+    c1 = $r.getRuleIdentification().contains("重型");
+    summary = c1 ;
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Recommended prescription: Raw ephedra 6g, almond 9g, raw gypsum 15g, licorice 3g, fragrant fragrant 10g (back), Magnolia 10g, atractylodes 15g, grass fruit 10g, pinellia 9g, Poria 15g, raw rhubarb 5g (back) 10g, gardenia 10g, red peony 10g.");
+    order1.setStatus("Not executed");
+    order1.setType("Medications");
+    if(summary){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-中医-重型-气营两燔证"
+  salience 570
+    lock-on-active true
+      agenda-group "治疗-中医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Hot fever"||text=="Thirst") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Shortness of breath") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Blurred vision") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Blurred vision"||text=="Spotted rash"||text=="Vomiting blood"||text=="Bleeding"||text=="Convulsions in the limbs") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Tongue ridges have few or no moss") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="The pulse sinks finely, or floats large and counts") from $sypmtomList);
+ then
+   System.out.println("治疗-中医-10");
+    c1 = $r.getRuleIdentification().contains("重型");
+    summary = c1 ;
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Recommended prescription: 30-60g gypsum (fried first), 30g of Zhimu, 30-60g of raw land, 30g of buffalo horn (fried first), 30g of red sage, 30g of black ginseng, 15g of forsythia, 15g of paeonia, 6g of peony 12g, gardenia 15g, raw licorice 6g.");
+    order1.setStatus("Not executed");
+    order1.setType("Medications");
+    if(summary){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-中医-危重型-内闭外脱证"
+  salience 560
+    lock-on-active true
+      agenda-group "治疗-中医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Dyspnea") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Asthma"||text=="Need mechanical ventilation") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Fainting") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Irritability") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Cold sweatin") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Dark purple tongue") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Thick or dry moss") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Large floating roots") from $sypmtomList);
+ then
+   System.out.println("治疗-中医-11");
+    c1 = $r.getRuleIdentification().contains("危重型");
+    summary = c1 ;
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Recommended prescription: 15g of ginseng, 10g of Heishun tablets (decoct first), 15g of dogwood, delivered with Suhexiang Pill or Angong Niuhuang Pill");
+    order1.setStatus("Not executed");
+    order1.setType("Medications");
+    if(summary){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-中医-恢复期-肺脾气虚证"
+  salience 550
+    lock-on-active true
+      agenda-group "治疗-中医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Shortness of breath") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Fatigue") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Anorexia") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Weak stoo") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Uneasiness") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="The tongue is pale") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="The tongue is greasy") from $sypmtomList);
+ then
+   System.out.println("治疗-中医-12");
+    c1 = $r.getRuleIdentification().contains("恢复期");
+    summary = c1 ;
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Recommended prescription: French Pinellia 9g, Chenpi 10g, Codonopsis 15g, Sunburn Astragalus 30g, Stir-fried Atractylodes 10g, Poria 15g, Huoxiang 10g, Amomum villosum 6g (later), and Licorice 6g");
+    order1.setStatus("Not executed");
+    order1.setType("Medications");
+    if(summary){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-中医-恢复期-气阴两虚证"
+  salience 540
+    lock-on-active true
+      agenda-group "治疗-中医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Fatigue") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Shortness of breath") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Dry mouth") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Thirst") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Palpitation") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Sweating") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Poor appetite") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Low or no fever") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Dry cough and little sputum") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Dry tongue") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Fine or weak pulses") from $sypmtomList);
+ then
+   System.out.println("治疗-中医-13");
+    c1 = $r.getRuleIdentification().contains("恢复期");
+    summary = c1 ;
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Recommended prescription: North and south radix salviae 10g, 15g ophiopogonis, 6g American ginseng, 6g schisandra, 6g gypsum l5g, 10g light bamboo leaves, 10g mulberry leaves, 15g reed root, 15g salviae miltiorrhiza, 6g raw liquorice.");
+    order1.setStatus("Not executed");
+    order1.setType("Medications");
+    if(summary){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-中医-summary"
+  salience 530
+    lock-on-active true
+      agenda-group "治疗-中医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+ then
+   System.out.println("治疗-中医-summary");
+    drools.setFocus("解除隔离出院");
+ end

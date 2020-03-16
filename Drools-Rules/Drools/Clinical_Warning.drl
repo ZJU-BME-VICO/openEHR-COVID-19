@@ -1,0 +1,176 @@
+package guideline
+
+dialect  "mvel"
+
+import cdss.kb.core.patient.Patient;
+import cdss.kb.core.patient.MedicalRecord
+import cdss.kb.core.patient.EpidemicHistory;
+import java.util.ArrayList
+import cdss.kb.core.patient.Diagnosis
+import cdss.kb.core.patient.PhysicalSign
+import cdss.kb.core.patient.Symptom
+import cdss.kb.core.patient.ImgExamResult
+import cdss.kb.core.patient.*
+
+import cdss.kb.core.RuleIdentification
+import java.util.Date
+import java.text.SimpleDateFormat
+
+
+rule "预警-成人"
+  salience 829
+    lock-on-active true
+      agenda-group "临床预警"
+  when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    $patienInfo: PatientInfo();
+    List1: ArrayList(size>0) from collect (LabTestResult(itemName=="Lymphocyte count") from $labTestResultList);
+    List2: ArrayList(size>0) from collect (LabTestResult(itemName=="IL-6") from $labTestResultList);
+    List3: ArrayList(size>0) from collect (LabTestResult(itemName=="CRP") from $labTestResultList);
+    List4: ArrayList(size>0) from collect (LabTestResult(itemName=="Lactic acid") from $labTestResultList);
+    List5: ArrayList(size>0) from collect (ImgExamResult(description=="Intrapulmonary disease progresses rapidly in the short term",itemName=="Chest CT")from $imgExamResultList);
+  then
+    System.out.println("预警-成人");
+    c1 = false;
+    c2 = false;
+    c3 = false;
+    c4 = false;
+    for(Object labTestResult1:List1){
+      if(((LabTestResult) labTestResult1).getResult().equals("Progressive decline")){
+          System.out.println("预警-成人-淋巴细胞计数");
+          c1 = true;
+      }
+    }
+    for(Object labTestResult2:List2){
+      if(((LabTestResult) labTestResult2).getResult().equals("Progressive increase")){
+          System.out.println("预警-成人-IL-6");
+          c2 = true;
+      }
+    }
+    for(Object labTestResult3:List3){
+      if(((LabTestResult) labTestResult3).getResult().equals("Progressive increase")){
+          System.out.println("预警-成人-C反应蛋白");
+          c3 = true;
+      }
+    }
+    for(Object labTestResult4:List4){
+      if(((LabTestResult) labTestResult4).getResult().equals("Progressive increase")){
+          System.out.println("预警-成人-乳酸");
+          c4 = true;
+      }
+    }
+    c5 = $r.getRuleIdentification().contains("轻型")||$r.getRuleIdentification().contains("普通型");
+    c6 = false;
+    Date now = new Date();
+    long num = (now.getTime()-$patienInfo.getDateOfBirth().getTime())/(60*60*24*30);
+    num = num/1000;
+    System.out.println(num+"预警-成人");
+    if(num/12>14){
+        c6 = true;
+    }
+    summary = c5 && c6 && c1 && (c2||c3) && c4;
+    if(summary){
+        $r.getRuleIdentification().add("预警-成人");
+    }
+
+   end
+
+rule "预警-儿童-基础疾病"
+  salience 828
+    lock-on-active true
+      agenda-group "临床预警"
+   when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    $patientInfo: PatientInfo();
+    $diagnosis_G : ArrayList( size > 0)
+                             from accumulate( PastHistory($items: items) from $pastHistoryList,
+                                              init( ArrayList arrayList=new ArrayList(); ),
+                                              action( arrayList.addAll($items); ),
+                                              result( arrayList ) );
+    ArrayList() from collect (Diagnosis(itemName=="Congenital heart disease"||itemName=="Bronchial dysplasia"||itemName=="Respiratory tract deformity"
+                                ||itemName=="Abnormal hemoglobin"||itemName=="Severe malnutrition"||itemName=="Immune deficiency"
+                                ||itemName=="Immune hypofunction"
+                                )from $diagnosis_G)
+   then
+       System.out.println("预警-儿童-基础疾病");
+       Date now = new Date();
+       long num = (now.getTime()-$patientInfo.getDateOfBirth().getTime())/(60*60*24*30);
+       num = num/1000;
+       if(num<3||num==3){
+           $r.getRuleIdentification().add("儿童基础疾病");
+       }
+    end
+
+rule "预警-儿童"
+  salience 827
+    lock-on-active true
+      agenda-group "临床预警"
+   when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    $patientInfo: PatientInfo();
+    ArrayList(size>0) from collect(Symptom(text=="Poor mental reaction" || text=="Lethargy") from $sypmtomList);
+    ArrayList(size>0) from collect (ImgExamResult(description=="Imaging shows multiple lung lobe infiltration"
+        ||description=="Pleural effusion"||description=="Rapid disease progression in the short term")from $imgExamResultList);
+    List4: ArrayList(size>0) from collect (LabTestResult(itemName=="Lactic acid") from $labTestResultList);
+    then
+    c1 = false;
+    c2 = false;
+    c3 = false;
+    c4 = false;
+    c5 = false;
+
+    c1 = $r.getRuleIdentification().contains("轻型")||$r.getRuleIdentification().contains("普通型");
+    Date now = new Date();
+    long num = (now.getTime()-$patientInfo.getDateOfBirth().getTime())/(60*60*24*30);
+    num = num/1000;
+    if(num/12<14||num/12==14){
+        c2 = true;
+    }
+    c3 = $r.getRuleIdentification().contains("呼吸频次过高");
+    for(Object labTestResult4:List4){
+      if(((LabTestResult) labTestResult4).getResult().equals("Progressive increase")){
+          System.out.println("预警-成人-乳酸");
+          c4 = true;
+      }
+    }
+    c5 = $r.getRuleIdentification().contains("儿童基础疾病");
+    summary = c1 && c2 && c3 && c4 && c5;
+    if(summary){
+        $r.getRuleIdentification().add("预警-儿童");
+    }
+
+
+     end
+
+rule "临床预警"
+  salience 821
+    lock-on-active true
+      agenda-group "临床预警"
+  when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+  then
+    c1 = $r.getRuleIdentification().contains("预警-成人")||$r.getRuleIdentification().contains("预警-儿童");
+   PastHistory pastHistory = new PastHistory();
+   Diagnosis diagnosis = new Diagnosis();
+   diagnosis.setItemName("Warning");
+    if(c1){
+        diagnosis.setCategory("Clinical warning");
+    }else{
+        diagnosis.setCategory("Normal");
+    }
+       pastHistory.getItems().add(diagnosis);
+       $p.getPastHistoryList().add(pastHistory);
+      drools.setFocus("治疗-场所");
+  end

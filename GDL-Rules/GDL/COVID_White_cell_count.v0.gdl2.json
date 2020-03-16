@@ -1,0 +1,149 @@
+{
+  "id": "COVID_White_cell_count.v0",
+  "gdl_version": "2.0",
+  "concept": "gt0001",
+  "language": {
+    "original_language": "ISO_639-1::en"
+  },
+  "description": {
+    "original_author": {
+      "date": "2020-03-12",
+      "name": "Hongshuo Feng",
+      "organisation": "Zhejiang University",
+      "email": "842089819@qq.com"
+    },
+    "other_contributors": [
+      "Tianhua Tang",
+      "Shan Nan",
+      "Yijie Wang"
+    ],
+    "lifecycle_state": "Author draft",
+    "details": {
+      "en": {
+        "id": "en",
+        "purpose": "Check the patient's white cell count.",
+        "keywords": [
+          "COVID-19"
+        ],
+        "use": "COVID-19 diagnosis and treatment decision support.",
+        "copyright": "Zhejiang University"
+      }
+    },
+    "other_details": {
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
+    }
+  },
+  "definition": {
+    "data_bindings": {
+      "gt0002": {
+        "id": "gt0002",
+        "model_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
+        "template_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0003": {
+            "id": "gt0003",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0024]"
+          },
+          "gt0004": {
+            "id": "gt0004",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0001]"
+          }
+        }
+      },
+      "gt0006": {
+        "id": "gt0006",
+        "model_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
+        "template_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
+        "type": "OUTPUT",
+        "elements": {
+          "gt0007": {
+            "id": "gt0007",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0057]"
+          }
+        }
+      }
+    },
+    "rules": {
+      "gt0008": {
+        "id": "gt0008",
+        "priority": 3,
+        "when": [
+          "$gt0003|Analyte name|==local::at0029|White blood cell count(WBC)|",
+          "$gt0004|Analyte result|<'3.8'"
+        ],
+        "then": [
+          "$gt0007|Conclusion|='low white cell count'"
+        ]
+      },
+      "gt0009": {
+        "id": "gt0009",
+        "priority": 2,
+        "when": [
+          "$gt0003|Analyte name|==local::at0029|White blood cell count(WBC)|",
+          "$gt0004|Analyte result|>='3.8'",
+          "$gt0004|Analyte result|<'11'"
+        ],
+        "then": [
+          "$gt0007|Conclusion|='normal white cell count'"
+        ]
+      },
+      "gt0010": {
+        "id": "gt0010",
+        "priority": 1,
+        "when": [
+          "$gt0003|Analyte name|==local::at0029|White blood cell count(WBC)|",
+          "$gt0004|Analyte result|>='11'"
+        ],
+        "then": [
+          "$gt0007|Conclusion|='high white cell count'"
+        ]
+      }
+    }
+  },
+  "ontology": {
+    "term_definitions": {
+      "en": {
+        "id": "en",
+        "terms": {
+          "gt0001": {
+            "id": "gt0001",
+            "text": "COVID_White_cell_count",
+            "description": "Check the patient's white cell count."
+          },
+          "gt0003": {
+            "id": "gt0003",
+            "text": "Analyte name",
+            "description": "The name of the analyte result."
+          },
+          "gt0004": {
+            "id": "gt0004",
+            "text": "Analyte result",
+            "description": "The value of the analyte result."
+          },
+          "gt0007": {
+            "id": "gt0007",
+            "text": "Conclusion",
+            "description": "Narrative description of the key findings."
+          },
+          "gt0008": {
+            "id": "gt0008",
+            "text": "White Cell Count1"
+          },
+          "gt0009": {
+            "id": "gt0009",
+            "text": "White Cell Count2"
+          },
+          "gt0010": {
+            "id": "gt0010",
+            "text": "White Cell Count3"
+          },
+          "gt0011": {
+            "id": "gt0011",
+            "text": "Copy of Copy of White Cell Count1"
+          }
+        }
+      }
+    }
+  }
+}

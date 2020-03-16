@@ -1,0 +1,287 @@
+{
+  "id": "COVID_Suspected_Diagnosis.v0",
+  "gdl_version": "2.0",
+  "concept": "gt0001",
+  "language": {
+    "original_language": "ISO_639-1::en"
+  },
+  "description": {
+    "original_author": {
+      "date": "2020-03-12",
+      "name": "Hongshuo Feng",
+      "organisation": "Zhejiang University",
+      "email": "842089819@qq.com"
+    },
+    "other_contributors": [
+      "Tianhua Tang",
+      "Shan Nan",
+      "Yijie Wang"
+    ],
+    "lifecycle_state": "Author draft",
+    "details": {
+      "en": {
+        "id": "en",
+        "purpose": "Quickly confirm whether a patient is a suspected case of COVID-19, according to Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition).",
+        "keywords": [
+          "COVID-19"
+        ],
+        "use": "COVID-19 diagnosis and treatment decision support.",
+        "copyright": "Zhejiang University"
+      }
+    },
+    "other_details": {
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
+    }
+  },
+  "definition": {
+    "data_bindings": {
+      "gt0004": {
+        "id": "gt0004",
+        "model_id": "openEHR-EHR-OBSERVATION.story.v1",
+        "template_id": "openEHR-EHR-OBSERVATION.story.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0005": {
+            "id": "gt0005",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0001]"
+          }
+        }
+      },
+      "gt0010": {
+        "id": "gt0010",
+        "model_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt0011": {
+            "id": "gt0011",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0008]"
+          }
+        }
+      },
+      "gt0013": {
+        "id": "gt0013",
+        "model_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
+        "template_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0021": {
+            "id": "gt0021",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0057]"
+          }
+        }
+      },
+      "gt0016": {
+        "id": "gt0016",
+        "model_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "template_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "type": "OUTPUT",
+        "elements": {
+          "gt0017": {
+            "id": "gt0017",
+            "path": "/data[at0001]/items[at0073]"
+          }
+        }
+      },
+      "gt0030": {
+        "id": "gt0030",
+        "model_id": "openEHR-EHR-EVALUATION.epidemiological_history_questionnaire_about_covid_19.v0",
+        "template_id": "openEHR-EHR-EVALUATION.epidemiological_history_questionnaire_about_covid_19.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt0031": {
+            "id": "gt0031",
+            "path": "/data[at0001]/items[at0002]"
+          },
+          "gt0032": {
+            "id": "gt0032",
+            "path": "/data[at0001]/items[at0005]"
+          },
+          "gt0033": {
+            "id": "gt0033",
+            "path": "/data[at0001]/items[at0008]"
+          },
+          "gt0034": {
+            "id": "gt0034",
+            "path": "/data[at0001]/items[at0011]"
+          }
+        }
+      },
+      "gt0035": {
+        "id": "gt0035",
+        "model_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
+        "type": "OUTPUT",
+        "elements": {
+          "gt0036": {
+            "id": "gt0036",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0021]"
+          }
+        }
+      }
+    },
+    "default_actions": [
+      "$gt0008|Symptom Number|=0"
+    ],
+    "rules": {
+      "gt0007": {
+        "id": "gt0007",
+        "priority": 6,
+        "when": [
+          "($gt0005|Symptom/Sign name|=='Fever')||((($gt0005|Symptom/Sign name|=='Dry Cough')||($gt0005|Symptom/Sign name|=='Nasal Congestion'))||((($gt0005|Symptom/Sign name|=='Rhinorrhea')||($gt0005|Symptom/Sign name|=='Difficulty breathing'))||($gt0005|Symptom/Sign name|=='Pain in throat')))"
+        ],
+        "then": [
+          "$gt0008|Symptom Number|=$gt0008+1"
+        ]
+      },
+      "gt0012": {
+        "id": "gt0012",
+        "priority": 5,
+        "when": [
+          "($gt0021|Conclusion|=='normal white cell count and low lymphocyte count')||($gt0021|Conclusion|=='low white cell count and low lymphocyte count')"
+        ],
+        "then": [
+          "$gt0008|Symptom Number|=$gt0008+1"
+        ]
+      },
+      "gt0009": {
+        "id": "gt0009",
+        "priority": 4,
+        "when": [
+          "($gt0011|Findings|=='Ground-glass opacity')||((($gt0011|Findings|=='Mutiple small patchy shadowing')||($gt0011|Findings|=='Interstitial changes'))||(($gt0011|Findings|=='Pulmonary consolidation')||($gt0011|Findings|=='Invasive shadowing')))"
+        ],
+        "then": [
+          "$gt0008|Symptom Number|=$gt0008+1",
+          "$gt0036|Conclusion|='With imaging findings of COVID-19'"
+        ]
+      },
+      "gt0037": {
+        "id": "gt0037",
+        "priority": 3,
+        "when": [
+          "!fired($gt0009)"
+        ],
+        "then": [
+          "$gt0036|Conclusion|='no imaging findings of COVID-19'"
+        ]
+      },
+      "gt0026": {
+        "id": "gt0026",
+        "priority": 2,
+        "when": [
+          "$gt0008|Symptom Number|>=2",
+          "(($gt0031|Travel history or residence history |==1|local::at0004|Yes|)||($gt0032|History of contact with the infected people of SARS-COV-2|==1|local::at0007|Yes|))||(($gt0033|History of contact with patients with fever or respiratory symptoms|==1|local::at0010|Yes|)||($gt0034|Aggressive onset|==1|local::at0013|Yes|))"
+        ],
+        "then": [
+          "$gt0017|Diagnostic certainty|=local::at0090|Suspected|"
+        ]
+      },
+      "gt0027": {
+        "id": "gt0027",
+        "priority": 1,
+        "when": [
+          "$gt0008|Symptom Number|==3",
+          "$gt0031|Travel history or residence history |==0|local::at0003|No|",
+          "$gt0032|History of contact with the infected people of SARS-COV-2|==0|local::at0006|No|",
+          "$gt0033|History of contact with patients with fever or respiratory symptoms|==0|local::at0009|No|",
+          "$gt0034|Aggressive onset|==0|local::at0012|No|"
+        ],
+        "then": [
+          "$gt0017|Diagnostic certainty|=local::at0090|Suspected|"
+        ]
+      }
+    }
+  },
+  "ontology": {
+    "term_definitions": {
+      "en": {
+        "id": "en",
+        "terms": {
+          "gt0001": {
+            "id": "gt0001",
+            "text": "COVID_Suspected_Diagnosis",
+            "description": "Quickly confirm whether a patient is a suspected case of COVID-19, according to Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)."
+          },
+          "gt0005": {
+            "id": "gt0005",
+            "text": "Symptom/Sign name",
+            "description": "The name of the reported symptom or sign."
+          },
+          "gt0007": {
+            "id": "gt0007",
+            "text": "Fever or Respiratory symptoms"
+          },
+          "gt0008": {
+            "id": "gt0008",
+            "text": "Symptom Number",
+            "description": ""
+          },
+          "gt0009": {
+            "id": "gt0009",
+            "text": "Imaging examination result1"
+          },
+          "gt0011": {
+            "id": "gt0011",
+            "text": "Findings",
+            "description": "Narrative description of findings, including comparative findings."
+          },
+          "gt0012": {
+            "id": "gt0012",
+            "text": "Laboratory test result"
+          },
+          "gt0017": {
+            "id": "gt0017",
+            "text": "Diagnostic certainty",
+            "description": "The level of confidence in the identification of the diagnosis."
+          },
+          "gt0019": {
+            "id": "gt0019",
+            "text": "Confirmed Diagnosis"
+          },
+          "gt0021": {
+            "id": "gt0021",
+            "text": "Conclusion",
+            "description": "Narrative description of the key findings."
+          },
+          "gt0026": {
+            "id": "gt0026",
+            "text": "Suspected Diagnosis1"
+          },
+          "gt0027": {
+            "id": "gt0027",
+            "text": "Suspected Diagnosis2"
+          },
+          "gt0031": {
+            "id": "gt0031",
+            "text": "Travel history or residence history ",
+            "description": "Travel history or residence history of Wuhan and its surrounding areas or other communities with case reports within 14 days before illness onset."
+          },
+          "gt0032": {
+            "id": "gt0032",
+            "text": "History of contact with the infected people of SARS-COV-2",
+            "description": "History of contact with the infected people of Severe Acute Respiratory Syndrome Coronavirus 2(a positive result to Nucleic acid detection) within 14 days before illness onset."
+          },
+          "gt0033": {
+            "id": "gt0033",
+            "text": "History of contact with patients with fever or respiratory symptoms",
+            "description": "History of contact with people with fever or respiratory symptoms who come from Wuhan and its surrounding areas or other communities with case reports within 14 days before illness onset."
+          },
+          "gt0034": {
+            "id": "gt0034",
+            "text": "Aggressive onset",
+            "description": "In the last 2 weeks,there were 2 or more cases of fever and / or respiratory symptoms in a small area such as home, office, school class, etc."
+          },
+          "gt0036": {
+            "id": "gt0036",
+            "text": "Conclusion",
+            "description": "Concise and clinically contextualised narrative interpretation of the imaging examination findings."
+          },
+          "gt0037": {
+            "id": "gt0037",
+            "text": "Imaging examination result2"
+          }
+        }
+      }
+    }
+  }
+}

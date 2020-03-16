@@ -1,0 +1,131 @@
+package guideline
+
+dialect  "mvel"
+
+import cdss.kb.core.patient.Patient;
+import cdss.kb.core.patient.MedicalRecord
+import cdss.kb.core.patient.EpidemicHistory;
+import java.util.ArrayList
+import cdss.kb.core.patient.Diagnosis
+import cdss.kb.core.patient.PhysicalSign
+import cdss.kb.core.patient.Symptom
+import cdss.kb.core.patient.ImgExamResult
+import cdss.kb.core.patient.*
+
+import cdss.kb.core.RuleIdentification
+import java.util.Date
+import java.text.SimpleDateFormat
+
+
+ rule "体温正常3天"
+  salience 520
+    lock-on-active true
+      agenda-group "解除隔离出院"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    T_G: ArrayList() from collect (PhysicalSign(itemName=="Body_temperature") from $physicalSignList);
+ then
+   System.out.println("体温正常3天");
+    Date now  = new Date();
+//    System.out.println("体温正常3天"+now.toString());
+    time1 = now.getTime();
+    time2 = now.getTime()- 3*24*60*60*1000;
+    length = T_G.size();
+//    System.out.println("体温正常3天"+length);
+    flag = true;
+    PhysicalSign physicalSign = null;
+    for(int i = 0;i<length;i++){
+        physicalSign = (PhysicalSign) T_G.get(i);
+        if(physicalSign.getMeasureDateTime().getTime()>time2 && physicalSign.getMeasureDateTime().getTime()<time1){
+            if(Double.parseDouble(physicalSign.getValue())<36||Double.parseDouble(physicalSign.getValue())>38){
+                flag = false;
+            }
+        }
+    }
+    if(flag){
+        $r.getRuleIdentification().add("体温连续3天正常");
+    }
+  end
+
+ rule "呼吸道症状明显好转"
+  salience 510
+    lock-on-active true
+      agenda-group "解除隔离出院"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Significant improvement in respiratory symptoms") from $sypmtomList);
+ then
+   System.out.println("呼吸道症状明显好转");
+    $r.getRuleIdentification().add("呼吸道症状明显好转");
+  end
+
+ rule "肺部影像学显示急性渗出性病变明显改善"
+  salience 500
+    lock-on-active true
+      agenda-group "解除隔离出院"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (ImgExamResult(description == "Pulmonary imaging shows obvious absorption of inflammation" && itemName=="Chest CT" ) from $imgExamResultList);
+ then
+   System.out.println("肺部影像学显示急性渗出性病变明显改善");
+    $r.getRuleIdentification().add("肺部影像学显示急性渗出性病变明显改善");
+  end
+
+ rule "连续两次呼吸道标本核酸检测阴性"
+  salience 490
+    lock-on-active true
+      agenda-group "解除隔离出院"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    PCR_G: ArrayList(size>1) from collect (LabTestResult(itemName == "rRT-PCR" ) from $labTestResultList);
+ then
+   System.out.println("连续两次呼吸道标本核酸检测阴性");
+//    System.out.println("12412313"+PCR_G);
+    PCR_G1 = $p.getLabTestResultList("rRT-PCR");
+    length = PCR_G1.size();
+//    System.out.println(length);
+    LabTestResult PCR1 = (LabTestResult) PCR_G.get(length-1);
+    LabTestResult PCR2 = (LabTestResult) PCR_G.get(length-2);
+    long time1 = PCR1.getReportDateTime().getTime();
+    long time2 = PCR2.getReportDateTime().getTime();
+//System.out.println(time1-time2);
+    if(PCR1.getResult().equals("negative")&&PCR2.getResult().equals("negative")&& Math.abs(time1-time2)>24*60*60*1000){
+        $r.getRuleIdentification().add("连续两次呼吸道标本核酸检测阴性");
+    }
+
+  end
+
+ rule "解除隔离出院-summary"
+  salience 480
+    lock-on-active true
+      agenda-group "解除隔离出院"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+ then
+   System.out.println("解除隔离出院-summary");
+    c1 = $r.getRuleIdentification().contains("体温连续3天正常");
+    c2 = $r.getRuleIdentification().contains("呼吸道症状明显好转");
+    c3 = $r.getRuleIdentification().contains("肺部影像学显示急性渗出性病变明显改善");
+    c4 = $r.getRuleIdentification().contains("连续两次呼吸道标本核酸检测阴性");
+    summary = c1 && c2 && c3 && c4;
+    if(summary){
+        $r.getRuleIdentification().add("解除隔离出院");
+        length = $p.getPastHistoryList().size();
+        $p.getPastHistoryList().get(1).getDiagnosis("新冠肺炎").setCategory("Discharged");
+    }
+  end

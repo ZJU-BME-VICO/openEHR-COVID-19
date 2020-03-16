@@ -1,0 +1,807 @@
+archetype (adl_version=1.4; uid=574d2844-18fb-409b-a687-36fe0eb9f951)
+	openEHR-EHR-ADMIN_ENTRY.discharge_summary.v0
+
+concept
+	[at0000]	-- Discharge summary
+language
+	original_language = <[ISO_639-1::pt]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Priscila Maranhao; Gustavo Bacelar">
+		["email"] = <"priscilamaranhao@gmail.com; gbacalar@gmail.com">
+		["organisation"] = <"MEDCIDES/FMUP; VirtualCare">
+		["date"] = <"2017-06-27">
+	>
+	details = <
+		["pt"] = <
+			language = <[ISO_639-1::pt]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"© openEHR Foundation">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"This archetype was designed for presenting the discharged data. ">
+			use = <"">
+			misuse = <"">
+			copyright = <"© openEHR Foundation">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <"Ricardo Correia, FMUP, Portugal", "Pedro Vieira-Marques, FMUP, Portugal", "Duarte Ferreira, FMUP, Portugal">
+	other_details = <
+		["revision"] = <"0.0.1-alpha">
+		["original_publisher"] = <"openEHR Foundation">
+		["build_uid"] = <"6fc358ed-cda2-4e84-8a6f-267d8a225290">
+		["original_namespace"] = <"org.openehr">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["references"] = <"- Tyler M; Boyer A; Martin S; Neiman J, Bakel LA, Brittan M. Development of a discharge readiness report within the electronic health record - a discharge planning tool. Journal of Hospital Medicine, v9«.9, n.8. 2014. 
+">
+		["MD5-CAM-1.0.1"] = <"BC91449A3DD3A2593385B9A3E97611F1">
+		["custodian_namespace"] = <"org.openehr">
+		["custodian_organisation"] = <"openEHR Foundation">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Discharge summary
+		data matches {
+			ITEM_TREE[at0001] matches {	-- *Tree(pt)
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Clinical condition of the patient
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0003, 	-- *Cured(pt)
+									at0004, 	-- *Improved(pt)
+									at0005, 	-- *Same state(pt)
+									at0006, 	-- *Worse(pt)
+									at0007, 	-- *Deceased(pt)
+									at0008]	-- *Undetermined. (pt)
+								}
+							}
+						}
+					}
+					ELEMENT[at0052] occurrences matches {0..1} matches {	-- Transfer to another service
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0012] occurrences matches {0..1} matches {	-- Last patient location
+						items cardinality matches {1..*; unordered} matches {
+							CLUSTER[at0025] occurrences matches {0..1} matches {	-- *New cluster(pt)
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0030] occurrences matches {0..1} matches {	-- *New element(pt)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0029] occurrences matches {0..1} matches {	-- *New element(pt)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- *New element(pt)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0027] occurrences matches {0..1} matches {	-- *New element(pt)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0026] occurrences matches {0..1} matches {	-- *New element(pt)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0017] occurrences matches {0..1} matches {	-- *New cluster(pt)
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0020] occurrences matches {0..1} matches {	-- *New element(pt)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- *New element(pt)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0018] occurrences matches {0..1} matches {	-- *New element(pt)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							ELEMENT[at0013] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0014] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0015] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0016] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0021] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0022] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0023] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0024] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0053, 	-- *Clinic(pt)
+											at0054, 	-- *Home(pt)
+											at0055, 	-- *Departament(pt)
+											at0056, 	-- *Nursing unit(pt)
+											at0057]	-- *Provider´s ofice(pt)
+										}
+									}
+								}
+							}
+						}
+					}
+					CLUSTER[at0058] occurrences matches {0..1} matches {	-- Attending doctor
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0059] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0060] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0061] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+					CLUSTER[at0062] occurrences matches {0..1} matches {	-- Refeming doctor
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0065] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0064] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0063] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+					CLUSTER[at0033] occurrences matches {0..1} matches {	-- Discharge doctor
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0034] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0035] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0036] occurrences matches {0..1} matches {	-- *New element(pt)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+					ELEMENT[at0038] occurrences matches {0..1} matches {	-- Lenght of stay
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::128]>
+								list = <
+									["1"] = <
+										units = <"a">
+									>
+									["2"] = <
+										units = <"h">
+									>
+									["3"] = <
+										units = <"mo">
+									>
+									["4"] = <
+										units = <"wk">
+									>
+									["5"] = <
+										units = <"d">
+									>
+								>
+							>
+						}
+					}
+					ELEMENT[at0039] occurrences matches {0..1} matches {	-- Final price charge indicator
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0040] occurrences matches {0..1} matches {	-- Discharge status
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0041, 	-- *Discharge home(pt)
+									at0042, 	-- *Discharge to another hospital(pt)
+									at0043, 	-- *Discharge to skilled nursing facility(pt)
+									at0044, 	-- *Discharge to intermediate care facility(pt)
+									at0045, 	-- *Discharge home health care organization(pt)
+									at0046, 	-- *Left against advice (pt)
+									at0047, 	-- *Transfer to chronic or rehabilitation hospital. (pt)
+									at0048]	-- *Discharge to mental health  setting. (pt)
+								}
+							}
+						}
+					}
+					ELEMENT[at0049] occurrences matches {0..1} matches {	-- Discharge at patient‘s request
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0051] occurrences matches {0..1} matches {	-- Discharge instruction
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0050] occurrences matches {0..1} matches {	-- Additional information
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Discharge date/time
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["pt"] = <
+			items = <
+				["at0000"] = <
+					text = <"Discharge summary">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"*Tree(pt)">
+					description = <"*@ internal @(pt)">
+				>
+				["at0002"] = <
+					text = <"Clinical condition of the patient">
+					description = <"**(pt)">
+				>
+				["at0003"] = <
+					text = <"*Cured(pt)">
+					description = <"*Patient is cured. (pt)">
+				>
+				["at0004"] = <
+					text = <"*Improved(pt)">
+					description = <"*Patient is improved(pt)">
+				>
+				["at0005"] = <
+					text = <"*Same state(pt)">
+					description = <"*The patient is in the same state of admission. (pt)">
+				>
+				["at0006"] = <
+					text = <"*Worse(pt)">
+					description = <"*The patient is worse than on admission. (pt)">
+				>
+				["at0007"] = <
+					text = <"*Deceased(pt)">
+					description = <"*The patient died during hospitalization. (pt)">
+				>
+				["at0008"] = <
+					text = <"*Undetermined. (pt)">
+					description = <"*Undetermined. (pt)">
+				>
+				["at0011"] = <
+					text = <"Discharge date/time">
+					description = <"**(pt)">
+				>
+				["at0012"] = <
+					text = <"Last patient location">
+					description = <"**(pt)">
+				>
+				["at0013"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0014"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0015"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0016"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0017"] = <
+					text = <"*New cluster(pt)">
+					description = <"**(pt)">
+				>
+				["at0018"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0019"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0020"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0021"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0022"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0023"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0024"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0025"] = <
+					text = <"*New cluster(pt)">
+					description = <"**(pt)">
+				>
+				["at0026"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0027"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0028"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0029"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0030"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0033"] = <
+					text = <"Discharge doctor">
+					description = <"**(pt)">
+				>
+				["at0034"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0035"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0036"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0038"] = <
+					text = <"Lenght of stay">
+					description = <"**(pt)">
+				>
+				["at0039"] = <
+					text = <"Final price charge indicator">
+					description = <"**(pt)">
+				>
+				["at0040"] = <
+					text = <"Discharge status">
+					description = <"**(pt)">
+				>
+				["at0041"] = <
+					text = <"*Discharge home(pt)">
+					description = <"*Discharge home(pt)">
+				>
+				["at0042"] = <
+					text = <"*Discharge to another hospital(pt)">
+					description = <"*Discharge to another hospital(pt)">
+				>
+				["at0043"] = <
+					text = <"*Discharge to skilled nursing facility(pt)">
+					description = <"*Discharge to skilled nursing facility(pt)">
+				>
+				["at0044"] = <
+					text = <"*Discharge to intermediate care facility(pt)">
+					description = <"*Discharge to intermediate care facility(pt)">
+				>
+				["at0045"] = <
+					text = <"*Discharge home health care organization(pt)">
+					description = <"*Discharge home health care organization(pt)">
+				>
+				["at0046"] = <
+					text = <"*Left against advice (pt)">
+					description = <"*Left against advice (pt)">
+				>
+				["at0047"] = <
+					text = <"*Transfer to chronic or rehabilitation hospital. (pt)">
+					description = <"*Transfer to chronic or rehabilitation hospital. (pt)">
+				>
+				["at0048"] = <
+					text = <"*Discharge to mental health  setting. (pt)">
+					description = <"*Discharge to mental health  setting. (pt)">
+				>
+				["at0049"] = <
+					text = <"Discharge at patient‘s request">
+					description = <"**(pt)">
+				>
+				["at0050"] = <
+					text = <"Additional information">
+					description = <"**(pt)">
+				>
+				["at0051"] = <
+					text = <"Discharge instruction">
+					description = <"**(pt)">
+				>
+				["at0052"] = <
+					text = <"Transfer to another service">
+					description = <"**(pt)">
+				>
+				["at0053"] = <
+					text = <"*Clinic(pt)">
+					description = <"**(pt)">
+				>
+				["at0054"] = <
+					text = <"*Home(pt)">
+					description = <"**(pt)">
+				>
+				["at0055"] = <
+					text = <"*Departament(pt)">
+					description = <"**(pt)">
+				>
+				["at0056"] = <
+					text = <"*Nursing unit(pt)">
+					description = <"**(pt)">
+				>
+				["at0057"] = <
+					text = <"*Provider´s ofice(pt)">
+					description = <"**(pt)">
+				>
+				["at0058"] = <
+					text = <"Attending doctor">
+					description = <"**(pt)">
+				>
+				["at0059"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0060"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0061"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0062"] = <
+					text = <"Refeming doctor">
+					description = <"**(pt)">
+				>
+				["at0063"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0064"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+				["at0065"] = <
+					text = <"*New element(pt)">
+					description = <"**(pt)">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Discharge summary">
+					description = <"Used for discharged patient only. 
+">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"*Clinical condition of the patient(pt)">
+					description = <"***(pt)(pt)">
+				>
+				["at0003"] = <
+					text = <"Cured">
+					description = <"Patient is cured. ">
+				>
+				["at0004"] = <
+					text = <"Improved">
+					description = <"Patient is improved">
+				>
+				["at0005"] = <
+					text = <"Same state">
+					description = <"The patient is in the same state of admission. ">
+				>
+				["at0006"] = <
+					text = <"Worse">
+					description = <"The patient is worse than on admission. ">
+				>
+				["at0007"] = <
+					text = <"Deceased">
+					description = <"The patient died during hospitalization. ">
+				>
+				["at0008"] = <
+					text = <"Undetermined. ">
+					description = <"Undetermined. ">
+				>
+				["at0011"] = <
+					text = <"*Discharge date/time(pt)">
+					description = <"***(pt)(pt)">
+				>
+				["at0012"] = <
+					text = <"*Last patient location(pt)">
+					description = <"***(pt)(pt)">
+				>
+				["at0013"] = <
+					text = <"Point of care/Unit">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Ward">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Room">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Bed">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Facility ">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Universal ID type">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Universal ID">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Namespace ID">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Building ">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Floor">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Location description">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Location type">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Address">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Country">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Post code">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"State/Province">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"City">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Street">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"*Discharge doctor(pt)">
+					description = <"***(pt)(pt)">
+				>
+				["at0034"] = <
+					text = <"ID">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"Family name">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Last name">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"*Lenght of stay(pt)">
+					description = <"***(pt)(pt)">
+				>
+				["at0039"] = <
+					text = <"*Final price charge indicator(pt)">
+					description = <"***(pt)(pt)">
+				>
+				["at0040"] = <
+					text = <"*Discharge status(pt)">
+					description = <"***(pt)(pt)">
+				>
+				["at0041"] = <
+					text = <"Discharge home">
+					description = <"Discharge home">
+				>
+				["at0042"] = <
+					text = <"Discharge to another hospital">
+					description = <"Discharge to another hospital">
+				>
+				["at0043"] = <
+					text = <"Discharge to skilled nursing facility">
+					description = <"Discharge to skilled nursing facility">
+				>
+				["at0044"] = <
+					text = <"Discharge to intermediate care facility">
+					description = <"Discharge to intermediate care facility">
+				>
+				["at0045"] = <
+					text = <"Discharge home health care organization">
+					description = <"Discharge home health care organization">
+				>
+				["at0046"] = <
+					text = <"Left against advice ">
+					description = <"Left against advice ">
+				>
+				["at0047"] = <
+					text = <"Transfer to chronic or rehabilitation hospital. ">
+					description = <"Transfer to chronic or rehabilitation hospital. ">
+				>
+				["at0048"] = <
+					text = <"Discharge to mental health  setting. ">
+					description = <"Discharge to mental health  setting. ">
+				>
+				["at0049"] = <
+					text = <"*Discharge at patient‘s request(pt)">
+					description = <"***(pt)(pt)">
+				>
+				["at0050"] = <
+					text = <"*Additional information(pt)">
+					description = <"***(pt)(pt)">
+				>
+				["at0051"] = <
+					text = <"*Discharge instruction(pt)">
+					description = <"***(pt)(pt)">
+				>
+				["at0052"] = <
+					text = <"*Transfer to another service(pt)">
+					description = <"***(pt)(pt)">
+				>
+				["at0053"] = <
+					text = <"Clinic">
+					description = <"*">
+				>
+				["at0054"] = <
+					text = <"Home">
+					description = <"*">
+				>
+				["at0055"] = <
+					text = <"Departament">
+					description = <"*">
+				>
+				["at0056"] = <
+					text = <"Nursing unit">
+					description = <"*">
+				>
+				["at0057"] = <
+					text = <"Provider´s office">
+					description = <"*">
+				>
+				["at0058"] = <
+					text = <"*Attending doctor(pt)">
+					description = <"***(pt)(pt)">
+				>
+				["at0059"] = <
+					text = <"ID">
+					description = <"*">
+				>
+				["at0060"] = <
+					text = <"Family name">
+					description = <"*">
+				>
+				["at0061"] = <
+					text = <"Last name">
+					description = <"*">
+				>
+				["at0062"] = <
+					text = <"*Refeming doctor(pt)">
+					description = <"***(pt)(pt)">
+				>
+				["at0063"] = <
+					text = <"Last name">
+					description = <"*">
+				>
+				["at0064"] = <
+					text = <"Family name">
+					description = <"*">
+				>
+				["at0065"] = <
+					text = <"ID">
+					description = <"*">
+				>
+			>
+		>
+	>

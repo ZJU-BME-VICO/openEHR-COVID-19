@@ -1,0 +1,1193 @@
+package outputReport
+dialect  "mvel"
+import cdss.kb.core.PatientInformation;
+import cdss.kb.core.CheckList;
+import cdss.kb.core.Scenario
+import cdss.kb.core.Problem
+import cdss.kb.core.patient.Patient
+import javax.xml.crypto.Data
+import java.util.Date
+import cdss.kb.core.Description
+import cdss.kb.core.Task
+import cdss.kb.core.FormatText
+import cdss.kb.core.Explanation;
+import cdss.kb.core.patient.LabTestResult;
+import cdss.kb.core.patient.PastHistory;
+import cdss.kb.core.patient.Diagnosis;
+import cdss.kb.core.patient.Order;
+
+
+import java.util.ArrayList
+import cdss.kb.core.patient.Symptom
+
+//设置病区信息
+rule "PatientInformation"
+salience 1000
+lock-on-active true
+agenda-group "Output1"
+    when
+        $p: PatientInformation()
+		$checklist: CheckList()
+    then
+        $checklist.setPatientInformation($p);
+end
+
+rule "AddProcesses"
+salience 990
+lock-on-active true
+agenda-group "Output1"
+ when
+    $checklist: CheckList()
+ then
+    cdss.kb.core.Process $process = new cdss.kb.core.Process();
+    $process.setProcessID("GuidelineOutput");
+	$process.setProcessName("GuidelineOutput");
+	$process.setCaseID("");
+	$process.setStatus("");
+	$checklist.addProcess($process);
+end
+
+rule "AddScenario"
+salience 980
+lock-on-active true
+agenda-group "Output1"
+ when
+    $checklist: CheckList()
+ then
+    Scenario $scenario = new Scenario();
+	$scenario.setScenarioName("OUTPATIENT");
+	$scenario.setScenarioID("OUTPATIENT");
+	$scenario.setIsScenarioGroup("false");
+	$scenario.setIsActive("false");
+	Date date = new Date();
+	$scenario.setPerformedTime(date);
+    $checklist.getProcess("GuidelineOutput").addScenario($scenario);
+
+    $scenario = new Scenario();
+    $scenario.setScenarioName("INPATIENT");
+    $scenario.setScenarioID("INPATIENT");
+    $scenario.setIsScenarioGroup("false");
+    $scenario.setIsActive("false");
+    date = new Date();
+    $scenario.setPerformedTime(date);
+    $checklist.getProcess("GuidelineOutput").addScenario($scenario);
+
+    $scenario = new Scenario();
+    $scenario.setScenarioName("ICU");
+    $scenario.setScenarioID("ICU");
+    $scenario.setIsScenarioGroup("false");
+    $scenario.setIsActive("false");
+    date = new Date();
+    $scenario.setPerformedTime(date);
+    $checklist.getProcess("GuidelineOutput").addScenario($scenario);
+end
+
+rule "AddProblems"
+salience 970
+lock-on-active true
+agenda-group "Output1"
+ when
+    $checklist: CheckList()
+ then
+    $checklist.getProcess("GuidelineOutput").getScenario("OUTPATIENT")
+            .addProblem(new Problem("Diagnosis"));
+    $checklist.getProcess("GuidelineOutput").getScenario("OUTPATIENT")
+            .addProblem(new Problem("Treatment Suggestions"));
+
+    $checklist.getProcess("GuidelineOutput").getScenario("INPATIENT")
+            .addProblem(new Problem("Diagnosis"));
+    $checklist.getProcess("GuidelineOutput").getScenario("INPATIENT")
+            .addProblem(new Problem("Treatment Suggestions"));
+
+    $checklist.getProcess("GuidelineOutput").getScenario("ICU")
+            .addProblem(new Problem("Diagnosis"));
+    $checklist.getProcess("GuidelineOutput").getScenario("ICU")
+            .addProblem(new Problem("Treatment Suggestions"));
+end
+
+rule "Diagnosis-OUTPATIENT"
+salience 960
+lock-on-active true
+agenda-group "Output1"
+ when
+    $checklist: CheckList();
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+                             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+                             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList);
+    $arrayList: ArrayList(size>-1) from collect(LabTestResult() from $labTestResultList);
+    $diagnosis_G : ArrayList( size > 0)
+                             from accumulate( PastHistory($items: items) from $pastHistoryList,
+                                              init( ArrayList arrayList=new ArrayList(); ),
+                                              action( arrayList.addAll($items); ),
+                                              result( arrayList ) );
+    diagnosis_COVID: Diagnosis(itemName=="新冠肺炎") from $diagnosis_G;
+    diagnosis_comorbities: ArrayList(size>-1) from collect (Diagnosis(category=="Comorbities") from $diagnosis_G);
+//    $symptom_G: ArrayList() from collect (Symptom() from $sypmtomList)
+//    $comorbidities: ArrayList();
+ then
+    cdss.kb.core.Task $task = new cdss.kb.core.Task();
+    $task.setMandatory(true);
+    //Reference Diagnosis///////////////////////////////////////////////////////////////////
+    String str1 = "COVID-19 "+ diagnosis_COVID.getCategory();
+
+    Description $description = new Description();
+    FormatText $formatText = new FormatText();
+    $formatText.setValue("Reference Diagnosis:");
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+    $formatText = new FormatText();
+    $formatText.setValue(str1);
+    $formatText.setType(1);
+    $description.addFormatText($formatText);
+    $task.setDescription($description);
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    $arrayList.clear();
+    //Epidemiological History//////////////////////////////////////////////////////////////
+    $description = new Description();
+
+    $formatText = new FormatText();
+    $formatText.setValue("Epidemiological History");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+
+    int size = $epidemicHistory.getHisList().size();
+    int i = 0;
+    str1 = "";
+    System.out.println("$epidemicHistory size: "+size);
+    if(size==0){
+        str1 = "Unclear epidemiological history.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(0);
+        $description.addFormatText($formatText);
+    }else{
+        for(i = 0; i < size; i++){
+            str1 = $epidemicHistory.getHisList().get(i);
+            if(i<size-1){
+                str1 = str1 + "、";
+            }
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(0);
+            $description.addFormatText($formatText);
+        }
+    }
+    $arrayList.add($description);
+    //Co-morbidities///////////////////////////////////////////////////////////////////
+    $description = new Description();
+
+    $formatText = new FormatText();
+    $formatText.setValue("Co-morbidities");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+
+    size = diagnosis_comorbities.size();
+    str1 = "";
+    System.out.println("Co-morbidities size: "+size);
+    if(size==0){
+        str1 = "No comorbidities.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(0);
+        $description.addFormatText($formatText);
+    }else{
+        for(i = 0; i < size; i++){
+            str1 = ((Diagnosis)diagnosis_comorbities.get(i)).getItemName();
+            if(i<size-1){
+                str1 = str1 + "、";
+            }
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(0);
+            $description.addFormatText($formatText);
+        }
+    }
+    $arrayList.add($description);
+    //RT-PCR///////////////////////////////////////////////////////////////////////////////////////////
+    $description = new Description();
+
+    $formatText = new FormatText();
+    $formatText.setValue("Observations");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getLabTestResult("rRT-PCR").getItemName().isEmpty()){
+        str1 = "No rRT-PCR test result, ";
+    }else {
+        System.out.println("you?"+$p.getLabTestResult("rRT-PCR").toString());
+        str1 = "rRT-PCR: "+$p.getLabTestResult("rRT-PCR").getResult()+", ";
+    }
+//    str1 = $p.getLabTestResult("实时荧光RT-PCR检测新型冠状病毒核酸");
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getPhysicalSign("Body_temperature").getItemName().isEmpty()){
+        str1 = "No temperature records.";
+        System.out.println("无体温数据, ");
+    }else{
+        System.out.println("you?"+$p.getPhysicalSign("Body_temperature").toString());
+        str1 = "Temperature: " + $p.getPhysicalSign("Body_temperature").getValue()+$p.getPhysicalSign("Body_temperature").getUnit()+", ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getPhysicalSign("SaO2").getItemName().isEmpty()){
+        str1 = "No SaO2 records.";
+        System.out.println("无指氧饱和度, ");
+    }else{
+        System.out.println("you?"+$p.getPhysicalSign("SaO2").toString());
+        str1 = "SaO2: " + $p.getPhysicalSign("SaO2").getValue()+$p.getPhysicalSign("SaO2").getUnit()+", ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getPhysicalSign("RR").getItemName().isEmpty()){
+        str1 = "No RR records.";
+        System.out.println("无呼吸频次, ");
+    }else{
+        System.out.println("you?"+$p.getPhysicalSign("RR").toString());
+        str1 = "RR:" + $p.getPhysicalSign("RR").getValue()+$p.getPhysicalSign("RR").getUnit()+", ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getLabTestResult("WBC").getItemName().isEmpty()){
+        str1 = "No WBC records.";
+        System.out.println("无白细胞计数, ");
+    }else{
+        System.out.println("you?"+$p.getLabTestResult("WBC").toString());
+        str1 = "WBC: " + $p.getLabTestResult("WBC").getResult()+$p.getLabTestResult("WBC").getUnit()+", ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getLabTestResult("Lymphocyte count").getItemName().isEmpty()){
+        str1 = "No Lymphocyte count records; ";
+        System.out.println("无淋巴细胞计数。");
+    }else{
+        System.out.println("you?"+$p.getLabTestResult("Lymphocyte count").toString());
+        str1 = "Lymphocyte count: " + $p.getLabTestResult("Lymphocyte count").getResult()+$p.getLabTestResult("Lymphocyte count").getUnit()+"; ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    size = $sypmtomList.size();
+    System.out.println("Symptoms size: "+size);
+    if(size==0){
+        str1 = "No symptoms.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(0);
+        $description.addFormatText($formatText);
+    }else{
+        for(i = 0; i < size; i++){
+            str1 = ((Symptom)$sypmtomList.get(i)).getText();
+            if(i<(size-1)){
+                str1 = str1 + ", ";
+            }else{
+                str1 = str1 + ".";
+            }
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(0);
+            $description.addFormatText($formatText);
+        }
+    }
+
+//    $formatText.setValue("短时间（1-2小时）内呼吸窘迫未缓解甚至恶化");
+//    $formatText.setType(0);
+//    $description.addFormatText($formatText);
+    $arrayList.add($description);
+
+    $task.setExplanation($arrayList);
+
+    $checklist.getProcess("GuidelineOutput").getScenario("OUTPATIENT").getProblem("Diagnosis")
+        .addTask($task);
+
+//    $checklist.getProcess("GuidelineOutput").getScenario("INPATIENT").getProblem("Diagnosis")
+//        .addTask($task);
+//
+//    $checklist.getProcess("GuidelineOutput").getScenario("ICU").getProblem("Diagnosis")
+//        .addTask($task);
+end
+
+rule "Diagnosis-INPATIENT"
+salience 960
+lock-on-active true
+agenda-group "Output1"
+ when
+    $checklist: CheckList();
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+                             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+                             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList);
+    $arrayList: ArrayList(size>-1) from collect(LabTestResult() from $labTestResultList);
+    $diagnosis_G : ArrayList( size > 0)
+                             from accumulate( PastHistory($items: items) from $pastHistoryList,
+                                              init( ArrayList arrayList=new ArrayList(); ),
+                                              action( arrayList.addAll($items); ),
+                                              result( arrayList ) );
+    diagnosis_COVID: Diagnosis(itemName=="新冠肺炎") from $diagnosis_G;
+    diagnosis_comorbities: ArrayList(size>-1) from collect (Diagnosis(category=="Comorbities") from $diagnosis_G);
+//    $symptom_G: ArrayList() from collect (Symptom() from $sypmtomList)
+//    $comorbidities: ArrayList();
+ then
+    cdss.kb.core.Task $task = new cdss.kb.core.Task();
+    $task.setMandatory(true);
+    //Reference Diagnosis///////////////////////////////////////////////////////////////////
+    String str1 = "COVID-19 "+ diagnosis_COVID.getCategory();
+
+    Description $description = new Description();
+    FormatText $formatText = new FormatText();
+    $formatText.setValue("Reference Diagnosis:");
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+    $formatText = new FormatText();
+    $formatText.setValue(str1);
+    $formatText.setType(1);
+    $description.addFormatText($formatText);
+    $task.setDescription($description);
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    $arrayList.clear();
+    //Epidemiological History//////////////////////////////////////////////////////////////
+    $description = new Description();
+
+    $formatText = new FormatText();
+    $formatText.setValue("Epidemiological History");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+
+    int size = $epidemicHistory.getHisList().size();
+    int i = 0;
+    str1 = "";
+    System.out.println("$epidemicHistory size: "+size);
+    if(size==0){
+        str1 = "Unclear epidemiological history.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(0);
+        $description.addFormatText($formatText);
+    }else{
+        for(i = 0; i < size; i++){
+            str1 = $epidemicHistory.getHisList().get(i);
+            if(i<size-1){
+                str1 = str1 + "、";
+            }
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(0);
+            $description.addFormatText($formatText);
+        }
+    }
+    $arrayList.add($description);
+    //Co-morbidities///////////////////////////////////////////////////////////////////
+    $description = new Description();
+
+    $formatText = new FormatText();
+    $formatText.setValue("Co-morbidities");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+
+    size = diagnosis_comorbities.size();
+    str1 = "";
+    System.out.println("Co-morbidities size: "+size);
+    if(size==0){
+        str1 = "No comorbidities.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(0);
+        $description.addFormatText($formatText);
+    }else{
+        for(i = 0; i < size; i++){
+            str1 = ((Diagnosis)diagnosis_comorbities.get(i)).getItemName();
+            if(i<size-1){
+                str1 = str1 + "、";
+            }
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(0);
+            $description.addFormatText($formatText);
+        }
+    }
+    $arrayList.add($description);
+    //RT-PCR///////////////////////////////////////////////////////////////////////////////////////////
+    $description = new Description();
+
+    $formatText = new FormatText();
+    $formatText.setValue("Observations");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getLabTestResult("rRT-PCR").getItemName().isEmpty()){
+        str1 = "No rRT-PCR test result, ";
+    }else {
+        System.out.println("you?"+$p.getLabTestResult("rRT-PCR").toString());
+        str1 = "rRT-PCR: "+$p.getLabTestResult("rRT-PCR").getResult()+", ";
+    }
+//    str1 = $p.getLabTestResult("实时荧光RT-PCR检测新型冠状病毒核酸");
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getPhysicalSign("Body_temperature").getItemName().isEmpty()){
+        str1 = "No temperature records.";
+        System.out.println("无体温数据, ");
+    }else{
+        System.out.println("you?"+$p.getPhysicalSign("Body_temperature").toString());
+        str1 = "Temperature: " + $p.getPhysicalSign("Body_temperature").getValue()+$p.getPhysicalSign("Body_temperature").getUnit()+", ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getPhysicalSign("SaO2").getItemName().isEmpty()){
+        str1 = "No SaO2 records.";
+        System.out.println("无指氧饱和度, ");
+    }else{
+        System.out.println("you?"+$p.getPhysicalSign("SaO2").toString());
+        str1 = "SaO2: " + $p.getPhysicalSign("SaO2").getValue()+$p.getPhysicalSign("SaO2").getUnit()+", ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getPhysicalSign("RR").getItemName().isEmpty()){
+        str1 = "No RR records.";
+        System.out.println("无呼吸频次, ");
+    }else{
+        System.out.println("you?"+$p.getPhysicalSign("RR").toString());
+        str1 = "RR:" + $p.getPhysicalSign("RR").getValue()+$p.getPhysicalSign("RR").getUnit()+", ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getLabTestResult("WBC").getItemName().isEmpty()){
+        str1 = "No WBC records.";
+        System.out.println("无白细胞计数, ");
+    }else{
+        System.out.println("you?"+$p.getLabTestResult("WBC").toString());
+        str1 = "WBC: " + $p.getLabTestResult("WBC").getResult()+$p.getLabTestResult("WBC").getUnit()+", ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getLabTestResult("Lymphocyte count").getItemName().isEmpty()){
+        str1 = "No Lymphocyte count records; ";
+        System.out.println("无淋巴细胞计数。");
+    }else{
+        System.out.println("you?"+$p.getLabTestResult("Lymphocyte count").toString());
+        str1 = "Lymphocyte count: " + $p.getLabTestResult("Lymphocyte count").getResult()+$p.getLabTestResult("Lymphocyte count").getUnit()+"; ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    size = $sypmtomList.size();
+    System.out.println("Symptoms size: "+size);
+    if(size==0){
+        str1 = "No symptoms.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(0);
+        $description.addFormatText($formatText);
+    }else{
+        for(i = 0; i < size; i++){
+            str1 = ((Symptom)$sypmtomList.get(i)).getText();
+            if(i<(size-1)){
+                str1 = str1 + ", ";
+            }else{
+                str1 = str1 + ".";
+            }
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(0);
+            $description.addFormatText($formatText);
+        }
+    }
+
+//    $formatText.setValue("短时间（1-2小时）内呼吸窘迫未缓解甚至恶化");
+//    $formatText.setType(0);
+//    $description.addFormatText($formatText);
+    $arrayList.add($description);
+
+    $task.setExplanation($arrayList);
+
+//    $checklist.getProcess("GuidelineOutput").getScenario("OUTPATIENT").getProblem("Diagnosis")
+//        .addTask($task);
+
+    $checklist.getProcess("GuidelineOutput").getScenario("INPATIENT").getProblem("Diagnosis")
+        .addTask($task);
+
+//    $checklist.getProcess("GuidelineOutput").getScenario("ICU").getProblem("Diagnosis")
+//        .addTask($task);
+end
+
+rule "Diagnosis-ICU"
+salience 960
+lock-on-active true
+agenda-group "Output1"
+ when
+    $checklist: CheckList();
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+                             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+                             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList);
+    $arrayList: ArrayList(size>-1) from collect(LabTestResult() from $labTestResultList);
+    $diagnosis_G : ArrayList( size > 0)
+                             from accumulate( PastHistory($items: items) from $pastHistoryList,
+                                              init( ArrayList arrayList=new ArrayList(); ),
+                                              action( arrayList.addAll($items); ),
+                                              result( arrayList ) );
+    diagnosis_COVID: Diagnosis(itemName=="新冠肺炎") from $diagnosis_G;
+    diagnosis_comorbities: ArrayList(size>-1) from collect (Diagnosis(category=="Comorbities") from $diagnosis_G);
+//    $symptom_G: ArrayList() from collect (Symptom() from $sypmtomList)
+//    $comorbidities: ArrayList();
+ then
+    cdss.kb.core.Task $task = new cdss.kb.core.Task();
+    $task.setMandatory(true);
+    //Reference Diagnosis///////////////////////////////////////////////////////////////////
+    String str1 = "COVID-19 "+ diagnosis_COVID.getCategory();
+
+    Description $description = new Description();
+    FormatText $formatText = new FormatText();
+    $formatText.setValue("Reference Diagnosis:");
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+    $formatText = new FormatText();
+    $formatText.setValue(str1);
+    $formatText.setType(1);
+    $description.addFormatText($formatText);
+    $task.setDescription($description);
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    $arrayList.clear();
+    //Epidemiological History//////////////////////////////////////////////////////////////
+    $description = new Description();
+
+    $formatText = new FormatText();
+    $formatText.setValue("Epidemiological History");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+
+    int size = $epidemicHistory.getHisList().size();
+    int i = 0;
+    str1 = "";
+    System.out.println("$epidemicHistory size: "+size);
+    if(size==0){
+        str1 = "Unclear epidemiological history.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(0);
+        $description.addFormatText($formatText);
+    }else{
+        for(i = 0; i < size; i++){
+            str1 = $epidemicHistory.getHisList().get(i);
+            if(i<size-1){
+                str1 = str1 + "、";
+            }
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(0);
+            $description.addFormatText($formatText);
+        }
+    }
+    $arrayList.add($description);
+    //Co-morbidities///////////////////////////////////////////////////////////////////
+    $description = new Description();
+
+    $formatText = new FormatText();
+    $formatText.setValue("Co-morbidities");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+
+    size = diagnosis_comorbities.size();
+    str1 = "";
+    System.out.println("Co-morbidities size: "+size);
+    if(size==0){
+        str1 = "No comorbidities.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(0);
+        $description.addFormatText($formatText);
+    }else{
+        for(i = 0; i < size; i++){
+            str1 = ((Diagnosis)diagnosis_comorbities.get(i)).getItemName();
+            if(i<size-1){
+                str1 = str1 + "、";
+            }
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(0);
+            $description.addFormatText($formatText);
+        }
+    }
+    $arrayList.add($description);
+    //RT-PCR///////////////////////////////////////////////////////////////////////////////////////////
+    $description = new Description();
+
+    $formatText = new FormatText();
+    $formatText.setValue("Observations");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getLabTestResult("rRT-PCR").getItemName().isEmpty()){
+        str1 = "No rRT-PCR test result, ";
+    }else {
+        System.out.println("you?"+$p.getLabTestResult("rRT-PCR").toString());
+        str1 = "rRT-PCR: "+$p.getLabTestResult("rRT-PCR").getResult()+", ";
+    }
+//    str1 = $p.getLabTestResult("实时荧光RT-PCR检测新型冠状病毒核酸");
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getPhysicalSign("Body_temperature").getItemName().isEmpty()){
+        str1 = "No temperature records.";
+        System.out.println("无体温数据, ");
+    }else{
+        System.out.println("you?"+$p.getPhysicalSign("Body_temperature").toString());
+        str1 = "Temperature: " + $p.getPhysicalSign("Body_temperature").getValue()+$p.getPhysicalSign("Body_temperature").getUnit()+", ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getPhysicalSign("SaO2").getItemName().isEmpty()){
+        str1 = "No SaO2 records.";
+        System.out.println("无指氧饱和度, ");
+    }else{
+        System.out.println("you?"+$p.getPhysicalSign("SaO2").toString());
+        str1 = "SaO2: " + $p.getPhysicalSign("SaO2").getValue()+$p.getPhysicalSign("SaO2").getUnit()+", ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getPhysicalSign("RR").getItemName().isEmpty()){
+        str1 = "No RR records.";
+        System.out.println("无呼吸频次, ");
+    }else{
+        System.out.println("you?"+$p.getPhysicalSign("RR").toString());
+        str1 = "RR:" + $p.getPhysicalSign("RR").getValue()+$p.getPhysicalSign("RR").getUnit()+", ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getLabTestResult("WBC").getItemName().isEmpty()){
+        str1 = "No WBC records.";
+        System.out.println("无白细胞计数, ");
+    }else{
+        System.out.println("you?"+$p.getLabTestResult("WBC").toString());
+        str1 = "WBC: " + $p.getLabTestResult("WBC").getResult()+$p.getLabTestResult("WBC").getUnit()+", ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    if($p.getLabTestResult("Lymphocyte count").getItemName().isEmpty()){
+        str1 = "No Lymphocyte count records; ";
+        System.out.println("无淋巴细胞计数。");
+    }else{
+        System.out.println("you?"+$p.getLabTestResult("Lymphocyte count").toString());
+        str1 = "Lymphocyte count: " + $p.getLabTestResult("Lymphocyte count").getResult()+$p.getLabTestResult("Lymphocyte count").getUnit()+"; ";
+    }
+    $formatText.setValue(str1);
+    $formatText.setType(0);
+    $description.addFormatText($formatText);
+
+    $formatText = new FormatText();
+    size = $sypmtomList.size();
+    System.out.println("Symptoms size: "+size);
+    if(size==0){
+        str1 = "No symptoms.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(0);
+        $description.addFormatText($formatText);
+    }else{
+        for(i = 0; i < size; i++){
+            str1 = ((Symptom)$sypmtomList.get(i)).getText();
+            if(i<(size-1)){
+                str1 = str1 + ", ";
+            }else{
+                str1 = str1 + ".";
+            }
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(0);
+            $description.addFormatText($formatText);
+        }
+    }
+
+//    $formatText.setValue("短时间（1-2小时）内呼吸窘迫未缓解甚至恶化");
+//    $formatText.setType(0);
+//    $description.addFormatText($formatText);
+    $arrayList.add($description);
+
+    $task.setExplanation($arrayList);
+
+//    $checklist.getProcess("GuidelineOutput").getScenario("OUTPATIENT").getProblem("Diagnosis")
+//        .addTask($task);
+//
+//    $checklist.getProcess("GuidelineOutput").getScenario("INPATIENT").getProblem("Diagnosis")
+//        .addTask($task);
+
+    $checklist.getProcess("GuidelineOutput").getScenario("ICU").getProblem("Diagnosis")
+        .addTask($task);
+end
+
+rule "Treatment Suggestions-Medications-INPATIENT"
+salience 955
+lock-on-active true
+agenda-group "Output1"
+ when
+    $checklist: CheckList();
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,$orderList: orderList,
+                             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+                             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList);
+    $arrayList: ArrayList(size>-1) from collect(LabTestResult() from $labTestResultList);
+    $order_G: ArrayList() from collect (Order(type=="Medications",status=="Not executed") from $orderList);
+ then
+    cdss.kb.core.Task $task = new cdss.kb.core.Task();
+    $task.setResult("false");
+    $task.setMandatory(false);
+    $task.setType("false");
+
+    Description $description = new Description();
+    FormatText $formatText = new FormatText();
+    $formatText.setValue("Medications");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+    $task.setDescription($description);
+
+    $arrayList.clear();
+
+    $description = new Description();
+    String str1 = "";
+    int size = $order_G.size();
+    if(size==0){
+        str1 = "No orders.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(8);
+        $description.addFormatText($formatText);
+    }else{
+        for(int i = 0; i < size; i++){
+            str1 = ((Order) $order_G.get(i)).getText();
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(8);
+            $description.addFormatText($formatText);
+        }
+    }
+    $arrayList.add($description);
+
+    $task.setExplanation($arrayList);
+
+//    $checklist.getProcess("GuidelineOutput").getScenario("OUTPATIENT").getProblem("Treatment Suggestions")
+//        .addTask($task);
+
+    $checklist.getProcess("GuidelineOutput").getScenario("INPATIENT").getProblem("Treatment Suggestions")
+        .addTask($task);
+
+//    $checklist.getProcess("GuidelineOutput").getScenario("ICU").getProblem("Treatment Suggestions")
+//        .addTask($task);
+end
+
+rule "Treatment Suggestions-Medications-ICU"
+salience 955
+lock-on-active true
+agenda-group "Output1"
+ when
+    $checklist: CheckList();
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,$orderList: orderList,
+                             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+                             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList);
+    $arrayList: ArrayList(size>-1) from collect(LabTestResult() from $labTestResultList);
+    $order_G: ArrayList() from collect (Order(type=="Medications",status=="Not executed") from $orderList);
+ then
+    cdss.kb.core.Task $task = new cdss.kb.core.Task();
+    $task.setResult("false");
+    $task.setMandatory(false);
+    $task.setType("false");
+
+    Description $description = new Description();
+    FormatText $formatText = new FormatText();
+    $formatText.setValue("Medications");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+    $task.setDescription($description);
+
+    $arrayList.clear();
+
+    $description = new Description();
+    String str1 = "";
+    int size = $order_G.size();
+    if(size==0){
+        str1 = "No orders.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(8);
+        $description.addFormatText($formatText);
+    }else{
+        for(int i = 0; i < size; i++){
+            str1 = ((Order) $order_G.get(i)).getText();
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(8);
+            $description.addFormatText($formatText);
+        }
+    }
+    $arrayList.add($description);
+
+    $task.setExplanation($arrayList);
+
+//    $checklist.getProcess("GuidelineOutput").getScenario("OUTPATIENT").getProblem("Treatment Suggestions")
+//        .addTask($task);
+
+//    $checklist.getProcess("GuidelineOutput").getScenario("INPATIENT").getProblem("Treatment Suggestions")
+//        .addTask($task);
+
+    $checklist.getProcess("GuidelineOutput").getScenario("ICU").getProblem("Treatment Suggestions")
+        .addTask($task);
+end
+
+rule "Treatment Suggestions-Procedures-OUTPATIENT"
+salience 950
+lock-on-active true
+agenda-group "Output1"
+ when
+    $checklist: CheckList();
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+                             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+                             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $arrayList: ArrayList(size>-1) from collect(LabTestResult() from $labTestResultList);
+    $order_G: ArrayList() from collect (Order(type=="Procedures",status=="Not executed") from $orderList);
+    $diagnosis_G : ArrayList( size > 0)
+                             from accumulate( PastHistory($items: items) from $pastHistoryList,
+                                              init( ArrayList arrayList=new ArrayList(); ),
+                                              action( arrayList.addAll($items); ),
+                                              result( arrayList ) );
+     $diagnosis: Diagnosis(itemName=="新冠肺炎") from $diagnosis_G;
+     $diagnosis_2: Diagnosis(itemName=="Treatment place") from $diagnosis_G;
+ then
+    cdss.kb.core.Task $task = new cdss.kb.core.Task();
+    $task.setResult("false");
+    $task.setMandatory(false);
+    $task.setType("false");
+
+    Description $description = new Description();
+    FormatText $formatText = new FormatText();
+    $formatText.setValue("Procedures");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+    $task.setDescription($description);
+
+    $arrayList.clear();
+
+    $description = new Description();
+    int size = $order_G.size();
+    String str1 = "";
+
+    c1 = $diagnosis.getCategory().equals("Suspected");
+    c2 = $diagnosis.getCategory().equals("Confirmed");
+    c3 = $diagnosis.getCategory().equals("Medical observation period");
+    c4 = $diagnosis.getCategory().equals("Mild");
+    c5 = $diagnosis.getCategory().equals("Normal");
+    c6 = $diagnosis.getCategory().equals("Severe");
+    c7 = $diagnosis.getCategory().equals("Critical");
+    summary = c1 || c2 || c3 || c4 || c5 || c6 || c7;
+    if(summary){
+        str1 = "Admitted to hospital";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(8);
+        $description.addFormatText($formatText);
+    }else{
+        str1 = "Home isolation";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(8);
+        $description.addFormatText($formatText);
+
+    }
+    $arrayList.add($description);
+
+    $task.setExplanation($arrayList);
+
+    $checklist.getProcess("GuidelineOutput").getScenario("OUTPATIENT").getProblem("Treatment Suggestions")
+        .addTask($task);
+end
+
+rule "Treatment Suggestions-Procedures-INPATIENT"
+salience 940
+lock-on-active true
+agenda-group "Output1"
+ when
+    $checklist: CheckList();
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+                             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+                             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $arrayList: ArrayList(size>-1) from collect(LabTestResult() from $labTestResultList);
+    $order_G: ArrayList() from collect (Order(type=="Procedures",status=="Not executed") from $orderList);
+    $diagnosis_G : ArrayList( size > 0)
+                             from accumulate( PastHistory($items: items) from $pastHistoryList,
+                                              init( ArrayList arrayList=new ArrayList(); ),
+                                              action( arrayList.addAll($items); ),
+                                              result( arrayList ) );
+     $diagnosis: Diagnosis(itemName=="新冠肺炎") from $diagnosis_G;
+     $diagnosis_2: Diagnosis(itemName=="Treatment place") from $diagnosis_G;
+     $diagnosis_3: Diagnosis(itemName=="Warning") from $diagnosis_G;
+ then
+    cdss.kb.core.Task $task = new cdss.kb.core.Task();
+    $task.setResult("false");
+    $task.setMandatory(false);
+    $task.setType("false");
+
+    Description $description = new Description();
+    FormatText $formatText = new FormatText();
+    $formatText.setValue("Procedures");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+    $task.setDescription($description);
+
+    $arrayList.clear();
+
+    $description = new Description();
+    int size = $order_G.size();
+    String str1 = "";
+    if(size == 0){
+        str1 = "No orders.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(8);
+        $description.addFormatText($formatText);
+    }else{
+        for(int i = 0; i < size; i++){
+            str1 = ((Order) $order_G.get(i)).getText();
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(8);
+            $description.addFormatText($formatText);
+        }
+    }
+    summary = $diagnosis.getCategory().equals("Critical");
+    if(summary){
+        str1 = "Admitted to ICU";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(8);
+        $description.addFormatText($formatText);
+
+    }
+
+    if($diagnosis_3.getCategory().equals("Clinical warning")){
+        str1 = $diagnosis_3.getCategory();
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(8);
+        $description.addFormatText($formatText);
+
+    }
+    $arrayList.add($description);
+
+    $task.setExplanation($arrayList);
+
+    $checklist.getProcess("GuidelineOutput").getScenario("INPATIENT").getProblem("Treatment Suggestions")
+        .addTask($task);
+end
+
+rule "Treatment Suggestions-Procedures-ICU"
+salience 930
+lock-on-active true
+agenda-group "Output1"
+ when
+    $checklist: CheckList();
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+                             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+                             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $arrayList: ArrayList(size>-1) from collect(LabTestResult() from $labTestResultList);
+    $order_G: ArrayList() from collect (Order(type=="Procedures",status=="Not executed") from $orderList);
+ then
+    cdss.kb.core.Task $task = new cdss.kb.core.Task();
+    $task.setResult("false");
+    $task.setMandatory(false);
+    $task.setType("false");
+
+    Description $description = new Description();
+    FormatText $formatText = new FormatText();
+    $formatText.setValue("Procedures");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+    $task.setDescription($description);
+
+    $arrayList.clear();
+
+    $description = new Description();
+    int size = $order_G.size();
+    String str1 = "";
+    if(size == 0){
+        str1 = "No orders.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(8);
+        $description.addFormatText($formatText);
+    }else{
+        for(int i = 0; i < size; i++){
+            str1 = ((Order) $order_G.get(i)).getText();
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(8);
+            $description.addFormatText($formatText);
+        }
+    }
+    $arrayList.add($description);
+
+    $task.setExplanation($arrayList);
+
+    $checklist.getProcess("GuidelineOutput").getScenario("ICU").getProblem("Treatment Suggestions")
+        .addTask($task);
+end
+
+rule "Treatment Suggestions-Tests & Exams-INPATIENT"
+salience 910
+lock-on-active true
+agenda-group "Output1"
+ when
+    $checklist: CheckList();
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+                             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+                             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $arrayList: ArrayList(size>-1) from collect(LabTestResult() from $labTestResultList);
+    $order_G: ArrayList() from collect (Order(type=="Tests & Exams",status=="Not executed") from $orderList);
+ then
+    cdss.kb.core.Task $task = new cdss.kb.core.Task();
+    $task.setResult("false");
+    $task.setMandatory(false);
+    $task.setType("false");
+
+    Description $description = new Description();
+    FormatText $formatText = new FormatText();
+    $formatText.setValue("Tests & Exams");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+    $task.setDescription($description);
+
+    $arrayList.clear();
+
+    $description = new Description();
+    int size = $order_G.size();
+    String str1 = "";
+    if(size == 0){
+        str1 = "No orders.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(8);
+        $description.addFormatText($formatText);
+    }else{
+        for(int i = 0; i < size; i++){
+            str1 = ((Order) $order_G.get(i)).getText();
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(8);
+            $description.addFormatText($formatText);
+        }
+    }
+    $arrayList.add($description);
+
+    $task.setExplanation($arrayList);
+
+//    $checklist.getsk);
+
+    $checklist.getProcess("GuidelineOutput").getScenario("INPATIENT").getProblem("Treatment Suggestions")
+        .addTask($task);
+
+//    $checklist.getProcess("GuidelineOutput").getScenario("ICU").getProblem("Treatment Suggestions")
+//        .addTask($task);
+end
+
+rule "Treatment Suggestions-Tests & Exams-ICU"
+salience 910
+lock-on-active true
+agenda-group "Output1"
+ when
+    $checklist: CheckList();
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+                             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+                             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $arrayList: ArrayList(size>-1) from collect(LabTestResult() from $labTestResultList);
+    $order_G: ArrayList() from collect (Order(type=="Tests & Exams",status=="Not executed") from $orderList);
+ then
+    cdss.kb.core.Task $task = new cdss.kb.core.Task();
+    $task.setResult("false");
+    $task.setMandatory(false);
+    $task.setType("false");
+
+    Description $description = new Description();
+    FormatText $formatText = new FormatText();
+    $formatText.setValue("Tests & Exams");
+    $formatText.setType(2);
+    $description.addFormatText($formatText);
+    $task.setDescription($description);
+
+    $arrayList.clear();
+
+    $description = new Description();
+    int size = $order_G.size();
+    String str1 = "";
+    if(size == 0){
+        str1 = "No orders.";
+        $formatText = new FormatText();
+        $formatText.setValue(str1);
+        $formatText.setType(8);
+        $description.addFormatText($formatText);
+    }else{
+        for(int i = 0; i < size; i++){
+            str1 = ((Order) $order_G.get(i)).getText();
+            $formatText = new FormatText();
+            $formatText.setValue(str1);
+            $formatText.setType(8);
+            $description.addFormatText($formatText);
+        }
+    }
+    $arrayList.add($description);
+
+    $task.setExplanation($arrayList);
+
+//    $checklist.getsk);
+
+//    $checklist.getProcess("GuidelineOutput").getScenario("INPATIENT").getProblem("Treatment Suggestions")
+//        .addTask($task);
+
+    $checklist.getProcess("GuidelineOutput").getScenario("ICU").getProblem("Treatment Suggestions")
+        .addTask($task);
+end

@@ -1,0 +1,702 @@
+package guideline
+
+dialect  "mvel"
+
+import cdss.kb.core.patient.Patient;
+import cdss.kb.core.patient.MedicalRecord
+import cdss.kb.core.patient.EpidemicHistory;
+import java.util.ArrayList
+import cdss.kb.core.patient.Diagnosis
+import cdss.kb.core.patient.PhysicalSign
+import cdss.kb.core.patient.Symptom
+import cdss.kb.core.patient.ImgExamResult
+import cdss.kb.core.patient.*
+
+import cdss.kb.core.RuleIdentification
+import java.util.Date
+import java.text.SimpleDateFormat
+
+
+
+ rule "治疗-西医-一般治疗"
+  salience 810
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+ then
+   System.out.println("治疗-西医-一般");
+    c1 = $r.getRuleIdentification().contains("确诊");
+    c2 = $r.getRuleIdentification().contains("轻型");
+    c3 = $r.getRuleIdentification().contains("普通型");
+    c4 = $r.getRuleIdentification().contains("重型");
+    c5 = $r.getRuleIdentification().contains("危重型");
+    summary = c1 || c2 || c3 || c4 ||c5;
+//    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//    long time = 4*60*60*1000;long time2 = 24*60*60*1000;
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Rest on bed,enhance supportive treatment");order1.setStatus("Not executed");
+    order1.setType("Procedures");
+    Order order2 = new Order();
+    order2.setEnterDateTime(now);order2.setText("Ensure sufficient heat");order2.setStatus("Not executed");
+    order2.setType("Medications");
+    Order order3 = new Order();
+    order3.setEnterDateTime(now);order3.setText("Monitor water-electrolyte balance");order3.setStatus("Not executed");
+    order3.setType("Medications");
+    Order order4 = new Order();
+    order4.setEnterDateTime(now);order4.setText("Maintain internal environment stability");order4.setStatus("Not executed");
+    order3.setType("Medications");
+    Order order5 = new Order();
+    order5.setEnterDateTime(now);order5.setText("Monitor vital signs and Blood Oxygen Saturation closely");order5.setStatus("Not executed");
+    order5.setType("Procedures");
+    Order order6 = new Order();
+    order6.setEnterDateTime(now);order6.setText("Monitor blood routine based on condition");order6.setStatus("Not executed");
+    order6.setType("Tests & Exams");
+    Order order7 = new Order();
+    order7.setEnterDateTime(now);order7.setText("Monitor urine routine based on condition");order7.setStatus("Not executed");
+    order7.setType("Tests & Exams");
+    Order order8 = new Order();
+    order8.setEnterDateTime(now);order8.setText("Monitor CRP based on condition");order8.setStatus("Not executed");
+    order8.setType("Tests & Exams");
+    Order order9 = new Order();
+    order9.setEnterDateTime(now);order9.setText("Monitor Biochemical Indicators based on condition");order9.setStatus("Not executed");
+    order9.setType("Tests & Exams");
+    Order order10 = new Order();
+    order10.setEnterDateTime(now);order10.setText("Monitor Blood coagulation test based on condition");order10.setStatus("Not executed");
+    order10.setType("Tests & Exams");
+    Order order11 = new Order();
+    order11.setEnterDateTime(now);order11.setText("Monitor Arterial blood gas analysis based on condition");order11.setStatus("Not executed");
+    order11.setType("Tests & Exams");
+    Order order12 = new Order();
+    order12.setEnterDateTime(now);order12.setText("Monitor Imaging examination test based on condition");order12.setStatus("Not executed");
+    order12.setType("Tests & Exams");
+    Order order13 = new Order();
+    order13.setEnterDateTime(now);order13.setText("Monitor Cytokine detection based on condition");order13.setStatus("Not executed");
+    order13.setType("Tests & Exams");
+    Order order14 = new Order();
+    order14.setEnterDateTime(now);order14.setText("Provide effective oxygen therapy in a timely manner, including nasal cannula, mask oxygen and transnasal high-flow oxygen therapy");order14.setStatus("Not executed");
+    order14.setType("Procedures");
+    Order order15 = new Order();
+    order15.setEnterDateTime(now);order15.setText("α-interferon");order15.setStatus("Not executed");order15.setType("Medications");
+    order15.setType("Medications");
+    Order order16 = new Order();
+    order16.setEnterDateTime(now);order16.setText("Ribavirin");order16.setStatus("Not executed");order16.setType("Medications");
+    order16.setType("Medications");
+    if(summary){
+        $p.getOrderList().add(order1);
+        $p.getOrderList().add(order2);
+        $p.getOrderList().add(order3);
+        $p.getOrderList().add(order4);
+        $p.getOrderList().add(order5);
+        $p.getOrderList().add(order6);
+        $p.getOrderList().add(order7);
+        $p.getOrderList().add(order8);
+        $p.getOrderList().add(order9);
+        $p.getOrderList().add(order10);
+        $p.getOrderList().add(order11);
+        $p.getOrderList().add(order12);
+        $p.getOrderList().add(order13);
+        $p.getOrderList().add(order14);
+        $p.getOrderList().add(order15);
+        $p.getOrderList().add(order16);
+    }
+  end
+
+rule "治疗-西医-一般-抗病毒1"
+  salience 800
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Order(text=="α-interferon",status=="Executed") from $orderList);
+    ArrayList(size>0) from collect (Order(text=="Ribavirin",status=="Executed") from $orderList);
+    $sypmtom: Symptom(text == "Condition does not ease" ) from $sypmtomList;
+ then
+   System.out.println("治疗-西医-一般-抗病毒1");
+    $p.getOrder("α-interferon").setStatus("Invalid");
+    $p.getOrder("Ribavirin").setStatus("Invalid");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Lopinavir");order1.setStatus("Not executed");$p.getOrderList().add(order1);
+    order1.setType("Medications");
+    Order order2 = new Order();
+    order2.setEnterDateTime(now);order2.setText("Ribavirin");order2.setStatus("Not executed");$p.getOrderList().add(order2);
+    order2.setType("Medications");
+    $p.getOrderList().add(order1);
+    $p.getOrderList().add(order2);
+ end
+
+rule "治疗-西医-一般-抗病毒2"
+  salience 790
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Order(text=="Lopinavir",status=="Executed") from $orderList);
+    ArrayList(size>0) from collect (Order(text=="Ribavirin",status=="Executed") from $orderList);
+    $sypmtom: Symptom(text == "Condition does not ease" ) from $sypmtomList;
+ then
+   System.out.println("治疗-西医-一般-抗病毒2");
+    $p.getOrder("Lopinavir").setStatus("Invalid");
+    $p.getOrder("Ribavirin").setStatus("Invalid");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Ritonavir");order1.setStatus("Not executed");$p.getOrderList().add(order1);
+    order1.setType("Medications");
+    Order order2 = new Order();
+    order2.setEnterDateTime(now);order2.setText("Ribavirin");order2.setStatus("Not executed");$p.getOrderList().add(order2);
+    order2.setType("Medications");
+    $p.getOrderList().add(order1);
+    $p.getOrderList().add(order2);
+ end
+
+rule "治疗-西医-一般-抗病毒3"
+  salience 780
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Order(text=="Lopinavir",status=="Executed") from $orderList);
+    ArrayList(size>0) from collect (Order(text=="Ribavirin",status=="Executed") from $orderList);
+    $sypmtom: Symptom(text == "Medication related adverse reactions" ) from $sypmtomList;
+ then
+   System.out.println("治疗-西医-一般-抗病毒3");
+    $p.getOrder("Lopinavir").setStatus("Invalid");
+    $p.getOrder("Ribavirin").setStatus("Invalid");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Chloroquine phosphate");order1.setStatus("Not executed");$p.getOrderList().add(order1);
+    order1.setType("Medications");
+    Order order2 = new Order();
+    order2.setEnterDateTime(now);order2.setText("Arbidol");order2.setStatus("Not executed");$p.getOrderList().add(order2);
+    order2.setType("Medications");
+    $p.getOrderList().add(order1);
+    $p.getOrderList().add(order2);
+ end
+
+rule "治疗-西医-一般-抗病毒4"
+  salience 770
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Order(text=="Ritonavir",status=="Executed") from $orderList);
+    ArrayList(size>0) from collect (Order(text=="Ribavirin",status=="Executed") from $orderList);
+    $sypmtom: Symptom(text == "Medication related adverse reactions" ) from $sypmtomList;
+ then
+   System.out.println("治疗-西医-一般-抗病毒4");
+    $p.getOrder("Ritonavir").setStatus("Invalid");
+    $p.getOrder("Ribavirin").setStatus("Invalid");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Chloroquine phosphate");order1.setStatus("Not executed");$p.getOrderList().add(order1);
+    order1.setType("Medications");
+    Order order2 = new Order();
+    order2.setEnterDateTime(now);order2.setText("Arbidol");order2.setStatus("Not executed");$p.getOrderList().add(order2);
+    order2.setType("Medications");
+    $p.getOrderList().add(order1);
+    $p.getOrderList().add(order2);
+ end
+
+rule "治疗-西医-重型"
+  salience 760
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+ then
+   System.out.println("治疗-西医-重型");
+    c1 = $r.getRuleIdentification().contains("重型");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Nasal catheter for oxygen or Mask for oxygen");order1.setStatus("Not executed");
+    order1.setType("Procedures");
+    Order order2 = new Order();
+    order2.setEnterDateTime(now);order2.setText("Assess if respiratory distress and / or hypoxemia is resolved");order2.setStatus("Not executed");
+    order2.setType("Procedures");
+    if(c1){
+        $p.getOrderList().add(order1);
+        $p.getOrderList().add(order2);
+    }
+ end
+
+rule "治疗-西医-呼吸支持1-1"
+  salience 750
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Respiratory distress does not ease or worsens"||text=="Hypoxemia does not ease or worsens") from $sypmtomList);
+    ArrayList(size>0) from collect (Order(text=="Nasal catheter for oxygen",status=="Executed") from $orderList);
+ then
+   System.out.println("治疗-西医-1");
+    c1 = $r.getRuleIdentification().contains("重型");
+    c2 = $r.getRuleIdentification().contains("危重型");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("High-flow nasal cannula (HFNC) oxygen therapy or Non-invasive mechanical ventilation");order1.setStatus("Not executed");
+    order1.setType("Procedures");
+    if(!$r.getRuleIdentification().contains("高流量鼻导管氧疗或无创机械通气")){
+        if(c1||c2){
+            $p.getOrder("Nasal catheter for oxygen").setStatus("Invalid");
+            $r.getRuleIdentification().add("高流量鼻导管氧疗或无创机械通气");
+            $p.getOrderList().add(order1);
+        }
+    }
+ end
+
+rule "治疗-西医-呼吸支持1-2"
+  salience 745
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Respiratory distress does not ease or worsens"||text=="Hypoxemia does not ease or worsens") from $sypmtomList);
+    ArrayList(size>0) from collect (Order(text=="Mask for oxygen",status=="Executed") from $orderList);
+ then
+   System.out.println("治疗-西医-1-2");
+    c1 = $r.getRuleIdentification().contains("重型");
+    c2 = $r.getRuleIdentification().contains("危重型");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("High-flow nasal cannula (HFNC) oxygen therapy or Non-invasive mechanical ventilation");order1.setStatus("Not executed");
+    order1.setType("Procedures");
+    if(!$r.getRuleIdentification().contains("高流量鼻导管氧疗或无创机械通气")){
+        if(c1||c2){
+            $p.getOrder("Mask for oxygen").setStatus("Invalid");
+            $r.getRuleIdentification().add("高流量鼻导管氧疗或无创机械通气");
+            $p.getOrderList().add(order1);
+        }
+    }
+ end
+
+rule "治疗-西医-呼吸支持2-1"
+  salience 740
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Respiratory distress does not ease or worsens within a short time (1-2 hours)"||text=="Hypoxemia does not ease or worsens within a short time (1-2 hours)") from $sypmtomList);
+    ArrayList(size>0) from collect (Order(text=="High-flow nasal cannula (HFNC) oxygen therapy",status=="Executed") from $orderList);
+ then
+   System.out.println("治疗-西医-2");
+    c1 = $r.getRuleIdentification().contains("重型");
+    c2 = $r.getRuleIdentification().contains("危重型");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Tracheal intubation and Invasive mechanical ventilation");order1.setStatus("Not executed");
+    order1.setType("Procedures");
+    Order order2 = new Order();
+    order2.setEnterDateTime(now);order2.setText("Timely use of sedatives and muscle relaxants");order2.setStatus("Not executed");
+    order2.setType("Medications");
+    if(c1||c2){
+        $p.getOrder("High-flow nasal cannula (HFNC) oxygen therapy").setStatus("Invalid");
+        $p.getOrderList().add(order1);
+        $p.getOrderList().add(order2);
+    }
+ end
+
+rule "治疗-西医-呼吸支持2-2"
+  salience 735
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Respiratory distress does not ease or worsens within a short time (1-2 hours)"||text=="Hypoxemia does not ease or worsens within a short time (1-2 hours)") from $sypmtomList);
+    ArrayList(size>0) from collect (Order(text=="Non-invasive mechanical ventilation",status=="Executed") from $orderList);
+ then
+   System.out.println("治疗-西医-2");
+    c1 = $r.getRuleIdentification().contains("重型");
+    c2 = $r.getRuleIdentification().contains("危重型");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Tracheal intubation and Invasive mechanical ventilation");order1.setStatus("Not executed");
+    order1.setType("Procedures");
+    Order order2 = new Order();
+    order2.setEnterDateTime(now);order2.setText("Timely use of sedatives and muscle relaxants");order2.setStatus("Not executed");
+    order2.setType("Medications");
+    if(c1||c2){
+        $p.getOrder("Non-invasive mechanical ventilation").setStatus("Invalid");
+        $p.getOrderList().add(order1);
+        $p.getOrderList().add(order2);
+    }
+ end
+
+rule "治疗-西医-呼吸支持3"
+  salience 730
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    $diagnosis_G : ArrayList( size > 0)
+                             from accumulate( PastHistory($items: items) from $pastHistoryList,
+                                              init( ArrayList arrayList=new ArrayList(); ),
+                                              action( arrayList.addAll($items); ),
+                                              result( arrayList ) );
+    ArrayList(size>0) from collect (Diagnosis(itemName=="Acute Respiratory Distress Syndrome") from $diagnosis_G);
+    ArrayList(size>0) from collect (Order(text=="Tracheal intubation and Invasive mechanical ventilation") from $orderList);
+ then
+   System.out.println("治疗-西医-3");
+    c1 = $r.getRuleIdentification().contains("重型");
+    c2 = $r.getRuleIdentification().contains("危重型");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Lung recruitment");order1.setStatus("Not executed");
+    order1.setType("Procedures");
+    Order order2 = new Order();
+    order2.setEnterDateTime(now);order2.setText("Prone position ventilation for more than 12 hours per day");order2.setStatus("Not executed");
+    order2.setType("Procedures");
+    if(c1||c2){
+        $p.getOrder("Tracheal intubation and Invasive mechanical ventilation").setStatus("Invalid");
+        $p.getOrderList().add(order1);
+        $p.getOrderList().add(order2);
+    }
+ end
+
+rule "治疗-西医-呼吸支持4-1"
+  salience 720
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Order(text=="Prone position ventilation") from $orderList);
+    ArrayList(size>0) from collect (Symptom(text=="Poor ventilation in the prone position") from $sypmtomList);
+    ArrayList(size>0) from collect (PhysicalSign(itemName=="Airway plateau pressure") from $physicalSignList);
+ then
+   System.out.println("治疗-西医-4");
+   Float num =  Float.parseFloat($p.getPhysicalSign("Airway plateau pressure").getValue());
+    c1 = $r.getRuleIdentification().contains("重型");
+    c2 = $r.getRuleIdentification().contains("危重型");
+    c3 = $r.getRuleIdentification().contains("氧合指数小于80");
+    c4 = num>35||num==35;
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("ECMO");order1.setStatus("Not executed");
+    order1.setType("Procedures");
+    if((c1||c2)&& c3 && c4){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-西医-呼吸支持4-2"
+  salience 719
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Order(text=="ECMO") from $orderList);
+    ArrayList(size>0) from collect (Symptom(text=="Control of underlying diseases") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Cardiopulmonary function shows signs of recovery") from $sypmtomList);
+ then
+   System.out.println("治疗-西医-4-1");
+    c1 = $r.getRuleIdentification().contains("重型");
+    c2 = $r.getRuleIdentification().contains("危重型");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Start withdrawal test");order1.setStatus("Not executed");
+    order1.setType("Procedures");
+    if(c1||c2){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-西医-连续性肾替代治疗"
+  salience 718
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    $diagnosis_G : ArrayList( size > 0)
+                             from accumulate( PastHistory($items: items) from $pastHistoryList,
+                                              init( ArrayList arrayList=new ArrayList(); ),
+                                              action( arrayList.addAll($items); ),
+                                              result( arrayList ) );
+     ArrayList(size>0) from collect (Diagnosis(itemName=="Renal failure")from $diagnosis_G);
+     ArrayList(size>0) from collect (Diagnosis(itemName=="Hyperkalemia"||itemName=="Acidosis"||itemName=="Pulmonary edema"
+                        ||itemName=="Overloaded water"||itemName=="Multiple organ dysfunction"
+                        )from $diagnosis_G);
+ then
+   System.out.println("治疗-西医-4-2");
+    c1 = $r.getRuleIdentification().contains("重型");
+//    c2 = $r.getRuleIdentification().contains("危重型");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Continuous renal replacement therapy");order1.setStatus("Not executed");
+    order1.setType("Procedures");
+    if(c1){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-西医-血液净化治疗"
+  salience 717
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Cytokine storm") from $sypmtomList);
+ then
+   System.out.println("治疗-西医-4-3");
+    c1 = $r.getRuleIdentification().contains("重型");
+    c2 = $r.getRuleIdentification().contains("危重型");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Blood purification treatment");order1.setStatus("Not executed");
+    order1.setType("Procedures");
+    if(c1||c2){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-西医-托珠单抗治疗"
+  salience 716
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (ImgExamResult(description=="Extensive lung disease") from $sypmtomList);
+    List2: ArrayList(size>0) from collect (LabTestResult(itemName=="IL-6") from $labTestResultList);
+ then
+   System.out.println("治疗-西医-4-4");
+   num = Float.parseFloat($p.getPhysicalSign("IL-6").getValue());
+    c1 = $r.getRuleIdentification().contains("重型");
+//    c2 = $r.getRuleIdentification().contains("危重型");
+    c3 = false;
+    if(num>150){
+        c3 = true;
+    }
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Tocilizumab");order1.setStatus("Not executed");
+    order1.setType("Medications");
+    if(c1&&c3){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-西医-循环支持"
+  salience 710
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+ then
+   System.out.println("治疗-西医-5");
+    c1 = $r.getRuleIdentification().contains("重型");
+    c2 = $r.getRuleIdentification().contains("危重型");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Vasoactive drugs");order1.setStatus("Not executed");
+    order1.setType("Medications");
+    Order order2 = new Order();
+    order2.setEnterDateTime(now);order2.setText("Hemodynamic monitoring if necessary");order2.setStatus("Not executed");
+    order2.setType("Tests & Exams");
+    if(c1||c2){
+        $p.getOrderList().add(order1);
+        $p.getOrderList().add(order2);
+    }
+ end
+
+rule "治疗-西医-康复者血浆治疗"
+  salience 710
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Rapid progress") from $sypmtomList);
+ then
+   System.out.println("治疗-西医-55");
+    c1 = $r.getRuleIdentification().contains("重型");
+    c2 = $r.getRuleIdentification().contains("危重型");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Convalescent plasma treatment");order1.setStatus("Not executed");
+    order1.setType("Medications");
+    if(c1||c2){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-西医-其他治疗措施"
+  salience 700
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Progressive deterioration of oxygenation index") from $sypmtomList);
+    ArrayList(size>0) from collect (ImgExamResult(description=="Rapid progress in imaging") from $imgExamResultList);
+    ArrayList(size>0) from collect (Symptom(text=="Excessive activation of body inflammatory response") from $sypmtomList);
+ then
+   System.out.println("治疗-西医-6");
+    c1 = $r.getRuleIdentification().contains("重型");
+    c2 = $r.getRuleIdentification().contains("危重型");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Use of glucocorticoids for a short period of time (3 to 5 days), as appropriate");order1.setStatus("Not executed");
+    order1.setType("Medications");
+    Order order2 = new Order();
+    order2.setEnterDateTime(now);order2.setText("Xuebijing can be administered intravenously 100mL / times twice daily");order2.setStatus("Not executed");
+    order2.setType("Medications");
+    Order order3 = new Order();
+    order3.setEnterDateTime(now);order3.setText("Intestinal microecological regulators can be used");order3.setStatus("Not executed");
+    order3.setType("Medications");
+    if(c1||c2){
+        $p.getOrderList().add(order1);
+        $p.getOrderList().add(order2);
+        $p.getOrderList().add(order3);
+    }
+ end
+
+rule "治疗-西医-儿童重型危重型"
+  salience 699
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    $patientInfo: PatientInfo();
+ then
+   System.out.println("治疗-西医-6-1");
+    c1 = $r.getRuleIdentification().contains("重型");
+    c2 = $r.getRuleIdentification().contains("危重型");
+    c3 = false;
+    Date now  = new Date();
+    long num = (now.getTime()-$patientInfo.getDateOfBirth().getTime())/(60*60*24*30);
+    num = num/1000;
+    if(num/12<14||num/12==14){
+        c3 = true;
+    }
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Intravenous infusion of gamma globulin");order1.setStatus("Not executed");
+    order1.setType("Medications");
+    if((c1||c2)&&c3){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-西医-孕妇"
+  salience 698
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    $patientInfo: PatientInfo();
+    $diagnosis_G : ArrayList( size > 0)
+                             from accumulate( PastHistory($items: items) from $pastHistoryList,
+                                              init( ArrayList arrayList=new ArrayList(); ),
+                                              action( arrayList.addAll($items); ),
+                                              result( arrayList ) );
+    ArrayList(size>0) from collect (Diagnosis(itemName=="Pregnancy") from $diagnosis_G);
+ then
+   System.out.println("治疗-西医-6-2");
+    c1 = $r.getRuleIdentification().contains("重型");
+    c2 = $r.getRuleIdentification().contains("危重型");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Pregnancy should be terminated preferably with csection");order1.setStatus("Not executed");
+    order1.setType("Medications");
+    if(c1||c2){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-西医-心理疏导"
+  salience 680
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+    ArrayList(size>0) from collect (Symptom(text=="Anxiety") from $sypmtomList);
+    ArrayList(size>0) from collect (Symptom(text=="Fear") from $sypmtomList);
+ then
+   System.out.println("治疗-西医-8");
+    c1 = $r.getRuleIdentification().contains("重型");
+    c2 = $r.getRuleIdentification().contains("危重型");
+    Date now  = new Date();
+    Order order1 = new Order();
+    order1.setEnterDateTime(now);order1.setText("Enhance psychological counseling");order1.setStatus("Not executed");
+    order1.setType("Procedures");
+    if(c1||c2){
+        $p.getOrderList().add(order1);
+    }
+ end
+
+rule "治疗-西医-summary"
+  salience 670
+    lock-on-active true
+      agenda-group "治疗-西医"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList, $orderList: orderList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+ then
+   System.out.println("治疗-西医-summary");
+    drools.setFocus("治疗-中医");
+ end

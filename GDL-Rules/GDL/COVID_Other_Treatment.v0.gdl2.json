@@ -1,0 +1,273 @@
+{
+  "id": "COVID_Other_Treatment.v0",
+  "gdl_version": "2.0",
+  "concept": "gt0001",
+  "language": {
+    "original_language": "ISO_639-1::en"
+  },
+  "description": {
+    "original_author": {
+      "date": "2020-03-12",
+      "name": "Hongshuo Feng",
+      "organisation": "Zhejiang University",
+      "email": "842089819@qq.com"
+    },
+    "other_contributors": [
+      "Tianhua Tang",
+      "Shan Nan",
+      "Yijie Wang"
+    ],
+    "lifecycle_state": "Author draft",
+    "details": {
+      "en": {
+        "id": "en",
+        "purpose": "Other treatment for COVID-19 patients.",
+        "keywords": [
+          "COVID-19"
+        ],
+        "use": "COVID-19 diagnosis and treatment decision support.",
+        "copyright": "Zhejiang University"
+      }
+    },
+    "other_details": {
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
+    }
+  },
+  "definition": {
+    "data_bindings": {
+      "gt0002": {
+        "id": "gt0002",
+        "model_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "template_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0003": {
+            "id": "gt0003",
+            "path": "/data[at0001]/items[at0073]"
+          },
+          "gt0004": {
+            "id": "gt0004",
+            "path": "/data[at0001]/items[at0005]"
+          }
+        }
+      },
+      "gt0009": {
+        "id": "gt0009",
+        "model_id": "openEHR-EHR-INSTRUCTION.medication_order.v2",
+        "template_id": "openEHR-EHR-INSTRUCTION.medication_order.v2",
+        "type": "OUTPUT",
+        "elements": {
+          "gt0016": {
+            "id": "gt0016",
+            "path": "/activities[at0001]/description[at0002]/items[at0070]"
+          }
+        }
+      },
+      "gt0017": {
+        "id": "gt0017",
+        "model_id": "openEHR-EHR-INSTRUCTION.care_plan_request.v0",
+        "template_id": "openEHR-EHR-INSTRUCTION.care_plan_request.v0",
+        "type": "OUTPUT",
+        "elements": {
+          "gt0018": {
+            "id": "gt0018",
+            "path": "/activities[at0001]/description[at0004]/items[at0017]"
+          }
+        }
+      },
+      "gt0022": {
+        "id": "gt0022",
+        "model_id": "openEHR-EHR-INSTRUCTION.service_request.v1",
+        "template_id": "openEHR-EHR-INSTRUCTION.service_request.v1",
+        "type": "OUTPUT",
+        "elements": {
+          "gt0023": {
+            "id": "gt0023",
+            "path": "/activities[at0001]/description[at0009]/items[at0121]"
+          }
+        }
+      },
+      "gt0024": {
+        "id": "gt0024",
+        "model_id": "openEHR-EHR-OBSERVATION.story.v1",
+        "template_id": "openEHR-EHR-OBSERVATION.story.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0025": {
+            "id": "gt0025",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0001]"
+          },
+          "gt0026": {
+            "id": "gt0026",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0021]"
+          }
+        }
+      },
+      "gt0027": {
+        "id": "gt0027",
+        "model_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt0028": {
+            "id": "gt0028",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0008]"
+          }
+        }
+      },
+      "gt0029": {
+        "id": "gt0029",
+        "model_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
+        "template_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0030": {
+            "id": "gt0030",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0024]"
+          },
+          "gt0031": {
+            "id": "gt0031",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0001]"
+          }
+        }
+      },
+      "gt0032": {
+        "id": "gt0032",
+        "model_id": "openEHR-EHR-OBSERVATION.respiration.v2",
+        "template_id": "openEHR-EHR-OBSERVATION.respiration.v2",
+        "type": "INPUT",
+        "elements": {
+          "gt0033": {
+            "id": "gt0033",
+            "path": "/data[at0001]/events[at0002]/state[at0022]/items[openEHR-EHR-CLUSTER.inspired_oxygen.v1]/items[at0051]"
+          }
+        }
+      }
+    },
+    "rules": {
+      "gt0034": {
+        "id": "gt0034",
+        "priority": 3,
+        "when": [
+          "$gt0030|Analyte name|==local::at0039|PaO₂|",
+          "$gt0033|Flow rate|.unit=='l/min'"
+        ],
+        "then": [
+          "$gt0035|PaO2/FiO2|=$gt0031/(21+4*$gt0033.magnitude)*100"
+        ]
+      },
+      "gt0011": {
+        "id": "gt0011",
+        "priority": 2,
+        "when": [
+          "$gt0003|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0028|Findings|=='The condition of imaging findings degenerates rapidly'",
+          "$gt0035|PaO2/FiO2|<300"
+        ],
+        "then": [
+          "$gt0018|Plan name|='enhance psychological counseling'",
+          "$gt0016|Medication item|='Glucocorticoids, Xuebijing injection, Intestines Micro-ecological regulators'"
+        ]
+      },
+      "gt0019": {
+        "id": "gt0019",
+        "priority": 1,
+        "when": [
+          "$gt0003|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0004|Severity|==local::at0089|Critical|",
+          "($gt0025|Symptom/Sign name|=='Redness')||($gt0025|Symptom/Sign name|=='Fever')",
+          "$gt0026|Severity category|==local::at0025|Severe|"
+        ],
+        "then": [
+          "$gt0023|Service name|='Plasmapheresis, Plasma adsorption, Plasma perfusion, Hemofiltration, Plasma filtration'"
+        ]
+      }
+    }
+  },
+  "ontology": {
+    "term_definitions": {
+      "en": {
+        "id": "en",
+        "terms": {
+          "gt0001": {
+            "id": "gt0001",
+            "text": "COVID_Other_Treatment",
+            "description": "Other treatment for COVID-19 patients."
+          },
+          "gt0003": {
+            "id": "gt0003",
+            "text": "Diagnostic certainty",
+            "description": "The level of confidence in the identification of the diagnosis."
+          },
+          "gt0004": {
+            "id": "gt0004",
+            "text": "Severity",
+            "description": "An assessment of the overall severity of the problem or diagnosis."
+          },
+          "gt0011": {
+            "id": "gt0011",
+            "text": "Severe_Critical_Treatment"
+          },
+          "gt0016": {
+            "id": "gt0016",
+            "text": "Medication item",
+            "description": "Name of the medication, vaccine or other therapeutic/prescribable item being ordered."
+          },
+          "gt0018": {
+            "id": "gt0018",
+            "text": "Plan name",
+            "description": "Identification of the care plan."
+          },
+          "gt0019": {
+            "id": "gt0019",
+            "text": "Inflammatory _Treatment"
+          },
+          "gt0023": {
+            "id": "gt0023",
+            "text": "Service name",
+            "description": "The name of the single service or activity requested."
+          },
+          "gt0025": {
+            "id": "gt0025",
+            "text": "Symptom/Sign name",
+            "description": "The name of the reported symptom or sign. "
+          },
+          "gt0026": {
+            "id": "gt0026",
+            "text": "Severity category",
+            "description": "Category representing the overall severity of the symptom or sign."
+          },
+          "gt0028": {
+            "id": "gt0028",
+            "text": "Findings",
+            "description": "Narrative description of findings, including comparative findings."
+          },
+          "gt0030": {
+            "id": "gt0030",
+            "text": "Analyte name",
+            "description": "The name of the analyte result."
+          },
+          "gt0031": {
+            "id": "gt0031",
+            "text": "Analyte result",
+            "description": "The value of the analyte result."
+          },
+          "gt0033": {
+            "id": "gt0033",
+            "text": "Flow rate",
+            "description": "Oxygen flow rate given to an individual."
+          },
+          "gt0034": {
+            "id": "gt0034",
+            "text": "Calculate PaO2/FiO2"
+          },
+          "gt0035": {
+            "id": "gt0035",
+            "text": "PaO2/FiO2",
+            "description": ""
+          }
+        }
+      }
+    }
+  }
+}

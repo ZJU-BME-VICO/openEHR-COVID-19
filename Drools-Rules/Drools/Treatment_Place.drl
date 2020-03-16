@@ -1,0 +1,53 @@
+package guideline
+
+dialect  "mvel"
+
+import cdss.kb.core.patient.Patient;
+import cdss.kb.core.patient.MedicalRecord
+import cdss.kb.core.patient.EpidemicHistory;
+import java.util.ArrayList
+import cdss.kb.core.patient.Diagnosis
+import cdss.kb.core.patient.PhysicalSign
+import cdss.kb.core.patient.Symptom
+import cdss.kb.core.patient.ImgExamResult
+import cdss.kb.core.patient.*
+
+import cdss.kb.core.RuleIdentification
+import java.util.Date
+import java.text.SimpleDateFormat
+
+
+
+ rule "治疗场所"
+  salience 820
+    lock-on-active true
+      agenda-group "治疗-场所"
+ when
+    $p: Patient($epidemicHistory: epidemicHistory, $sypmtomList: symptomList,
+             $physicalSignList: physicalSignList, $imgExamResultList: imgExamResultList,
+             $labTestResultList:labTestResultList,$pastHistoryList: pastHistoryList);
+    $r: RuleIdentification($ruleIdentification: RuleIdentification);
+ then
+   System.out.println("场所-疑似");
+
+     Diagnosis diagnosis = new Diagnosis();
+     diagnosis.setItemName("Treatment place");
+
+    if($r.getRuleIdentification().contains("疑似")||$r.getRuleIdentification().contains("有流行病学史")){
+        $r.getRuleIdentification().add("单人单间隔离室");
+        diagnosis.setCategory("Single isolation room");
+    }
+    if($r.getRuleIdentification().contains("确诊")){
+        $r.getRuleIdentification().add("多人隔离室");
+        diagnosis.setCategory("Multi person isolation room");
+    }
+    if($r.getRuleIdentification().contains("危重型")){
+        $r.getRuleIdentification().remove("多人隔离室");
+        $r.getRuleIdentification().add("ICU");
+        diagnosis.setCategory("ICU");
+    }
+    PastHistory pastHistory = new PastHistory();
+    pastHistory.getItems().add(diagnosis);
+    $p.getPastHistoryList().add(pastHistory);
+    drools.setFocus("治疗-西医");
+  end
