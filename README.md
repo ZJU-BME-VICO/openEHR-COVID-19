@@ -72,11 +72,11 @@ GDL2 Editor Docker for Windows: https://store.docker.com/editions/community/dock
 
 ## Contributors
 
-Researchers from Zhejiang University and engineers from Hangzhou Juren Software Cooperation and Hangzhou Vico Software Cooperation have contributed collaboratively to this piece of work.
+Researchers from Zhejiang University and engineers from Hangzhou Joyrun Medical Technology Cooperation and Hangzhou Vico Software Cooperation have contributed collaboratively to this piece of work.
 
 ### openEHR archetype and template modeling
 
-Bin Qi (Hangzhou Juren Software Cooperation, China)  
+Bin Qi (Hangzhou Joyrun Medical Technology Cooperation, China)  
 Mengyang Li (Zhejiang University, China)
 
 ### Rule authoring
@@ -93,9 +93,9 @@ Tianhua Tang (Zhejiang University, China)
 
 ### Clinical application
 
-Bin Fu (Hangzhou Juren Software Cooperation, China)  
-Hailing Cai (Hangzhou Juren Software Cooperation, China)  
-Yijie Wang (Hangzhou Juren Software Cooperation, China)
+Bin Fu (Hangzhou Joyrun Medical Technology Cooperation, China)  
+Hailing Cai (Hangzhou Joyrun Medical Technology Cooperation, China)  
+Yijie Wang (Hangzhou Joyrun Medical Technology Cooperation, China)
 
 ### Project management
 
