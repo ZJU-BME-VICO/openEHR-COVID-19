@@ -1,4 +1,4 @@
-archetype (adl_version=1.4; uid=02741e5d-37e3-4322-9915-8589cd73dfe9)
+﻿archetype (adl_version=1.4; uid=02741e5d-37e3-4322-9915-8589cd73dfe9)
 	openEHR-EHR-CLUSTER.imaging_result.v0
 
 concept

@@ -30,7 +30,7 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
     }
   },
   "definition": {
@@ -51,18 +51,6 @@
           }
         }
       },
-      "gt0005": {
-        "id": "gt0005",
-        "model_id": "openEHR-EHR-INSTRUCTION.service_request.v1",
-        "template_id": "openEHR-EHR-INSTRUCTION.service_request.v1",
-        "type": "OUTPUT",
-        "elements": {
-          "gt0006": {
-            "id": "gt0006",
-            "path": "/activities[at0001]/description[at0009]/items[at0121]"
-          }
-        }
-      },
       "gt0007": {
         "id": "gt0007",
         "model_id": "openEHR-EHR-INSTRUCTION.medication_order.v2",
@@ -74,6 +62,18 @@
             "path": "/activities[at0001]/description[at0002]/items[at0070]"
           }
         }
+      },
+      "gt0010": {
+        "id": "gt0010",
+        "model_id": "openEHR-EHR-EVALUATION.recommendation.v1",
+        "template_id": "openEHR-EHR-EVALUATION.recommendation.v1",
+        "type": "OUTPUT",
+        "elements": {
+          "gt0011": {
+            "id": "gt0011",
+            "path": "/data[at0001]/items[at0002]"
+          }
+        }
       }
     },
     "rules": {
@@ -81,12 +81,12 @@
         "id": "gt0009",
         "priority": 1,
         "when": [
-          "$gt0003|Diagnostic certainty|==local::at0092|Confirmed|",
-          "($gt0004|Severity|==local::at0088|Severe|)||($gt0004|Severity|==local::at0089|Critical|)"
+          "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
+          "($gt0004|Severity|==local::at0049|Severe|)||($gt0004|Severity|==local::at0079|Critical|)"
         ],
         "then": [
-          "$gt0006|Service name|='Improve microcirculation based on adequate fluid resuscitation and perform hemodynamic monitoring if necessary'",
-          "$gt0008|Medication item|='Vasoactive drugs'"
+          "$gt0008|Medication item|='Vasoactive drugs'",
+          "$gt0011|Recommendation|='Improve microcirculation based on adequate fluid resuscitation and perform hemodynamic detection if necessary'"
         ]
       }
     }
@@ -111,11 +111,6 @@
             "text": "Severity",
             "description": "An assessment of the overall severity of the problem or diagnosis."
           },
-          "gt0006": {
-            "id": "gt0006",
-            "text": "Service name",
-            "description": "The name of the single service or activity requested."
-          },
           "gt0008": {
             "id": "gt0008",
             "text": "Medication item",
@@ -124,6 +119,11 @@
           "gt0009": {
             "id": "gt0009",
             "text": "Severe&Critical Treatment"
+          },
+          "gt0011": {
+            "id": "gt0011",
+            "text": "Recommendation",
+            "description": "Narrative description of the recommendation."
           }
         }
       }

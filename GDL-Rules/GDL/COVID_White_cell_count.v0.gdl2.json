@@ -30,7 +30,7 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
     }
   },
   "definition": {
@@ -41,13 +41,13 @@
         "template_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
         "type": "INPUT",
         "elements": {
-          "gt0003": {
-            "id": "gt0003",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0024]"
-          },
           "gt0004": {
             "id": "gt0004",
             "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0001]"
+          },
+          "gt0003": {
+            "id": "gt0003",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0024]"
           }
         }
       },
@@ -69,7 +69,7 @@
         "id": "gt0008",
         "priority": 3,
         "when": [
-          "$gt0003|Analyte name|==local::at0029|White blood cell count(WBC)|",
+          "$gt0003|Analyte name|=='White blood cell count(WBC)'",
           "$gt0004|Analyte result|<'3.8'"
         ],
         "then": [
@@ -80,7 +80,7 @@
         "id": "gt0009",
         "priority": 2,
         "when": [
-          "$gt0003|Analyte name|==local::at0029|White blood cell count(WBC)|",
+          "$gt0003|Analyte name|=='White blood cell count(WBC)'",
           "$gt0004|Analyte result|>='3.8'",
           "$gt0004|Analyte result|<'11'"
         ],
@@ -92,7 +92,7 @@
         "id": "gt0010",
         "priority": 1,
         "when": [
-          "$gt0003|Analyte name|==local::at0029|White blood cell count(WBC)|",
+          "$gt0003|Analyte name|=='White blood cell count(WBC)'",
           "$gt0004|Analyte result|>='11'"
         ],
         "then": [
@@ -137,10 +137,6 @@
           "gt0010": {
             "id": "gt0010",
             "text": "White Cell Count3"
-          },
-          "gt0011": {
-            "id": "gt0011",
-            "text": "Copy of Copy of White Cell Count1"
           }
         }
       }

@@ -2,7 +2,8 @@ archetype (adl_version=1.4; uid=fbff84f3-2b33-4245-94f1-6dafe6679c54)
 	openEHR-EHR-OBSERVATION.body_temperature.v2
 
 concept
-	[at0000]	-- Body temperature
+	[at0000]
+
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -92,17 +93,22 @@ language
 			accreditation = <"University of Morón">
 		>
 	>
+
 description
 	original_author = <
+		["date"] = <"2004-05-18">
 		["name"] = <"Sam Heard">
 		["organisation"] = <"Ocean Informatics">
 		["email"] = <"sam.heard@oceaninformatics.com">
-		["date"] = <"2004-05-18">
 	>
+	lifecycle_state = <"published">
+	other_contributors = <"Morten Aas, Oslo Universitetssykehus, Norway","Tomas Alme, DIPS ASA, Norway","Erling Are Hole, Helse Bergen, Norway","Vebjørn Arntzen, Oslo universitetssykehus HF, Norway","Silje Ljosland Bakke, Nasjonal IKT HF, Norway (openEHR Editor)","Knut Bernstein","Lars Bitsch-Larsen, Haukeland University Hospital, Bergen, Norway","Shahla Foozonkhah","Einar Fosse, UNN HF, Norwegian Centre for Integrated Care and Telemedicine, Norway","Sebastian Garde","Bjørn Grøva, Helsedirektoratet, Norway","Atle Hansen, Universitetssykehuset Nord-Norge, Norway","Kristian Heldal, Telemark Hospital Trust, Norway","Andreas Hering, Helse Bergen HF, Haukeland universitetssjukehus, Norway","Anca Heyd, DIPS ASA, Norway","Omer Hotomaroglu","Jan Inge Sørheim, Helse Bergen, Haukeland uniersitetssjukehus, Norway","Lars Ivar Mehlum, Helse Bergen HF, Norway","Sundaresan Jaganathan","Heather Leslie, Atomica Informatics, Australia (openEHR Editor)","Hallvard Lærum, Oslo Universitetssykehus HF, Norway","Arne Løberg Sæter, DIPS ASA, Norway","Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)","Mette Monsen, Helse Bergen HF, Norway","Hugo Nilssen, UNN HF K3K/Tromsø, Norway","Anne Pauline Anderssen, Helse Nord RHF, Norway","Thomas Schopf, University Hospital of North-Norway, Norway","Ingrid Smith, Helse Bergen, Norway","Line Sæle, Helse Vest IKT, Norway","Micaela Thierley, Helse Bergen, Norway","Nils Thomas Songstad, UNN HF, BUK, Barneavdelingen., Norway","Kevin Thon, SKDE, Norway","John Tore Valand, Haukeland Universitetssjukehus, Norway (Editor)">
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Messung der Temperatur einer Person - als Surrogat for die Temperatur des gesamten Körpers.">
+			keywords = <"Temperatur","Körper","Kern","Fieber","Hypothermie","Hyperthermie">
+			copyright = <"© openEHR Foundation">
 			use = <"Benutzt zur Aufzeichnung der gesamten Körpertemperatur einer Person oder eines Körpers.
 
 
@@ -112,34 +118,32 @@ Wenn benötigt, können zusätzliche Cluster Archetypen eingefügt werden, um zu
 
 
 Bitte beachten: Die Stelle und Methode der Messung muss ggf. dem Endverbraucher angezeigt werden, um eine präzise Interpretation der gemessenen Temperatur zu ermöglichen.">
-			keywords = <"Temperatur", "Körper", "Kern", "Fieber", "Hypothermie", "Hyperthermie">
 			misuse = <"Dieser Archetyp soll nicht benutzt werden, um die Messung der Temperatur irgendeines anderen Objekts zu dokumentieren.
 
 
 
 Dieser Archetyp soll nicht benutzt werden, um die Temperatur eines Körperteils isoliert zu messen, z. B. die Temperatur an der Fußsohle im Rahmen des Managements von chronischem Diabetes.">
-			copyright = <"© openEHR Foundation">
 		>
 		["ru"] = <
 			language = <[ISO_639-1::ru]>
 			purpose = <"Для записи измеряемой температуры человека - в качестве суррогата температуры всего тела.">
+			keywords = <"температура","лихорадка","жар","гипертермия","гипотермия">
+			copyright = <"© openEHR Foundation">
 			use = <"Используется для записи температуры тела пациента или органа.
 Дополнительные кластеры могут быть включены для получения дополнительной информации о состоянии - в том числе условия внешней среды, фаза менструального цикла и другие детали, где это уместно.
 Обратите внимание: запись о месте и методе измерения  может потребоваться  для облегчения точной интерпретации регистрируемой температуры.">
-			keywords = <"температура", "лихорадка", "жар", "гипертермия", "гипотермия">
 			misuse = <"Этот архетип не следует использовать для записи температуры любого другого объекта.
 Этот архетип не следует использовать для записи температуры части тела, например, отдельного измерения температуры ступни в лечении больных с диабетической стопой.">
-			copyright = <"© openEHR Foundation">
 		>
 		["sv"] = <
 			language = <[ISO_639-1::sv]>
 			purpose = <"Att mäta en individs kroppstemperatur som är ett surrogat för kroppens kärntemperatur.">
+			keywords = <"temperatur","kropp","kärna","feber","hypotermi","hypertermi">
 			use = <"Används för att mäta en individs kroppstemperatur som är ett surrogat för individens kärntemperatur.
 Ytterligare kluster kan läggas till för ytterligare tillståndsdata såsom miljöförhållanden och detaljer från ansträngningstest där det är lämpligt.
 
 Observera: Platsen och mätmetoden kan behöva visas för slutanvändaren för att underlätta korrekt tolkning av den uppmätta temperaturen. 
 ">
-			keywords = <"temperatur", "kropp", "kärna", "feber", "hypotermi", "hypertermi">
 			misuse = <"Ska inte användas för att mäta temperaturen av något annat föremål.
 
 Ska inte användas för att mäta temperaturen av en isolerad kroppsdel, exempelvis temperaturen av fotsulan som en del i kronisk diabetesskötsel.
@@ -148,12 +152,12 @@ Ska inte användas för att mäta temperaturen av en isolerad kroppsdel, exempel
 		["fi"] = <
 			language = <[ISO_639-1::fi]>
 			purpose = <"Henkilön lämpötilan mittaamista varten. ">
+			keywords = <"lämpötila, kuume, hypotermia, hypertermia", ...>
 			use = <"Yksilön lämpötilan kirjaamista varten.
 
 Lisäklustereita voidaan sisällyttää lisätietojen tallentamista varten, mukaan lukien ympäristöolosuhteet ja yksityiskohtaiset rasitustiedot.
 
 Huomio: Mittauspaikka ja mittaustapa voi olla hyödyllistä näyttää käyttäjälle lämpötilan tarkan tulkinnan helpottamiseksi.">
-			keywords = <"lämpötila, kuume, hypotermia, hypertermia", ...>
 			misuse = <"Tätä arkkityyppiä ei käytetä kuvaamaan minkään muun kohteen kuin potilaan lämpötilaa.
 
 Tätä arkkityyppiä ei käytetä kehon osan lämpötilan tallentamiseen erillään, esim. jalan pohjan lämpötila osana kroonista diabeteksen hoitoa.">
@@ -161,95 +165,93 @@ Tätä arkkityyppiä ei käytetä kehon osan lämpötilan tallentamiseen erillä
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			purpose = <"Brukes til å registrere et individs målte kroppstemperatur, som uttrykk for kjernetemperaturen.">
-			use = <"Brukes til å dokumentere et individs kjernetemperatur. Det kan legges til CLUSTERE for å tilføre tillegsinformasjon, inkludert miljømessige forhold (eksponering), detaljer om menstruasjonssyklus og informasjon om fysisk anstrengelse, der hvor dette er relevant. NB: Målemetode og -sted vil ofte måtte vises til sluttbruker for at de dokumenterte temperaturverdiene skal kunne tolkes korrekt.">
-			keywords = <"temperatur", "kropp", "kjerne", "feber", "hypotermi", "hypertermi", "temperaturmåling", "overoppheting", "nedkjøling", "heteslag">
-			misuse = <"Arketypen skal ikke brukes til å registrere andre objekters eller en isolert kroppsdels temperatur.">
+			keywords = <"temperatur","kropp","kjerne","feber","hypotermi","hypertermi","temperaturmåling","overoppheting","nedkjøling","heteslag">
 			copyright = <"© openEHR Foundation">
+			use = <"Brukes til å dokumentere et individs kjernetemperatur. Det kan legges til CLUSTERE for å tilføre tillegsinformasjon, inkludert miljømessige forhold (eksponering), detaljer om menstruasjonssyklus og informasjon om fysisk anstrengelse, der hvor dette er relevant. NB: Målemetode og -sted vil ofte måtte vises til sluttbruker for at de dokumenterte temperaturverdiene skal kunne tolkes korrekt.">
+			misuse = <"Arketypen skal ikke brukes til å registrere andre objekters eller en isolert kroppsdels temperatur.">
 		>
 		["es-ar"] = <
 			language = <[ISO_639-1::es-ar]>
 			purpose = <"Registrar la temperatura medida de una persona - como un derivado de la temperatura corporal">
+			keywords = <"temperatura","cuerpo","central","fiebre","hipotermia","hipertermia">
+			copyright = <"© openEHR Foundation">
 			use = <"Usar para registrar la temperatura corporal de una persona o cuerpo.
 Clusters adicionales pueden incluirse para proveer datos adicionales de estado - incluyendo condiciones ambientales, detalles del ciclo menstrual y de ejercicio físico, cuando se considera apropiado.
 Tener en cuenta: El sitio y el método del registro quizás sea necesario mostrarlo al usuario final, para la adecuada interpretación del registro de temperatura.">
-			keywords = <"temperatura", "cuerpo", "central", "fiebre", "hipotermia", "hipertermia">
 			misuse = <"Este arquetipo no debe usarse para registrar la temperatura de cualquier otro objeto.
 Este arquetipo no debe usarse para registrar la temperatura de una parte del cuerpo aislado por ej: la temperatura de la planta del pie como parte del manejo de la diabetes crónica.">
-			copyright = <"© openEHR Foundation">
 		>
 		["pt-br"] = <
 			language = <[ISO_639-1::pt-br]>
 			purpose = <"Registrar a temperatura aferida de uma pessoa - substituto para temperatura corporal central.">
+			keywords = <"temperatura","corpo","central","febre","hipotermia","hipertermia">
+			copyright = <"© openEHR Foundation">
 			use = <"Usado para registrar a temperatura corporal de uma pessoa, o qual é um substituto para a temperatura corporal central.
 Clusters adicionais podem ser incluídos para fornecer dados adicionais - incluindo as condições ambientais e detalhes de esforço, quando apropriado.
 
 Observação: O local e método de gravação podem precisar ser exibidos ao usuário final para facilitar a interpretação exata da temperatura registrada.">
-			keywords = <"temperatura", "corpo", "central", "febre", "hipotermia", "hipertermia">
 			misuse = <"Esse arquétipo não pode ser usado para registrar a temperatura de qualquer outro objeto.
 Esse arquétipo não pode ser usado para registrar a temperatura de uma parte do corpo isoladamente, por exemplo, temperatura da sola do pé, como parte do controle de diabetes crônica.">
-			copyright = <"© openEHR Foundation">
 		>
 		["ja"] = <
 			language = <[ISO_639-1::ja]>
 			purpose = <"全身の温度の代用として計測された人の体温を記録する。">
+			keywords = <"*temperature(en)","*body(en)","*core(en)","*fever(en)","*hypothermia(en)","*hyperthermia(en)">
 			use = <"人や体の全体の温度を記録するために用いられる。
 さらに状態データを表すために、追加のクラスタを内包することもできる。たとえば、環境条件や、月経周期の詳細、労作についての詳細を必要に応じて内包する。
 注意：計測された温度を正確に解釈するためにエンドユーザーに記録方法や部位を示す必要があるかもしれません。">
-			keywords = <"*temperature(en)", "*body(en)", "*core(en)", "*fever(en)", "*hypothermia(en)", "*hyperthermia(en)">
 			misuse = <"このアーキタイプは、人体以外の温度を計測するためには用いられない。
 このアーキタイプは、身体において独立した一部の温度を記録するためには用いられない。たとえば、糖尿病の慢性期管理の一貫として、測定の温度を計測すること。">
 		>
 		["ar-sy"] = <
 			language = <[ISO_639-1::ar-sy]>
 			purpose = <"لتسجيل درجة الحرارة التي تم قياسها للشخص - كبديل عن درجة حرارة الجسم كله">
+			keywords = <"الحرارة","الجسم","اللُّب","الحمى","انخفاض الحرارة","فرط الحرارة">
+			copyright = <"© openEHR Foundation">
 			use = <"يستخدم لتسجيل حرارة جميع الجسم للشخص أو الجثة.
 يمكن تضمين عناقيد أخرى للإمداد بالمزيد من تفاصيل الحالة - بما في ذلك العوامل البيئية, تفاصيل الدورة الشهرية, تفاصيل المجهود, حيثما تطلب الأمر.
 الرجاء ملاحظة: قد يكون من الواجب عرض هذا الموقع و طريقة التسجيل للمستخدِم النهائي لتسهيل التفسير الدقيق للحرارة التي يتم تسجيلها.">
-			keywords = <"الحرارة", "الجسم", "اللُّب", "الحمى", "انخفاض الحرارة", "فرط الحرارة">
 			misuse = <"هذا النموذج لا يستخدم لتسجيل حرارة أي شيئ آخر.
 هذا النموذج لا يستخدم لتسجيل الحرارة لجزء معزول من الجسم, مثلا حرارة أخمص القدم كجزء من التدبير العلاجي لمرض السكري المزمن.">
-			copyright = <"© openEHR Foundation">
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"To record the measured temperature of a person - as a surrogate for the core body temperature.">
+			keywords = <"temperature","body","core","fever","hypothermia","hyperthermia">
+			copyright = <"© openEHR Foundation">
 			use = <"Used for recording the measurement of an individual's body temperature, which is a surrogate for the core body temperature of the individual.
 
 Additional clusters can be included to provide additional state data - including environmental conditions and exertion details, where appropriate.
 
 Please Note: The site and method of recording may need to be displayed to the end user to facilitate accurate interpretation of the temperature recorded.">
-			keywords = <"temperature", "body", "core", "fever", "hypothermia", "hyperthermia">
 			misuse = <"This archetype is not to be used to record the temperature of any other object.
 
 This archetype is not to be used to record the temperature of a part of the body in isolation e.g. temperature of the sole of the foot as a part of chronic diabetes management.">
-			copyright = <"© openEHR Foundation">
 		>
 		["fa"] = <
 			language = <[ISO_639-1::fa]>
 			purpose = <"برای ثبت اندازه گیری دمای بدن یک فرد بکار می رود- به عنوان جایگزینی برای دمای کل بدن">
+			keywords = <"دما","بدن","مرکز","تب","کاهش دمای بدن","افزایش دمای بدن">
+			copyright = <"© openEHR Foundation">
 			use = <"برای ثبت دمای کل بدن فرد یا بدن استفاده می شود . خوشه‌های اضافی، برای در بر گرفتن داده‌های حالت بیشتر، شامل شرایط محیطی ، جزییات عادت ماهیانه و جزییات جنب و جوش فرد، هر جا که مناسب باشند، می‌توانند گنجانده شوند.
 لطفا توجه داشته باشید که برای تسهیل در تفسیر صحیح دما ثبت شده، توسط کاربر نهایی ممکن است که نمایش محل و روش ثبت لازم باشد">
-			keywords = <"دما", "بدن", "مرکز", "تب", "کاهش دمای بدن", "افزایش دمای بدن">
 			misuse = <"این الگو ساز جهت ثبت دما اشیا دیگر بکار نمی رود .
 این الگو ساز جهت ثبت دمای بخشهایی از بدن -
 به عنوان مثال دمای کف پا به عنوان بخشی از پایش دیابت مزمن- بصورت جداگانه استفاده نمی شود
    ">
-			copyright = <"© openEHR Foundation">
 		>
 		["es"] = <
 			language = <[ISO_639-1::es]>
 			purpose = <"Registrar la temperatura medida de una persona - como un derivado de la temperatura corporal">
+			keywords = <"temperatura","cuerpo","central","fiebre","hipotermia","hipertermia">
+			copyright = <"© openEHR Foundation">
 			use = <"Usar para registrar la temperatura corporal de una persona o cuerpo.
 Clusters adicionales pueden incluirse para proveer datos adicionales de estado - incluyendo condiciones ambientales, detalles del ciclo menstrual y de ejercicio físico, cuando se considera apropiado.
 Tener en cuenta: El sitio y el método del registro quizás sea necesario mostrarlo al usuario final, para la adecuada interpretación del registro de temperatura.">
-			keywords = <"temperatura", "cuerpo", "central", "fiebre", "hipotermia", "hipertermia">
 			misuse = <"Este arquetipo no debe usarse para registrar la temperatura de cualquier otro objeto.
 Este arquetipo no debe usarse para registrar la temperatura de una parte del cuerpo aislado por ej: la temperatura de la planta del pie como parte del manejo de la diabetes crónica.">
-			copyright = <"© openEHR Foundation">
 		>
 	>
-	lifecycle_state = <"published">
-	other_contributors = <"Morten Aas, Oslo Universitetssykehus, Norway", "Tomas Alme, DIPS ASA, Norway", "Erling Are Hole, Helse Bergen, Norway", "Vebjørn Arntzen, Oslo universitetssykehus HF, Norway", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (openEHR Editor)", "Knut Bernstein", "Lars Bitsch-Larsen, Haukeland University Hospital, Bergen, Norway", "Shahla Foozonkhah", "Einar Fosse, UNN HF, Norwegian Centre for Integrated Care and Telemedicine, Norway", "Sebastian Garde", "Bjørn Grøva, Helsedirektoratet, Norway", "Atle Hansen, Universitetssykehuset Nord-Norge, Norway", "Kristian Heldal, Telemark Hospital Trust, Norway", "Andreas Hering, Helse Bergen HF, Haukeland universitetssjukehus, Norway", "Anca Heyd, DIPS ASA, Norway", "Omer Hotomaroglu", "Jan Inge Sørheim, Helse Bergen, Haukeland uniersitetssjukehus, Norway", "Lars Ivar Mehlum, Helse Bergen HF, Norway", "Sundaresan Jaganathan", "Heather Leslie, Atomica Informatics, Australia (openEHR Editor)", "Hallvard Lærum, Oslo Universitetssykehus HF, Norway", "Arne Løberg Sæter, DIPS ASA, Norway", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)", "Mette Monsen, Helse Bergen HF, Norway", "Hugo Nilssen, UNN HF K3K/Tromsø, Norway", "Anne Pauline Anderssen, Helse Nord RHF, Norway", "Thomas Schopf, University Hospital of North-Norway, Norway", "Ingrid Smith, Helse Bergen, Norway", "Line Sæle, Helse Vest IKT, Norway", "Micaela Thierley, Helse Bergen, Norway", "Nils Thomas Songstad, UNN HF, BUK, Barneavdelingen., Norway", "Kevin Thon, SKDE, Norway", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Editor)">
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
 		["custodian_organisation"] = <"Nasjonal IKT">
@@ -265,15 +267,15 @@ Este arquetipo no debe usarse para registrar la temperatura de una parte del cue
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Body temperature
+	OBSERVATION[at0000] matches {    -- Body temperature
 		data matches {
-			HISTORY[at0002] matches {	-- History
+			HISTORY[at0002] matches {    -- History
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0003] occurrences matches {0..*} matches {	-- Any event
+					EVENT[at0003] occurrences matches {0..*} matches {    -- Any event
 						data matches {
-							ITEM_TREE[at0001] matches {	-- Tree
+							ITEM_TREE[at0001] matches {    -- Tree
 								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0004] matches {	-- Temperature
+									ELEMENT[at0004] matches {    -- Temperature
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::127]>
@@ -292,7 +294,7 @@ definition
 											>
 										}
 									}
-									ELEMENT[at0063] occurrences matches {0..1} matches {	-- Comment
+									ELEMENT[at0063] occurrences matches {0..1} matches {    -- Comment
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -301,40 +303,40 @@ definition
 							}
 						}
 						state matches {
-							ITEM_TREE[at0029] matches {	-- State
+							ITEM_TREE[at0029] matches {    -- State
 								items cardinality matches {0..*; ordered} matches {
-									ELEMENT[at0030] occurrences matches {0..1} matches {	-- Body exposure
+									ELEMENT[at0030] occurrences matches {0..1} matches {    -- Body exposure
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0031, 	-- Naked
-													at0032, 	-- Reduced clothing/bedding
-													at0033, 	-- Appropriate clothing/bedding
-													at0034; 	-- Increased clothing/bedding
-													at0033]	-- assumed value
+													at0031,    -- Naked
+													at0032,    -- Reduced clothing/bedding
+													at0033,    -- Appropriate clothing/bedding
+													at0034;    -- Increased clothing/bedding
+													at0033]
 												}
 											}
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0041] occurrences matches {0..1} matches {	-- Description of thermal stress
+									ELEMENT[at0041] occurrences matches {0..1} matches {    -- Description of thermal stress
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0065] occurrences matches {0..1} matches {	-- Current day of menstrual cycle
+									ELEMENT[at0065] occurrences matches {0..1} matches {    -- Current day of menstrual cycle
 										value matches {
 											DV_COUNT matches {
 												magnitude matches {|>=1|}
 											}
 										}
 									}
-									allow_archetype CLUSTER[at0056] occurrences matches {0..*} matches {	-- Environmental conditions
+									allow_archetype CLUSTER[at0056] occurrences matches {0..*} matches {    -- Environmental conditions
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.environmental_conditions\.v1|openEHR-EHR-CLUSTER\.environmental_conditions\.v0|openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
 									}
-									allow_archetype CLUSTER[at0057] occurrences matches {0..1} matches {	-- Exertion
+									allow_archetype CLUSTER[at0057] occurrences matches {0..1} matches {    -- Exertion
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.level_of_exertion\.v1|openEHR-EHR-CLUSTER\.level_of_exertion\.v0/}
 									}
@@ -346,40 +348,40 @@ definition
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0020] matches {	-- Protocol
+			ITEM_TREE[at0020] matches {    -- Protocol
 				items cardinality matches {0..*; ordered} matches {
-					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Location of measurement
+					ELEMENT[at0021] occurrences matches {0..1} matches {    -- Location of measurement
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0025, 	-- Rectum
-									at0024, 	-- Axilla
-									at0023, 	-- Ear canal
-									at0061, 	-- Forehead
-									at0022, 	-- Mouth
-									at0026, 	-- Nasopharynx
-									at0027, 	-- Urinary bladder
-									at0028, 	-- Intravascular
-									at0043, 	-- Skin
-									at0051, 	-- Vagina
-									at0054, 	-- Oesophagus
-									at0055, 	-- Inguinal skin crease
-									at0060]	-- Temple
+									at0025,    -- Rectum
+									at0024,    -- Axilla
+									at0023,    -- Ear canal
+									at0061,    -- Forehead
+									at0022,    -- Mouth
+									at0026,    -- Nasopharynx
+									at0027,    -- Urinary bladder
+									at0028,    -- Intravascular
+									at0043,    -- Skin
+									at0051,    -- Vagina
+									at0054,    -- Oesophagus
+									at0055,    -- Inguinal skin crease
+									at0060]    -- Temple
 								}
 							}
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0064] occurrences matches {0..*} matches {	-- Structured measurement location
+					allow_archetype CLUSTER[at0064] occurrences matches {0..*} matches {    -- Structured measurement location
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v1/}
 					}
-					allow_archetype CLUSTER[at0059] occurrences matches {0..1} matches {	-- Device
+					allow_archetype CLUSTER[at0059] occurrences matches {0..1} matches {    -- Device
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device\.v1/}
 					}
-					allow_archetype CLUSTER[at0062] occurrences matches {0..*} matches {	-- Extension
+					allow_archetype CLUSTER[at0062] occurrences matches {0..*} matches {    -- Extension
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -388,9 +390,8 @@ definition
 		}
 	}
 
-
 ontology
-	terminologies_available = <"LNC205", "SNOMED-CT">
+	terminologies_available = <"LNC205","SNOMED-CT">
 	term_definitions = <
 		["ar-sy"] = <
 			items = <
@@ -443,7 +444,7 @@ ontology
 					description = <"درجة الحرارة التي يتم قياسها من داخل البلعوم الأنفي">
 				>
 				["at0027"] = <
-					text = <"المثانة البولية ">
+					text = <"المثانة البولية">
 					description = <"يتم قياس درجة الحرارة من داخل المثانة البولية">
 				>
 				["at0028"] = <
@@ -1028,7 +1029,7 @@ ontology
 ">
 				>
 				["at0032"] = <
-					text = <" لباس و یا ملافه کم">
+					text = <"لباس و یا ملافه کم">
 					description = <"فرد با مقدار لباس و یا ملافه کمتر از حد مناسب با شرایط محیطی پوشانده شده است">
 				>
 				["at0033"] = <
@@ -2086,7 +2087,7 @@ ontology
 			>
 		>
 	>
-	term_bindings = <
+	term_binding = <
 		["LNC205"] = <
 			items = <
 				["at0004"] = <[LNC205::8310-5]>

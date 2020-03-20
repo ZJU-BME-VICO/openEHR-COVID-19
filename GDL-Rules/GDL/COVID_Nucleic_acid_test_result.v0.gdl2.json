@@ -30,7 +30,7 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
     }
   },
   "definition": {
@@ -41,9 +41,9 @@
         "template_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
         "type": "INPUT",
         "elements": {
-          "gt0003": {
-            "id": "gt0003",
-            "path": "/protocol[at0004]/items[at0121]"
+          "gt0015": {
+            "id": "gt0015",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0024]"
           },
           "gt0004": {
             "id": "gt0004",
@@ -93,13 +93,13 @@
         "id": "gt0010",
         "priority": 3,
         "when": [
-          "$gt0012|Diagnostic certainty|==local::at0092|Confirmed|",
-          "$gt0003|Test method|==local::at0128|Real-time fluorescent  RT-PCR assay |",
+          "$gt0012|Diagnostic certainty|==local::at0076|Confirmed|",
           "$gt0004|Analyte result|=='Negative'",
-          "($gt0008|Conclusion|==null)||($gt0005|Conclusion|=='The result of Nucleic acid test is Positive')"
+          "($gt0008|Lab Test Conclusion|==null)||($gt0005|Lab Test Conclusion|=='The result of Nucleic acid test is Positive')",
+          "$gt0015|Analyte name|=='SARS-CoV-2 Nucleic Acid'"
         ],
         "then": [
-          "$gt0008|Conclusion|='The result of first nucleic acid test is negative'",
+          "$gt0008|Lab Test Conclusion|='The result of first nucleic acid test is negative'",
           "$gt0009|Event time|=$currentDateTime"
         ]
       },
@@ -107,14 +107,14 @@
         "id": "gt0013",
         "priority": 2,
         "when": [
-          "$gt0012|Diagnostic certainty|==local::at0092|Confirmed|",
-          "$gt0003|Test method|==local::at0128|Real-time fluorescent  RT-PCR assay |",
+          "$gt0012|Diagnostic certainty|==local::at0076|Confirmed|",
           "$gt0004|Analyte result|=='Negative'",
-          "$gt0005|Conclusion|=='The result of first nucleic acid test is negative'",
-          "$gt0006|Event time|<($currentDateTime-1,d)"
+          "$gt0005|Lab Test Conclusion|=='The result of first nucleic acid test is negative'",
+          "$gt0006|Event time|<($currentDateTime-1,d)",
+          "$gt0015|Analyte name|=='SARS-CoV-2 Nucleic Acid'"
         ],
         "then": [
-          "$gt0008|Conclusion|='Continuous twice negative results on nucleic acid detection of respiratory specimen(the interval time of sampling is at least 1 day)'",
+          "$gt0008|Lab Test Conclusion|='Continuous twice negative results on nucleic acid detection of respiratory specimen(the interval time of sampling is at least 1 day)'",
           "$gt0009|Event time|=$currentDateTime"
         ]
       },
@@ -124,11 +124,11 @@
         "when": [
           "!fired($gt0010)",
           "!fired($gt0013)",
-          "$gt0003|Test method|==local::at0128|Real-time fluorescent  RT-PCR assay |",
-          "$gt0004|Analyte result|=='Positive'"
+          "$gt0004|Analyte result|=='Positive'",
+          "$gt0015|Analyte name|=='SARS-CoV-2 Nucleic Acid'"
         ],
         "then": [
-          "$gt0008|Conclusion|='The result of Nucleic acid test is Positive'"
+          "$gt0008|Lab Test Conclusion|='The result of Nucleic acid test is Positive'"
         ]
       }
     }
@@ -143,11 +143,6 @@
             "text": "COVID_Nucleic_acid_test_result",
             "description": "Monitor the result of Nucleic acid test for COVID-19 patients."
           },
-          "gt0003": {
-            "id": "gt0003",
-            "text": "Test method",
-            "description": "Description about the method used to perform the test."
-          },
           "gt0004": {
             "id": "gt0004",
             "text": "Analyte result",
@@ -155,7 +150,7 @@
           },
           "gt0005": {
             "id": "gt0005",
-            "text": "Conclusion",
+            "text": "Lab Test Conclusion",
             "description": "Narrative description of the key findings."
           },
           "gt0006": {
@@ -165,7 +160,7 @@
           },
           "gt0008": {
             "id": "gt0008",
-            "text": "Conclusion",
+            "text": "Lab Test Conclusion",
             "description": "Narrative description of the key findings."
           },
           "gt0009": {
@@ -189,6 +184,11 @@
           "gt0014": {
             "id": "gt0014",
             "text": "Nucleic acid test3"
+          },
+          "gt0015": {
+            "id": "gt0015",
+            "text": "Analyte name",
+            "description": "The name of the analyte result."
           }
         }
       }

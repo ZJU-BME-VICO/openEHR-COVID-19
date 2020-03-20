@@ -1,4 +1,4 @@
-# OpenEHR Templates and GDL Rules for COVID-19
+# COVID-19 Diagnosis and Treatment Decision Support: openEHR Templates and Rules
 
 ## Motivation
 

@@ -30,7 +30,7 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
     }
   },
   "definition": {
@@ -89,12 +89,12 @@
         "id": "gt0051",
         "priority": 5,
         "when": [
-          "$gt0037|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0037|Diagnostic certainty|==local::at0076|Confirmed|",
           "$gt0039|Temperature|<37.2,Cel",
-          "($gt0019|Comment|==null)||($gt0019|Comment|=='Body temperature is greater than 37.2 degrees Celsius')"
+          "($gt0019|Input Body Temperature Comment|==null)||($gt0019|Input Body Temperature Comment|=='Body temperature is greater than 37.2 degrees Celsius')"
         ],
         "then": [
-          "$gt0045|Body temperature comment|='The temperature is less than 37.2 degrees Celsius in the first measurement'",
+          "$gt0045|Output Body temperature comment|='The temperature is less than 37.2 degrees Celsius in the first measurement'",
           "$gt0046|Temperature event time|=$currentDateTime"
         ]
       },
@@ -102,13 +102,13 @@
         "id": "gt0052",
         "priority": 4,
         "when": [
-          "$gt0037|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0037|Diagnostic certainty|==local::at0076|Confirmed|",
           "$gt0039|Temperature|<37.2,Cel",
-          "$gt0019|Comment|=='The temperature is less than 37.2 degrees Celsius in the first measurement'",
+          "$gt0019|Input Body Temperature Comment|=='The temperature is less than 37.2 degrees Celsius in the first measurement'",
           "$gt0040|Temperature event time|<($currentDateTime-1,d)"
         ],
         "then": [
-          "$gt0045|Body temperature comment|='Body temperature is normal for two consecutive days'",
+          "$gt0045|Output Body temperature comment|='Body temperature is normal for two consecutive days'",
           "$gt0046|Temperature event time|=$currentDateTime"
         ]
       },
@@ -116,13 +116,13 @@
         "id": "gt0053",
         "priority": 3,
         "when": [
-          "$gt0037|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0037|Diagnostic certainty|==local::at0076|Confirmed|",
           "$gt0039|Temperature|<37.2,Cel",
-          "$gt0019|Comment|=='Body temperature is normal for two consecutive days'",
+          "$gt0019|Input Body Temperature Comment|=='Body temperature is normal for two consecutive days'",
           "$gt0040|Temperature event time|<($currentDateTime-1,d)"
         ],
         "then": [
-          "$gt0045|Body temperature comment|='Body temperature is normal for three consecutive days'",
+          "$gt0045|Output Body temperature comment|='Body temperature is normal for three consecutive days'",
           "$gt0046|Temperature event time|=$currentDateTime"
         ]
       },
@@ -130,24 +130,24 @@
         "id": "gt0054",
         "priority": 2,
         "when": [
-          "$gt0037|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0037|Diagnostic certainty|==local::at0076|Confirmed|",
           "$gt0039|Temperature|>=37.2,Cel"
         ],
         "then": [
-          "$gt0045|Body temperature comment|='Body temperature is greater than 37.2 degrees Celsius'"
+          "$gt0045|Output Body temperature comment|='Body temperature is greater than 37.2 degrees Celsius'"
         ]
       },
       "gt0055": {
         "id": "gt0055",
         "priority": 1,
         "when": [
-          "$gt0037|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0037|Diagnostic certainty|==local::at0076|Confirmed|",
           "$gt0039|Temperature|<37.2,Cel",
           "$gt0040|Temperature event time|<($currentDateTime-1,d)",
-          "($gt0019|Comment|=='Body temperature is normal for three consecutive days')||($gt0019|Comment|=='Body temperature is normal for more than three consecutive days')"
+          "($gt0019|Input Body Temperature Comment|=='Body temperature is normal for three consecutive days')||($gt0019|Input Body Temperature Comment|=='Body temperature is normal for more than three consecutive days')"
         ],
         "then": [
-          "$gt0045|Body temperature comment|='Body temperature is normal for more than three consecutive days'",
+          "$gt0045|Output Body temperature comment|='Body temperature is normal for more than three consecutive days'",
           "$gt0046|Temperature event time|=$currentDateTime"
         ]
       }
@@ -165,7 +165,7 @@
           },
           "gt0019": {
             "id": "gt0019",
-            "text": "Comment",
+            "text": "Input Body Temperature Comment",
             "description": "Additional comment about the body temperature measurement not captured in other fields."
           },
           "gt0037": {
@@ -185,7 +185,7 @@
           },
           "gt0045": {
             "id": "gt0045",
-            "text": "Body temperature comment",
+            "text": "Output Body temperature comment",
             "description": "Additional comment about the body temperature measurement not captured in other fields."
           },
           "gt0046": {

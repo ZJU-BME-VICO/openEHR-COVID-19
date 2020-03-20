@@ -2,7 +2,8 @@ archetype (adl_version=1.4; uid=418f1d0c-1e4b-4874-8b83-af84b4e7a8f1)
 	openEHR-EHR-OBSERVATION.respiration.v2
 
 concept
-	[at0000]	-- Respiration
+	[at0000]
+
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -75,43 +76,44 @@ language
 			>
 		>
 	>
+
 description
 	original_author = <
+		["date"] = <"2009-07-17">
 		["name"] = <"Ian McNicoll">
 		["organisation"] = <"freshEHR Clinical Informatics, United Kingdom">
 		["email"] = <"ian.mcnicoll@freshEHR.com">
-		["date"] = <"2009-07-17">
 	>
+	lifecycle_state = <"published">
+	other_contributors = <"Marja Buur, Medisch Centrum Alkmaar/ Code24, Netherlands","Gregory Caulton, PatientOS Inc., United States","Stephen Chu, NeHTA, Australia","Sebastian Garde, Ocean Informatics, Germany","Anne Harbison, CPCER, Australia","Sam Heard, Ocean Informatics, Australia","Omer Hotomaroglu, Turkey","Sundaresan Jagannathan, Scottish NHS, United Kingdom","Andrew James, University of Toronto, Canada","Heather Leslie, Atomica Informatics, Australia (Editor)","Rikard Lovstrom, Swedish Medical Association, Sweden","Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (Editor)","Jeroen Meintjens, Medisch Centrum Alkmaar, Netherlands","Soon Ghee Yap, Singapore Health Services Pte Ltd, Singapore","Hildegard McNicoll, freshEHR Clinical Informatics Ltd., UK">
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Dokumentation der Frequenz, des Rhythmus und der Charakteristik der Atmung">
-			use = <"">
-			keywords = <"Atmung", "Respiration">
-			misuse = <"">
+			keywords = <"Atmung","Respiration">
 			copyright = <"© openEHR Foundation">
 		>
 		["sv"] = <
 			language = <[ISO_639-1::sv]>
 			purpose = <"Att mäta de observerade egenskaperna vid spontanandning.">
+			keywords = <"respiration","andning","andningstag","resp","respiration">
+			copyright = <"© openEHR Foundation">
 			use = <"Används för att registrera de observerade och uppmätta egenskaperna i samband med spontanandning hos en person, inklusive andningsfrekvens, djup och rytm.
 
 Respiration registreras vanligen som en komponent av Vitalparametrarna - innefattande Blodtryck, Puls, Temperatur och syrgasmättnad. Det finns ytterligare specifika arketyper för vart och ett av dessa begrepp.
 
 Nyföddas och unga spädbarns respiration bör mätas före matning.">
-			keywords = <"respiration", "andning", "andningstag", "resp", "respiration">
 			misuse = <"Används inte för att registrera andra aspekter av en bredare andningsundersökningen eller bedömningen. Andra specifika arketyper kommer att användas för att registrera egenskaper som exempelvis respiratoriska ansträngningar, auskultatoriska fynd etc. 
 
 Används inte för att registrera detaljer när patienten får assisterad ventilationsbehandling.">
-			copyright = <"© openEHR Foundation">
 		>
 		["fi"] = <
 			language = <[ISO_639-1::fi]>
 			purpose = <"*To record the characteristics of spontaneous breathing by an individual.(en)">
+			keywords = <"*respirations(en)","*breathing(en)","*breath(en)","*resps(en)","*respiration(en)">
 			use = <"*Use to record the observed and measured characteristics of spontaneous breathing by an individual, including respiratory rate, depth and rhythm.
 
 Respirations are commonly recorded as one component of Vital signs.(en)">
-			keywords = <"*respirations(en)", "*breathing(en)", "*breath(en)", "*resps(en)", "*respiration(en)">
 			misuse = <"*Not to be used to record the physical examination of the respiratory system - use the physical examination family of archetypes for this purpose, such as CLUSTER.exam-chest or CLUSTER.exam-lung.
 
 Not to be used to record other measurements related to breathing - use specific archetypes for the purpose, for example OBSERVATION.pulse_oximetry. 
@@ -123,24 +125,24 @@ Not to be used for recording details about individuals who are undergoing assist
 		["es-ar"] = <
 			language = <[ISO_639-1::es-ar]>
 			purpose = <"Para registrar las características de la respiración espontánea.">
+			keywords = <"respiraciones","respiración","FR">
+			copyright = <"© openEHR Foundation">
 			use = <"Usar para registrar las características observadas y medidas, relacionadas con la respiraciones espontáneas en una persona, incluyendo frecuencia respiratoria, profundidad y ritmo.
 
 Las respiraciones son comúnmente registradas como un componente de los signos vitales (los cuales abarcan la presión arterial, el pulso, la temperatura y la oximetría de pulso). Hay arquetipos específicos adicionales para cada uno de esos conceptos.
 
 Las respiraciones deberían ser medidas antes de las comidas en neonatos e infantes jóvenes.">
-			keywords = <"respiraciones", "respiración", "FR">
 			misuse = <"No usar para intentar registrar otros aspectos del exámen respiratorio en general. Otros arquetipos específicos serán utilizados para registrar características tales como esfuerzo respiratorio, hallazgos auscultatorios, etc.
 
 No usar para registrar detalles cuando el paciente está en ventilación asistida.">
-			copyright = <"© openEHR Foundation">
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			purpose = <"For å registrere de observerte karakteristika ved spontant åndedrett.">
+			keywords = <"pusting","respirasjon","pust","respirasjoner","frekvens","rytme","vital","tegn","livsfunksjoner","åndedrett","åndedrag","ventilasjon","hyperventilering","hyperventilasjon","hypoventilering","hypoventilasjon","ånde","blåse">
 			use = <"Brukes til å registrere observerte og målte karakteristika ved spontant åndedrett, inkludert frekvens, dybde og rytme.
 
 Registrering av observasjoner av åndedrett er vanligvis en del av vitale målinger.">
-			keywords = <"pusting", "respirasjon", "pust", "respirasjoner", "frekvens", "rytme", "vital", "tegn", "livsfunksjoner", "åndedrett", "åndedrag", "ventilasjon", "hyperventilering", "hyperventilasjon", "hypoventilering", "hypoventilasjon", "ånde", "blåse">
 			misuse = <"Skal ikke brukes for å registrere undersøkelse av åndedrettssystemet, bruk spesifikke arketyper i gruppen av Undersøkelsesfunn til dette, for eksempel CLUSTER.exam-chest eller CLUSTER.exam-lung.
 
 Skal ikke brukes for å registrere andre målinger knyttet til åndedrettet, bruk spesifikke arketyper til dette, for eksempel OBSERVATION-pulse_oximetry (Pulsoksymetri).
@@ -152,37 +154,38 @@ Skal ikke brukes til å registrere detaljer knyttet til assistert ventilasjon.">
 		["pt-br"] = <
 			language = <[ISO_639-1::pt-br]>
 			purpose = <"Registrar as características observadas da respiração espontânea.">
+			keywords = <"respirações","respiração">
+			copyright = <"© openEHR Foundation">
 			use = <"Usar para registrar as características observadas e medidas relacionadas com as respirações espontâneas em uma pessoa, incluindo frequência respiratória, profundidade e ritmo.
 
 As respirações são comumente registradas como um componente de sinais vitais - incluindo pressão arterial, pulso, temperatura e oximetria. Há arquétipos adicionais, específicos para cada um desses conceitos.
 
 As respirações devem ser medidas antes de refeições em recém-nascidos e crianças jovens.">
-			keywords = <"respirações", "respiração">
 			misuse = <"Não deve ser usado para tentar registrar outros aspectos mais amplos do exame ou avaliação respiratória. Outros arquétipos específicos serão utilizados para registrar características tais como esforço respiratório, achados auscultatórios, etc.
 
 Não deve ser usado para registrar detalhes quando o paciente está sob ventilação assistida.">
-			copyright = <"© openEHR Foundation">
 		>
 		["ar-sy"] = <
 			language = <[ISO_639-1::ar-sy]>
 			purpose = <"لتسجيل الخصائص الملاحظة - المشاهدة - للتنفس التلقائي">
+			keywords = <"*respirations(en)","*breathing(en)","*breath(en)","*resps(en)","*respiration(en)">
+			copyright = <"© openEHR Foundation">
 			use = <"يستخدم لتسجيل الخصائص الملاحظة - المشاهدة - أو التي يتم قياسها فيما يتعلق بالتنفس التلقائي لدى الشخص, بما فيه معدل  ( سرعة) التنفس, عمق التنفس و نَظْمه.
 
 عادة ما يتم تسجيل التنفس كجزء من العلامات الحياتية - و التي تتكون من ضغط الدم, النبض, درجة الحرارة و قياس التأكسج. و يوجد بالفعل نماذج مخصوصة إضافية لكل من هذه المفاهيم.
 
 ينبغي قياس التنفس قبل الإطعام في حديثي الولادة و الرضع الصغار">
-			keywords = <"*respirations(en)", "*breathing(en)", "*breath(en)", "*resps(en)", "*respiration(en)">
 			misuse = <"لا يمكن استخدام النموذج لمحاولة تسجيل الجوانب الأخرى من الفحص أو التقييم التنفسي أشمل. يمكن استخدام نماذج أخرى مخصصة لتسجيل الخصائص من المجهود التنفسي و الموجودات التسمعية, إلى آخره
  لا يستخدم لتسجيل تفاصيل حالة المنريض إذا كان يخضع للتهوية المساعَدة">
-			copyright = <"© openEHR Foundation">
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"To record the characteristics of spontaneous breathing by an individual.">
+			keywords = <"respirations","breathing","breath","resps","respiration">
+			copyright = <"© openEHR Foundation">
 			use = <"Use to record the observed and measured characteristics of spontaneous breathing by an individual, including respiratory rate, depth and rhythm.
 
 Respirations are commonly recorded as one component of vital signs.">
-			keywords = <"respirations", "breathing", "breath", "resps", "respiration">
 			misuse = <"Not to be used to record the physical examination of the respiratory system - use the physical examination family of archetypes for this purpose, such as CLUSTER.exam-chest or CLUSTER.exam-lung.
 
 Not to be used to record other measurements related to breathing - use specific archetypes for the purpose, for example OBSERVATION.pulse_oximetry. 
@@ -190,40 +193,37 @@ Not to be used to record other measurements related to breathing - use specific 
 Not to be used to record functional assessments of breathing - use specific archetypes for the purpose, for example OBSERVATION.pulmonary_function.
 
 Not to be used for recording details about individuals who are undergoing assisted ventilation.">
-			copyright = <"© openEHR Foundation">
 		>
 		["fa"] = <
 			language = <[ISO_639-1::fa]>
 			purpose = <"برای ثبت ویژگی هایی قابل مشاهده تنفس خود بخود بکار می رود.">
+			keywords = <"تنفسها","نفس کشیده","نفس","تنفسی">
+			copyright = <"© openEHR Foundation">
 			use = <"برای ثبت ویژگی هایی قابل مشاهده و قابل اندازه گیری مربوط به تنفس خود بخود فرد ، شامل میزان تنفس ، عمق و ریتم استفاده می شود.
 تنفسها معمولا به عنوان یکی از مولفه های علایم حیاتی ثبت می شوند -شامل فشار خون ، نبض ، درجه حرارت واندازه گیری اکسیژن.
 در نوزادان و شیر خواران اندازه گیری تنفس قبل از تغذیه اندازه گیری می شود  .
 
 ">
-			keywords = <"تنفسها", "نفس کشیده", "نفس", "تنفسی">
 			misuse = <"برای ثبت سایر جنبه های آزمایشات یا ارزیابی گسترده تر تنفسی استفاده نمی شود.
 از سایر الگوسازهای تخصصی برای ثبت ویژگی هایی نظیر تلاش برای تنفس،یافته های شنیداری و غیره استفاده نمایید.
 برای ثبت جزییات در زمانی که فرد تحت تنفس مصنوعی است استفاده نکنید .  ">
-			copyright = <"© openEHR Foundation">
 		>
 		["nl"] = <
 			language = <[ISO_639-1::nl]>
 			purpose = <"Om observaties van de spontane ademhaling te registreren ">
+			keywords = <"ademhaling","respiratie","inademen","uitademen","ademteug","adem","ademen">
+			copyright = <"© openEHR Foundation">
 			use = <"Wordt gebruikt om observaties en metingen te registreren, die gerelateerd zijn aan de spontane ademhaling van een persoon, inclusief ademhalingsfrequentie, diepte en ritme
 
 Ademhaling wordt gewoonlijk geregistreerd als onderdeel van de vitale functies - bestaande uit bloeddruk, temperatuur en zuurstofsaturatie. Er zijn aanvullende specifieke archetypes voor deze concepten.
 
 De ademhaling moet bij neonaten en jonge kinderen gemeten worden voor de voeding.">
-			keywords = <"ademhaling", "respiratie", "inademen", "uitademen", "ademteug", "adem", "ademen">
 			misuse = <"Niet te gebruiken om andere aspecten van het uitgebreidere onderzoek of beoordeling van de ademhaling te registreren. Andere, specifieke archetypes zullen gebruikt worden om karakteristieken zoals ademhalingsinspanning en auscultatoire bevindingen te registreren.
 
 Niet te gebruiken voor de registratie van details, als de persoon beademing ondergaat.
 ">
-			copyright = <"© openEHR Foundation">
 		>
 	>
-	lifecycle_state = <"published">
-	other_contributors = <"Marja Buur, Medisch Centrum Alkmaar/ Code24, Netherlands", "Gregory Caulton, PatientOS Inc., United States", "Stephen Chu, NeHTA, Australia", "Sebastian Garde, Ocean Informatics, Germany", "Anne Harbison, CPCER, Australia", "Sam Heard, Ocean Informatics, Australia", "Omer Hotomaroglu, Turkey", "Sundaresan Jagannathan, Scottish NHS, United Kingdom", "Andrew James, University of Toronto, Canada", "Heather Leslie, Atomica Informatics, Australia (Editor)", "Rikard Lovstrom, Swedish Medical Association, Sweden", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (Editor)", "Jeroen Meintjens, Medisch Centrum Alkmaar, Netherlands", "Soon Ghee Yap, Singapore Health Services Pte Ltd, Singapore", "Hildegard McNicoll, freshEHR Clinical Informatics Ltd., UK">
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
 		["custodian_organisation"] = <"openEHR Foundation">
@@ -360,7 +360,6 @@ definition
 			}
 		}
 	}
-
 
 ontology
 	term_definitions = <

@@ -2,21 +2,15 @@ archetype (adl_version=1.4; uid=90225e36-20a8-403a-8172-77e53b9990b2)
 	openEHR-EHR-OBSERVATION.laboratory_test_result.v1
 
 concept
-	[at0000]	-- *Laboratory test result(en)
+	[at0000]
+
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
-		["ar-sy"] = <
-			language = <[ISO_639-1::ar-sy]>
-			author = <
-				["name"] = <"Mona Saleh">
-			>
-		>
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			author = <
 				["name"] = <"Sarah Ballout">
-				["organisation"] = <"MHH-Hannover">
 				["email"] = <"ballout.sarah@mh-hannover.de">
 			>
 		>
@@ -25,6 +19,12 @@ language
 			author = <
 				["name"] = <"Vebjørn Arntzen/Silje Ljosland Bakke/Liv Laugen">
 				["organisation"] = <"Oslo universitetssykehus HF/Nasjonal IKT HF/Oslo universitetssykehus, Norway">
+			>
+		>
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			author = <
+				["name"] = <"Mona Saleh">
 			>
 		>
 		["zh-cn"] = <
@@ -37,17 +37,21 @@ language
 			accreditation = <"N/A">
 		>
 	>
+
 description
 	original_author = <
-		["name"] = <"Ian McNicoll">
-		["email"] = <"ian@freshehr.com">
-		["organisation"] = <"freshEHR Clinical Informatics">
 		["date"] = <"2015-07-20">
+		["name"] = <"Ian McNicoll">
+		["organisation"] = <"freshEHR Clinical Informatics">
+		["email"] = <"ian@freshehr.com">
 	>
+	lifecycle_state = <"published">
+	other_contributors = <"Andreas Abildgaard, OUS, Norway","Yaser Abuhajjaj, United Arab Emirates","Marit Alice Venheim, Helse Vest IKT, Norway","Tomas Alme, DIPS ASA, Norway","Vebjørn Arntzen, Oslo University Hospital, Norway (openEHR Editor)","Koray Atalag, University of Auckland, New Zealand","Silje Ljosland Bakke, Nasjonal IKT HF, Norway (openEHR Editor)","Ryan Julius Banez, AC Health, Philippines","Marcos Barreto, Universidade Federal da Bahia, Brazil","Kristian Berg, Vestvågøy kommune - Fagutviklingsavdelingen, Norway","SB Bhattacharyya, Sudisa Consultancy Services, India","Sharmila Biswas, Dr Sharmila Biswas GP, Australia","Johan Bjerner, Fürst, Norway","Greg Burch, Tiny Medical Apps, United Kingdom","Fatemeh Chalabianloo, Helse Bergen, Norway","Doug Chesher, PaLMS, Australia","Bjørn Christensen, Helse Bergen HF, Norway","Stephen Chu, NEHTA, Australia (Editor)","Matthew Cordell, NEHTA, Australia","Lisbeth Dahlhaug, Helse Midt - Norge IT, Norway","Andre de Wolf, NeHTA, Australia","Gail Easterbrook, Flinders Medical Centre, Australia","Stig Erik Hegrestad, Helse Førde, Norway","David Evans, Queensland Health, Australia","David Fallas, Sysmex NZ Ltd, New Zealand","Shahla Foozonkhah, Iran ministry of health and education, Iran","Hildegard Franke, freshEHR Clinical Informatics Ltd., United Kingdom","Heath Frankel, Ocean Informatics, Australia","Frode Gilberg, PRIDOK AS, Norway","Rosane Gotardo, Systema Ltda., Brazil","Heather Grain, Llewelyn Grain Informatics, Australia","Grahame Grieve, Health Intersections Pyty Ltd, Australia (Editor)","Åshild Halvorsen, Helse Nord RHF, Norway","martin hanlon, Careworks, United Kingdom","Sam Heard, Ocean Informatics, Australia","Anca Heyd, DIPS ASA, Norway","Geir Hoff, Sykehuset Telemark HF, Norway","Evelyn Hovenga, EJSH Consulting, Australia","Silje Kaada, Helse-Bergen, Avdeling for immunologi og transfusjonsmedisin, Norway","Lars Morgan Karlsen, DIPS ASA, Norway","Mary Kelaher, NEHTA, Australia","Nils Kolstrup, Skansen Legekontor og Nasjonalt Senter for samhandling og telemedisin, Norway","Anne Kristin Strand, Sykehuspartner HF, Norway","Tomi Laptoš, Marand, Slovenia","Liv Laugen, Oslo universitetssykehus, Norway","Michael Legg, Michael Legg & associates, Australia","Sabine Leh, Haukeland University Hospital, Department of Pathology, Norway","Heather Leslie, Atomica Informatics, Australia (openEHR Editor)","Neranga Liyanaarachchi, Ministry of Health, Postgraduate Institute of Medicine, Sri Lanka","Zijian Li, China","Jan-Arne Ludvigsen, DIPS AS, Norway","Hallvard Lærum, Direktoratet for e-helse, Norway","Manisha Mantri, C-DAC, India","Siv Marie Lien, DIPS ASA, Norway","Ole Martin Sand, DIPS ASA, Norway","Mike Martyn, The Hobart Anaesthetic Group, Australia","James McClay, University of Nebraska Medical Center, United States","Andrew McIntyre, Medical-Objects, Australia","David McKillop, NEHTA, Australia","Hildegard McNicoll, freshEHR Clinical Informatics Ltd., United Kingdom","Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)","Angela Merzweiler, University Hospital of Heidelberg, Germany","Paul Miller, SCIMP NHS Scotland, United Kingdom","Chris Mitchell, RACGP, Australia","Stewart Morrison, NEHTA, Australia","George Nikolaidis, Ergobyte Informatics S.A., Greece","Bjørn Næss, DIPS AS, Norway","Bjørn Odvar Eriksen, UNN, Norway","Masafumi Okada, University of Tokyo, Japan","Andrej Orel, Marand d.o.o., Slovenia","Michael Osborne, Mater Health Services, Australia","Vaclav Papez, University of West Bohemia, Czech Republic","Anne Pauline Anderssen, Helse Nord RHF, Norway","Ana Pereira, CINTESIS, CUF-Porto, Portugal","Vladimir Pizzo, Hospital Sírio Libanês, Brazil","Navin Ramachandran, NHS, United Kingdom","Lars Retterstøl, OUS, Norway","Jussara Rotzsch, Hospital Alemão Oswaldo Cruz, Brazil","David Rowed, VAMC Clinic, Australia (Editor)","Marcus vinicius de Régis, NUTES, Brazil","Mona Saleh (Translator)","Diogo Schmidt, UNISINOS, Brazil","Gro-Hilde Severinsen, Norwegian center for ehealthresearch, Norway","Anoop Shah, University College London, United Kingdom","Kyle Shore, Charm Health, Australia","Hildegunn Siv Aase, Helse Bergen, Norway","Niclas Skyttberg, Karolinska Institutet, Sweden","Matt Stibbs, Digi-M Ltd., United Kingdom","Iztok Stotl, UKCLJ, Slovenia","Norwegian Review Summary, Nasjonal IKT HF, Norway","Line Sæle, Nasjonal IKT HF, Norway","Sveinung Sørbye, UNN HF, Norway","Nyree Taylor, Ocean Informatics, Australia","Tesfay Teame, Folkehelseinstittutet, Norway","Rowan Thomas, St. Vincent's Hospital Melbourne, Australia","Michael Thompson, Queensland Health, Australia","Gordon Tomes, Australian Institute of Health and Welfare, Australia","Richard Townley-O'Neill, NEHTA, Australia","Katrin Troeltzsch, Nationales Centrum für Tumorerkrankungen (NCT); Universitätsklinikum Heidelberg, Germany","Torleif Trydal, Fürst AS, Norway","Gro-Hilde Ulriksen, Norwegian center for ehealthresearch, Norway","John Tore Valand, Helse Bergen, Norway (openEHR Editor)","Wouter Zanen, Eurotranplant, Netherlands","Lin Zhang, Taikang Insurance Group, China">
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Dokumentation des Ergebnisses - einschließlich der Befunde und der Interpretation des Labors - einer Untersuchung, die an Proben durchgeführt wurde, die von einer Einzelperson stammen oder mit dieser Person zusammenhängen.">
+			keywords = <"Labor","Pathologie","Biochemie","Hämatologie","Mikrobiologie","Immunologie","Laboratorium","anatomisch","chemisch","klinisch","Immunpathologie","Zytologie","Histopathologie","Untersuchung","Biopsie","Probe","forensisch","genetisch bedingt","Labormedizin","Ergebnisse","Analyse">
 			use = <"Zur Dokumentation des Ergebnisses - einschließlich der Befunde und der Interpretation des Labors - einer Untersuchung, die an Proben durchgeführt wurde, die von einer Einzelperson stammen oder mit dieser Person zusammenhängen. Dies geschieht in der Regel in einem Labor, kann aber auch in anderen Bereichen, wie z.B. am Point of Care, durchgeführt werden. 
 
 Dieser Archetyp soll das Ergebnis einer erforderlichen Einzeluntersuchung abdecken, bei der die Probe(n) über ein Einzelverfahren gesammelt werden, und kann mehrere Ergebnisse zu Analyten oder andere Komponenten enthalten. Beispiele hierfür könnte das „Vollblutbild“ sein, das ein separates Analyseergebnis für die Zählung jedes Blutzelltyps liefert, oder „Nierenbiopsie nicht neoplastisch“, das Ergebnisse aus der Mikroskopie, Immunhistochemie und Elektronenmikroskopie liefern würde.
@@ -72,7 +76,6 @@ Werden vom Labor \"Reflextests\" durchgeführt, können diese gemäß den US/FHI
 
 
 ">
-			keywords = <"Labor", "Pathologie", "Biochemie", "Hämatologie", "Mikrobiologie", "Immunologie", "Laboratorium", "anatomisch", "chemisch", "klinisch", "Immunpathologie", "Zytologie", "Histopathologie", "Untersuchung", "Biopsie", "Probe", "forensisch", "genetisch bedingt", "Labormedizin", "Ergebnisse", "Analyse">
 			misuse = <"Nicht zur Dokumentation eines Autopsieberichts oder eines forensischen Berichts verwenden. Einzelne Proben, die bei einer Autopsie oder einem forensischen Bericht entnommen werden, können jedoch mit diesem Archetyp dargestellt werden. Für diese sind zusätzliche spezialisierte Archetypen erforderlich, um die Daten zu dokumentieren.
 
 Dieser Archetyp eignet sich zur Darstellung allgemeiner Labortestergebnisse, jedoch nicht für vollständige synoptische Berichte. Für diese sind zusätzliche spezialisierte Archetypen erforderlich, um die Daten zu dokumentieren.">
@@ -80,6 +83,7 @@ Dieser Archetyp eignet sich zur Darstellung allgemeiner Labortestergebnisse, jed
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			purpose = <"For å registrere resultat, funn og laboratoriets tolkning, av en laboratorieundersøkelse utført på prøvemateriale fra et individ eller relatert til individet.">
+			keywords = <"medisinsk biokjemi","medisinsk mikrobiologi","medisinsk genetikk","klinisk farmakologi","patologi","immunologi og transfusjonsmedisin","laboratorie","lab","anatomisk","prøve","rettsmedisinsk","laboratoriemedisin","generell kjemi","materiale","prøvemateriale","lokalisasjon","undersøkelse","analyse","metode (analysemetode)","laboratoriespesialitet","blodprøve","serum","plasma","fullblod","analytt","kapillærprøver","venøse prøver","arterielle prøver","prøvetaking","immunopatologi","cytologi","histopatologi","biopsi","preparat","immunhistokjemi","immuncytokjemi","molekylærgenetiske analyser","histologi","cytologi","cervixcytologi","obduksjon","flowcytometri","molekylær patologi","elektronmikroskopi","neuropatologi","frysesnitt","punksjonscytologi","makrobeskjæring","makroskopisk undersøkelse","mikrobiologi","bakteriologi","virologi","serologi","molekylærdiagnostikk","parasittologi","mykologi","protozologi","immunologi","medisinsk immunologi","transfusjonsmedisin","immunhematologi","transplantasjonsimmunologi","cellulær immunologi","ex vivo cellelaboratorium","hormonanalyser","endokrinologi","blodbank","blodkomponenter","hematologi","kjemisk","klinisk","kjemi","klinisk kjemi","klinisk biokjemi","metabolsk molekylærbiologi","homeostase og trombose","koagulasjon","klinisk farmakologi","farmakologi","doping analyser","klinisk fysiologi","toksikologi","rusmiddelanalyse","misbruksdiagnostikk","genetisk","genetikk","HTS-diagnostikk","genpaneler","farmakogenetikk","cancer cytogenetikk","preparat","rettsmedisinsk">
 			use = <"Brukes for å registrere resultat, funn og laboratoriets tolkning, av en laboratorieundersøkelse utført på prøvemateriale fra et individ eller relatert til individet. Dette utføres typisk i et laboratorium, men kan også gjøres i andre miljøer, som for eksempel ved pasientnær analysering.
 
 Denne arketypen er ment å dekke resultatet av én rekvirert undersøkelse der prøvene er tatt i én prosedyre, og som kan ha flere analyseresultater eller andre komponenter. Eksempler på dette kan være \"Differensialtelling av leukocytter\", som gir et separat resultat for antallet av hver type hvite blodceller, eller \"Nyrebiopsi ikke-neoplastisk\", som gir resultater fra mikroskopi, immunohistokjemi og elektronmikroskopi.
@@ -98,7 +102,6 @@ Der laboratoriet endrer analyser eller legger til analyser som oppfølging, kan 
 1. Registrer de endrede analysene/tilleggsanalysene innenfor samme instans av denne arketypen.
 2. Registrer de endrede analysene/tilleggsanalysene i en ny instans av denne arketypen, men referer til den opprinnelige rekvisisjonen ved hjelp av \"Rekvisisjonsdetaljer\".
 3. Registrer de endrede analysene/tilleggsanalysene i en ny instans av denne arketypen, men referer til en ny rekvisisjon i tillegg til den opprinnelige rekvisisjonen, ved hjelp av \"Rekvisisjonsdetaljer\".">
-			keywords = <"medisinsk biokjemi", "medisinsk mikrobiologi", "medisinsk genetikk", "klinisk farmakologi", "patologi", "immunologi og transfusjonsmedisin", "laboratorie", "lab", "anatomisk", "prøve", "rettsmedisinsk", "laboratoriemedisin", "generell kjemi", "materiale", "prøvemateriale", "lokalisasjon", "undersøkelse", "analyse", "metode (analysemetode)", "laboratoriespesialitet", "blodprøve", "serum", "plasma", "fullblod", "analytt", "kapillærprøver", "venøse prøver", "arterielle prøver", "prøvetaking", "immunopatologi", "cytologi", "histopatologi", "biopsi", "preparat", "immunhistokjemi", "immuncytokjemi", "molekylærgenetiske analyser", "histologi", "cytologi", "cervixcytologi", "obduksjon", "flowcytometri", "molekylær patologi", "elektronmikroskopi", "neuropatologi", "frysesnitt", "punksjonscytologi", "makrobeskjæring", "makroskopisk undersøkelse", "mikrobiologi", "bakteriologi", "virologi", "serologi", "molekylærdiagnostikk", "parasittologi", "mykologi", "protozologi", "immunologi", "medisinsk immunologi", "transfusjonsmedisin", "immunhematologi", "transplantasjonsimmunologi", "cellulær immunologi", "ex vivo cellelaboratorium", "hormonanalyser", "endokrinologi", "blodbank", "blodkomponenter", "hematologi", "kjemisk", "klinisk", "kjemi", "klinisk kjemi", "klinisk biokjemi", "metabolsk molekylærbiologi", "homeostase og trombose", "koagulasjon", "klinisk farmakologi", "farmakologi", "doping analyser", "klinisk fysiologi", "toksikologi", "rusmiddelanalyse", "misbruksdiagnostikk", "genetisk", "genetikk", "HTS-diagnostikk", "genpaneler", "farmakogenetikk", "cancer cytogenetikk", "preparat", "rettsmedisinsk">
 			misuse = <"Skal ikke brukes for å lagre en sammenstilling etter obduksjon eller rettsmedisinsk undersøkelse, selv om prøver av noen prøvematerialer som blir tatt i en obduksjon kan bli representert i denne arketypen. For å lage selve obduksjons- eller den rettsmedisinske rapporten må man bruke spesialiserte arketyper.
 
 Denne arketypen er passende for å representere generelle laboratoriesvar, men er ikke ment å dekke komplette sammendragsrapporter (\"synoptic reports\") innenfor patologi. For disse trengs det i tillegg spesialiserte arketyper.">
@@ -107,16 +110,18 @@ Denne arketypen er passende for å representere generelle laboratoriesvar, men e
 			language = <[ISO_639-1::ar-sy]>
 			purpose = <"لتسجيل نتيجة اختبار المعمل, و التي قد يتم استخدامها لتسجيل اختبار ذي قيمة واحدة, و عادة ما يتم بعد ذلك المزيد من التخصيص أو الوضع في قالب لتمثيل اختبار متعدد القيم أو رتل من الاختبارات.
 و يمثل هذا النموذج كوالد (أب) للتخصيصات الأخرى لاختبارات معملية أكثر تحديدا مثل الميكروبيولوجيا و الهيستوباثولوجيا.">
+			keywords = <"المعمل - المختبر","الباثولوجيا - المرضية","الكيمياء الحيوية","الدمويات","الميكروبيولوجيا","المناعيات - علم المناعة">
+			copyright = <"© openEHR Foundation">
 			use = <"قد يستخدم لتسجيل نتيجة اختبار المعمل, و التي قد يتم استخدامها لتسجيل اختبار ذي قيمة واحدة, و عادة ما يتم بعد ذلك المزيد من التخصيص أو الوضع في قالب لتمثيل اختبار متعدد القيم أو رتل من الاختبارات.
 
 يتم بعد ذلك تقديم التقرير للطبيب السريري الذي قام بطلب الاختبار في سياق تقرير معملي متكامل.">
-			keywords = <"المعمل - المختبر", "الباثولوجيا - المرضية", "الكيمياء الحيوية", "الدمويات", "الميكروبيولوجيا", "المناعيات - علم المناعة">
 			misuse = <"قد تكون التخصيصات أكثر مناسبة للتقارير المركبة مثل حالات الميكروبيولوجيا أو الهيستوباثولوجيا.">
-			copyright = <"© openEHR Foundation">
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"To record the result, including findings and the laboratory's interpretation, of an investigation performed on specimens collected from an individual or related to that individual.">
+			keywords = <"lab","pathology","biochemistry","haematology","microbiology","immunology","laboratory","anatomical","chemical","clinical","immunopathology","cytology","histopathology","test","biopsy","specimen","forensic","genetic","laboratory medicine","results","analysis">
+			copyright = <"© openEHR Foundation">
 			use = <"Use to record the result, including findings and the laboratory's interpretation, of an investigation performed on specimens collected from an individual or related to that individual. This is typically done in a laboratory, but may be done in other environments such as at the point of care.
 
 This archetype is intended to cover the result of a single ordered investigation where the specimen(s) are collected as a single procedure, and may include multiple analyte results or other components. Examples of this could include 'Full blood count', which would yield a separate analyte result for the count of each type of blood cell, or 'kidney biopsy non-neoplastic', which would yield findings from microscopy, immunohistochemistry and electron microscopy.
@@ -138,11 +143,11 @@ Where 'reflex tests' are performed by the laboratory, these may be handled as pe
 			misuse = <"Not to be used to record an Autopsy or a Forensic report, although tests on some specimens that are taken in such situations may be represented using this archetype. For these, additional or specialised archetypes will be required to represent the data.
 
 This archetype is suitable for representation of general laboratory test results, but not intended to cover full synoptic reports. For these, additional specialising archetypes are required to represent the data.">
-			copyright = <"© openEHR Foundation">
 		>
 		["zh-cn"] = <
 			language = <[ISO_639-1::zh-cn]>
 			purpose = <"用于记录针对组织和体液等标本所进行的病理学实验室检验项目的发现/所见和解释。这通常是由实验室来完成，但也可能会是在其他环境下完成的，如床旁。">
+			keywords = <"实验室","医学实验室","临床实验室","中心实验室","检验科","化验室","化验科","病理学","检验医学","检验","医学检验","临床检验医学","临床检验","生物化学","生化","血液学","微生物学","免疫学","解剖学","化学","临床","免疫病理学","细胞学","组织病理学","试验","试验项目","检验项目","化验项目","报告项目","活组织检查","活检","标本","样本","样品","试样","法医学","遗传学">
 			use = <"用于记录任何病理学实验室检验结果，包括作为某个组合型操作项目或手术的组成部分而进行的针对某种标本的某一检验项目所获得的结果。
 
 可以采用模板或专用原始型来表达多种分析物的组套。
@@ -161,17 +166,11 @@ This archetype is suitable for representation of general laboratory test results
 此原始型适合于表达一般性的病理学检验结果，但并未打算涵盖完整的提要式报告。对于此类报告，则需要采用额外的特化性原始型来表达相应的数据。
 
 此原始型在设计上已经支持临床病理学，但可能并不适合于其他种类的病理学用途。">
-			copyright = <"">
 		>
 	>
-	lifecycle_state = <"published">
-	other_contributors = <"Andreas Abildgaard, OUS, Norway", "Yaser Abuhajjaj, United Arab Emirates", "Marit Alice Venheim, Helse Vest IKT, Norway", "Tomas Alme, DIPS ASA, Norway", "Vebjørn Arntzen, Oslo University Hospital, Norway (openEHR Editor)", "Koray Atalag, University of Auckland, New Zealand", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (openEHR Editor)", "Ryan Julius Banez, AC Health, Philippines", "Marcos Barreto, Universidade Federal da Bahia, Brazil", "Kristian Berg, Vestvågøy kommune - Fagutviklingsavdelingen, Norway", "SB Bhattacharyya, Sudisa Consultancy Services, India", "Sharmila Biswas, Dr Sharmila Biswas GP, Australia", "Johan Bjerner, Fürst, Norway", "Greg Burch, Tiny Medical Apps, United Kingdom", "Fatemeh Chalabianloo, Helse Bergen, Norway", "Doug Chesher, PaLMS, Australia", "Bjørn Christensen, Helse Bergen HF, Norway", "Stephen Chu, NEHTA, Australia (Editor)", "Matthew Cordell, NEHTA, Australia", "Lisbeth Dahlhaug, Helse Midt - Norge IT, Norway", "Andre de Wolf, NeHTA, Australia", "Gail Easterbrook, Flinders Medical Centre, Australia", "Stig Erik Hegrestad, Helse Førde, Norway", "David Evans, Queensland Health, Australia", "David Fallas, Sysmex NZ Ltd, New Zealand", "Shahla Foozonkhah, Iran ministry of health and education, Iran", "Hildegard Franke, freshEHR Clinical Informatics Ltd., United Kingdom", "Heath Frankel, Ocean Informatics, Australia", "Frode Gilberg, PRIDOK AS, Norway", "Rosane Gotardo, Systema Ltda., Brazil", "Heather Grain, Llewelyn Grain Informatics, Australia", "Grahame Grieve, Health Intersections Pyty Ltd, Australia (Editor)", "Åshild Halvorsen, Helse Nord RHF, Norway", "martin hanlon, Careworks, United Kingdom", "Sam Heard, Ocean Informatics, Australia", "Anca Heyd, DIPS ASA, Norway", "Geir Hoff, Sykehuset Telemark HF, Norway", "Evelyn Hovenga, EJSH Consulting, Australia", "Silje Kaada, Helse-Bergen, Avdeling for immunologi og transfusjonsmedisin, Norway", "Lars Morgan Karlsen, DIPS ASA, Norway", "Mary Kelaher, NEHTA, Australia", "Nils Kolstrup, Skansen Legekontor og Nasjonalt Senter for samhandling og telemedisin, Norway", "Anne Kristin Strand, Sykehuspartner HF, Norway", "Tomi Laptoš, Marand, Slovenia", "Liv Laugen, Oslo universitetssykehus, Norway", "Michael Legg, Michael Legg & associates, Australia", "Sabine Leh, Haukeland University Hospital, Department of Pathology, Norway", "Heather Leslie, Atomica Informatics, Australia (openEHR Editor)", "Neranga Liyanaarachchi, Ministry of Health, Postgraduate Institute of Medicine, Sri Lanka", "Zijian Li, China", "Jan-Arne Ludvigsen, DIPS AS, Norway", "Hallvard Lærum, Direktoratet for e-helse, Norway", "Manisha Mantri, C-DAC, India", "Siv Marie Lien, DIPS ASA, Norway", "Ole Martin Sand, DIPS ASA, Norway", "Mike Martyn, The Hobart Anaesthetic Group, Australia", "James McClay, University of Nebraska Medical Center, United States", "Andrew McIntyre, Medical-Objects, Australia", "David McKillop, NEHTA, Australia", "Hildegard McNicoll, freshEHR Clinical Informatics Ltd., United Kingdom", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)", "Angela Merzweiler, University Hospital of Heidelberg, Germany", "Paul Miller, SCIMP NHS Scotland, United Kingdom", "Chris Mitchell, RACGP, Australia", "Stewart Morrison, NEHTA, Australia", "George Nikolaidis, Ergobyte Informatics S.A., Greece", "Bjørn Næss, DIPS AS, Norway", "Bjørn Odvar Eriksen, UNN, Norway", "Masafumi Okada, University of Tokyo, Japan", "Andrej Orel, Marand d.o.o., Slovenia", "Michael Osborne, Mater Health Services, Australia", "Vaclav Papez, University of West Bohemia, Czech Republic", "Anne Pauline Anderssen, Helse Nord RHF, Norway", "Ana Pereira, CINTESIS, CUF-Porto, Portugal", "Vladimir Pizzo, Hospital Sírio Libanês, Brazil", "Navin Ramachandran, NHS, United Kingdom", "Lars Retterstøl, OUS, Norway", "Jussara Rotzsch, Hospital Alemão Oswaldo Cruz, Brazil", "David Rowed, VAMC Clinic, Australia (Editor)", "Marcus vinicius de Régis, NUTES, Brazil", "Mona Saleh (Translator)", "Diogo Schmidt, UNISINOS, Brazil", "Gro-Hilde Severinsen, Norwegian center for ehealthresearch, Norway", "Anoop Shah, University College London, United Kingdom", "Kyle Shore, Charm Health, Australia", "Hildegunn Siv Aase, Helse Bergen, Norway", "Niclas Skyttberg, Karolinska Institutet, Sweden", "Matt Stibbs, Digi-M Ltd., United Kingdom", "Iztok Stotl, UKCLJ, Slovenia", "Norwegian Review Summary, Nasjonal IKT HF, Norway", "Line Sæle, Nasjonal IKT HF, Norway", "Sveinung Sørbye, UNN HF, Norway", "Nyree Taylor, Ocean Informatics, Australia", "Tesfay Teame, Folkehelseinstittutet, Norway", "Rowan Thomas, St. Vincent's Hospital Melbourne, Australia", "Michael Thompson, Queensland Health, Australia", "Gordon Tomes, Australian Institute of Health and Welfare, Australia", "Richard Townley-O'Neill, NEHTA, Australia", "Katrin Troeltzsch, Nationales Centrum für Tumorerkrankungen (NCT); Universitätsklinikum Heidelberg, Germany", "Torleif Trydal, Fürst AS, Norway", "Gro-Hilde Ulriksen, Norwegian center for ehealthresearch, Norway", "John Tore Valand, Helse Bergen, Norway (openEHR Editor)", "Wouter Zanen, Eurotranplant, Netherlands", "Lin Zhang, Taikang Insurance Group, China">
 	other_details = <
-		["revision"] = <"1.1.1">
-		["original_publisher"] = <"openEHR Foundation">
-		["build_uid"] = <"3d7ac4ed-9eb8-45e7-9dbf-8701dd3f19da">
-		["original_namespace"] = <"org.openehr">
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
 		["references"] = <"Based on Pathology Test Result, Draft Archetype [Internet]. Australian Digital Health Agency, Australian Digital Health Agency Clinical Knowledge Manager [cited: 2017-05-04]. Available from: http://dcm.nehta.org.au/ckm/#showArchetype_1013.1.839
 
 Pathology (Data Specifications) Version 1.0 [Internet]. Sydney, Australia: National E-Health Transition Authority; 2007 May 29 [cited 2011 Jul 11]; Available at http://www.nehta.gov.au/component/docman/doc_download/962-pathology-v10.
@@ -179,102 +178,85 @@ Pathology (Data Specifications) Version 1.0 [Internet]. Sydney, Australia: Natio
 Laboratory Technical Framework, Volume 3: Content, Revision 3.0 [Internet]. USA: IHE International; 2011 May 19; [cited 2011 Jul 11]. Available from: http://www.ihe.net/Technical_Framework/index.cfm#laboratory
 
 Hl7 FHIR Diagnostic Report resource: HL7 fhir; Available from http://www.hl7.org/implement/standards/fhir/diagnosticreport.html">
-		["MD5-CAM-1.0.1"] = <"F0ACAB080C17562D092BA2B8F2323BE3">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
 		["custodian_namespace"] = <"org.openehr">
-		["custodian_organisation"] = <"openEHR Foundation">
+		["MD5-CAM-1.0.1"] = <"E2BD46A149E468536821E61182007163">
+		["build_uid"] = <"cb49f59b-bc3f-4c22-9571-13258dad6e99">
+		["revision"] = <"1.0.1">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- *Laboratory test result(en)
+	OBSERVATION[at0000] matches {    -- Laboratory test result
 		data matches {
-			HISTORY[at0001] matches {	-- Event Series
+			HISTORY[at0001] matches {    -- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..*} matches {	-- 任何事件
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
 						data matches {
-							ITEM_TREE[at0003] matches {	-- Tree
+							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0005] occurrences matches {0..1} matches {	-- *Test name(en
+									ELEMENT[at0005] matches {    -- Test name
 										value matches {
-											DV_CODED_TEXT matches {
-												defining_code matches {
-													[local::
-													at0123, 	-- blood  routine test
-													at0144, 	-- urine routine  test
-													at0124, 	-- Blood coagulation test
-													at0125, 	-- Arterial blood gas analysis
-													at0126, 	-- Cytokine detection
-													at0127, 	-- Nucleic acid testing
-													at0135, 	-- Gene detection
-													at0136, 	-- pathological examination
-													at0137, 	-- Erythrocyte sedimentation rate 
-													at0140, 	-- procalcitonin(PCT)
-													at0142, 	-- Serological test
-													at0145]	-- biochemical detection
-												}
-											}
+											DV_TEXT matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0065] occurrences matches {0..*} matches {	-- *Specimen detail(en)
+									allow_archetype CLUSTER[at0065] occurrences matches {0..*} matches {    -- Specimen detail
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.specimen(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.specimen(-[a-zA-Z0-9_]+)*\.v1/}
 									}
-									ELEMENT[at0073] occurrences matches {0..1} matches {	-- *Overall test status(en)
+									ELEMENT[at0073] occurrences matches {0..1} matches {    -- Overall test status
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0107, 	-- 已登记
-													at0037, 	-- 部分
-													at0120, 	-- *Preliminary(en)
-													at0038, 	-- 最终
-													at0040, 	-- *Amended(en)
-													at0115, 	-- *Corrected(en)
-													at0119, 	-- *Appended(en)
-													at0074, 	-- 已撤销
-													at0116]	-- 错误录入
+													at0107,    -- Registered
+													at0037,    -- Partial
+													at0120,    -- Preliminary
+													at0038,    -- Final
+													at0040,    -- Amended
+													at0115,    -- Corrected
+													at0119,    -- Appended
+													at0074,    -- Cancelled
+													at0116]    -- Entered in error
 												}
 											}
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0075] occurrences matches {0..1} matches {	-- *Overall test status timestamp(en)
+									ELEMENT[at0075] occurrences matches {0..1} matches {    -- Overall test status timestamp
 										value matches {
 											DV_DATE_TIME matches {*}
 										}
 									}
-									ELEMENT[at0077] occurrences matches {0..1} matches {	-- *Diagnostic service category(en)
+									ELEMENT[at0077] occurrences matches {0..1} matches {    -- Diagnostic service category
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0100] occurrences matches {0..1} matches {	-- *Clinical information provided(en)
+									ELEMENT[at0100] occurrences matches {0..1} matches {    -- Clinical information provided
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0097] occurrences matches {0..*} matches {	-- *Test result (en)
+									allow_archetype CLUSTER[at0097] occurrences matches {0..*} matches {    -- Test result
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.laboratory_test_analyte(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.laboratory_test_analyte(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.laboratory_test_panel(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.laboratory_test_panel(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.histopathology_findings(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.histopathology_findings(-[a-zA-Z0-9_]+)*\.v1/}
 									}
-									ELEMENT[at0057] occurrences matches {0..1} matches {	-- *Conclusion(en)
+									ELEMENT[at0057] occurrences matches {0..1} matches {    -- Conclusion
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0098] occurrences matches {0..*} matches {	-- *Test diagnosis(en)
+									ELEMENT[at0098] occurrences matches {0..*} matches {    -- Test diagnosis
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0122] occurrences matches {0..*} matches {	-- *Structured test diagnosis (en)
-										include
-											archetype_id/value matches {/.*/}
-									}
-									allow_archetype CLUSTER[at0118] occurrences matches {0..*} matches {	-- *Multimedia representation(en)
+									allow_archetype CLUSTER[at0118] occurrences matches {0..*} matches {    -- Multimedia representation
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.multimedia(-[a-zA-Z0-9_]+)*\.v1/}
 									}
-									ELEMENT[at0101] occurrences matches {0..*} matches {	-- *Comment(en)
+									ELEMENT[at0101] occurrences matches {0..*} matches {    -- Comment
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -283,14 +265,14 @@ definition
 							}
 						}
 						state matches {
-							ITEM_TREE[at0112] matches {	-- Tree
+							ITEM_TREE[at0112] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0113] occurrences matches {0..*} matches {	-- *Confounding factors(en)
+									ELEMENT[at0113] occurrences matches {0..*} matches {    -- Confounding factors
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0114] occurrences matches {0..*} matches {	-- *Structured confounding factors (en)
+									allow_archetype CLUSTER[at0114] occurrences matches {0..*} matches {    -- Structured confounding factors
 										include
 											archetype_id/value matches {/.*/}
 									}
@@ -302,74 +284,62 @@ definition
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0004] matches {	-- Tree
+			ITEM_TREE[at0004] matches {    -- Tree
 				items cardinality matches {0..*; unordered} matches {
-					allow_archetype CLUSTER[at0017] occurrences matches {0..1} matches {	-- *Receiving laboratory(en)
+					allow_archetype CLUSTER[at0017] occurrences matches {0..1} matches {    -- Receiving laboratory
 						include
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0068] occurrences matches {0..1} matches {	-- *Laboratory internal identifier(en)
+					ELEMENT[at0068] occurrences matches {0..1} matches {    -- Laboratory internal identifier
 						value matches {
 							DV_IDENTIFIER matches {*}
 							DV_TEXT matches {*}
 						}
 					}
-					CLUSTER[at0094] occurrences matches {0..*} matches {	-- *Test request details(en)
+					CLUSTER[at0094] occurrences matches {0..*} matches {    -- Test request details
 						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0106] occurrences matches {0..*} matches {	-- *Original test requested name(en)
+							ELEMENT[at0106] occurrences matches {0..*} matches {    -- Original test requested name
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0062] occurrences matches {0..1} matches {	-- 申请方医嘱标识符
-								value matches {
-									DV_IDENTIFIER matches {*}
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0063] occurrences matches {0..1} matches {	-- 接收方医嘱标识符
+							ELEMENT[at0062] occurrences matches {0..1} matches {    -- Requester order identifier
 								value matches {
 									DV_IDENTIFIER matches {*}
 									DV_TEXT matches {*}
 								}
 							}
-							allow_archetype CLUSTER[at0090] occurrences matches {0..1} matches {	-- 申请方
+							ELEMENT[at0063] occurrences matches {0..1} matches {    -- Receiver order identifier
+								value matches {
+									DV_IDENTIFIER matches {*}
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0090] occurrences matches {0..1} matches {    -- Requester
 								include
 									archetype_id/value matches {/.*/}
 							}
-							allow_archetype CLUSTER[at0035] occurrences matches {0..*} matches {	-- *Distribution list(en)
+							allow_archetype CLUSTER[at0035] occurrences matches {0..*} matches {    -- Distribution list
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.distribution(-[a-zA-Z0-9_]+)*\.v1/}
 							}
 						}
 					}
-					ELEMENT[at0111] occurrences matches {0..1} matches {	-- *Point-of-care test(en)
+					ELEMENT[at0111] occurrences matches {0..1} matches {    -- Point-of-care test
 						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
+							DV_BOOLEAN matches {*}
 						}
 					}
-					ELEMENT[at0121] occurrences matches {0..1} matches {	-- *Test method (en)
+					ELEMENT[at0121] occurrences matches {0..1} matches {    -- Test method
 						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {
-									[local::
-									at0128, 	-- Real-time fluorescent  RT-PCR assay 
-									at0129, 	-- Rapid antigen detection
-									at0130, 	-- Multiplex polymerase chainreaction
-									at0131, 	-- Gene Sequencing
-									at0132, 	-- Multiplex polymerase chainreaction
-									at0143]	-- NGS
-								}
-							}
+							DV_TEXT matches {*}
 						}
-					}
-					allow_archetype CLUSTER[at0110] occurrences matches {0..*} matches {	-- *Testing details (en)
+					}    
+					allow_archetype CLUSTER[at0110] occurrences matches {0..*} matches {    -- Testing details
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
 					}
-					allow_archetype CLUSTER[at0117] occurrences matches {0..*} matches {	-- 扩展
+					allow_archetype CLUSTER[at0117] occurrences matches {0..*} matches {    -- Extension
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -578,82 +548,6 @@ Coding with a terminology is desirable, where possible.  (en)">
 					description = <"*">
 					comment = <"*Coding with a terminology is desirable, where possible.  (en)">
 				>
-				["at0122"] = <
-					text = <"*Structured test diagnosis (en)">
-					description = <"*A structured or complex diagnosis for the laboratory test. (en)">
-					comment = <"*For example: Anatomical pathology diagnoses consisting of several different axes such as morphology, etiology and function. (en)">
-				>
-				["at0123"] = <
-					text = <"Typical routine blood test">
-					description = <"*">
-				>
-				["at0124"] = <
-					text = <"Blood coagulation test">
-					description = <"*">
-				>
-				["at0125"] = <
-					text = <"Arterial blood gas analysis">
-					description = <"*">
-				>
-				["at0126"] = <
-					text = <"Cytokine detection">
-					description = <"*">
-				>
-				["at0127"] = <
-					text = <"Etiology test">
-					description = <"*">
-				>
-				["at0128"] = <
-					text = <"Real-time fluorescent  RT-PCR assay ">
-					description = <"*">
-				>
-				["at0129"] = <
-					text = <"Rapid antigen detection">
-					description = <"*">
-				>
-				["at0130"] = <
-					text = <"Multiplex polymerase chainreaction">
-					description = <"*">
-				>
-				["at0131"] = <
-					text = <"Rapid antigen detection">
-					description = <"*">
-				>
-				["at0132"] = <
-					text = <"Multiplex polymerase chainreaction">
-					description = <"*">
-				>
-				["at0135"] = <
-					text = <"Gene detection">
-					description = <"*">
-				>
-				["at0136"] = <
-					text = <"pathological examination">
-					description = <"*">
-				>
-				["at0137"] = <
-					text = <"Erythrocyte sedimentation rate ">
-					description = <"*">
-				>
-				["at0140"] = <
-					text = <"procalcitonin(PCT)">
-					description = <"*">
-				>
-				["at0142"] = <
-					text = <"Serological test">
-					description = <"*">
-				>
-				["at0143"] = <
-					text = <"NGS">
-				>
-				["at0144"] = <
-					text = <"*urine routine  test(en)">
-					description = <"**(en)">
-				>
-				["at0145"] = <
-					text = <"*biochemical detection(en)">
-					description = <"**(en)">
-				>
 			>
 		>
 		["en"] = <
@@ -680,7 +574,7 @@ Coding with a terminology is desirable, where possible.  (en)">
 				>
 				["at0005"] = <
 					text = <"Test name">
-					description = <"Name of the laboratory investigation performed on the specimen(s). ">
+					description = <"Name of the laboratory investigation performed on the specimen(s).">
 					comment = <"A test result may be for a single analyte, or a group of items, including panel tests. It is strongly recommended that 'Test name' be coded with a terminology, for example LOINC or SNOMED CT. For example: 'Glucose', 'Urea and Electrolytes', 'Swab', 'Cortisol (am)', 'Potassium in perspiration' or 'Melanoma histopathology'. The name may sometimes include specimen type and patient state, for example 'Fasting blood glucose' or include other information, as 'Potassium (PNA blood gas)'.">
 				>
 				["at0017"] = <
@@ -853,82 +747,6 @@ Coding with a terminology is desirable, where possible.">
 					text = <"Test method">
 					description = <"Description about the method used to perform the test.">
 					comment = <"Coding with a terminology is desirable, where possible.">
-				>
-				["at0122"] = <
-					text = <"Structured test diagnosis">
-					description = <"A structured or complex diagnosis for the laboratory test.">
-					comment = <"For example: Anatomical pathology diagnoses consisting of several different axes such as morphology, etiology and function.">
-				>
-				["at0123"] = <
-					text = <"Typical routine blood test">
-					description = <"*">
-				>
-				["at0124"] = <
-					text = <"Blood coagulation test">
-					description = <"*">
-				>
-				["at0125"] = <
-					text = <"Arterial blood gas analysis">
-					description = <"*">
-				>
-				["at0126"] = <
-					text = <"Cytokine detection">
-					description = <"*">
-				>
-				["at0127"] = <
-					text = <"Etiology test">
-					description = <"*">
-				>
-				["at0128"] = <
-					text = <"Real-time fluorescent  RT-PCR assay ">
-					description = <"*">
-				>
-				["at0129"] = <
-					text = <"Rapid antigen detection">
-					description = <"*">
-				>
-				["at0130"] = <
-					text = <"Multiplex polymerase chainreaction">
-					description = <"*">
-				>
-				["at0131"] = <
-					text = <"Gene Sequencing">
-					description = <"*">
-				>
-				["at0132"] = <
-					text = <"Multiplex polymerase chainreaction">
-					description = <"*">
-				>
-				["at0135"] = <
-					text = <"Gene detection">
-					description = <"*">
-				>
-				["at0136"] = <
-					text = <"pathological examination">
-					description = <"*">
-				>
-				["at0137"] = <
-					text = <"Erythrocyte sedimentation rate ">
-					description = <"*">
-				>
-				["at0140"] = <
-					text = <"procalcitonin(PCT)">
-					description = <"*">
-				>
-				["at0142"] = <
-					text = <"Serological test">
-					description = <"*">
-				>
-				["at0143"] = <
-					text = <"NGS">
-				>
-				["at0144"] = <
-					text = <"*urine routine  test(en)">
-					description = <"**(en)">
-				>
-				["at0145"] = <
-					text = <"*biochemical detection(en)">
-					description = <"**(en)">
 				>
 			>
 		>
@@ -1132,82 +950,6 @@ Koding med en terminologi er ønskelig, der det er mulig.">
 					description = <"Beskrivelse av metoden som ble brukt for å utføre undersøkelsen.">
 					comment = <"Koding med en terminologi er ønskelig, der det er mulig.">
 				>
-				["at0122"] = <
-					text = <"Strukturert diagnose">
-					description = <"En strukturert eller kompleks diagnose for laboratorieundersøkelsen.">
-					comment = <"For eksempel patologidiagnoser bestående av flere forskjellige akser som morfologi, etiologi og funksjon.">
-				>
-				["at0123"] = <
-					text = <"Typical routine blood test">
-					description = <"*">
-				>
-				["at0124"] = <
-					text = <"Blood coagulation test">
-					description = <"*">
-				>
-				["at0125"] = <
-					text = <"Arterial blood gas analysis">
-					description = <"*">
-				>
-				["at0126"] = <
-					text = <"Cytokine detection">
-					description = <"*">
-				>
-				["at0127"] = <
-					text = <"Etiology test">
-					description = <"*">
-				>
-				["at0128"] = <
-					text = <"Real-time fluorescent  RT-PCR assay ">
-					description = <"*">
-				>
-				["at0129"] = <
-					text = <"Rapid antigen detection">
-					description = <"*">
-				>
-				["at0130"] = <
-					text = <"Multiplex polymerase chainreaction">
-					description = <"*">
-				>
-				["at0131"] = <
-					text = <"Rapid antigen detection">
-					description = <"*">
-				>
-				["at0132"] = <
-					text = <"Multiplex polymerase chainreaction">
-					description = <"*">
-				>
-				["at0135"] = <
-					text = <"Gene detection">
-					description = <"*">
-				>
-				["at0136"] = <
-					text = <"pathological examination">
-					description = <"*">
-				>
-				["at0137"] = <
-					text = <"Erythrocyte sedimentation rate ">
-					description = <"*">
-				>
-				["at0140"] = <
-					text = <"procalcitonin(PCT)">
-					description = <"*">
-				>
-				["at0142"] = <
-					text = <"Serological test">
-					description = <"*">
-				>
-				["at0143"] = <
-					text = <"NGS">
-				>
-				["at0144"] = <
-					text = <"*urine routine  test(en)">
-					description = <"**(en)">
-				>
-				["at0145"] = <
-					text = <"*biochemical detection(en)">
-					description = <"**(en)">
-				>
 			>
 		>
 		["zh-cn"] = <
@@ -1233,8 +975,8 @@ Koding med en terminologi er ønskelig, der det er mulig.">
 					description = <"@ internal @">
 				>
 				["at0005"] = <
-					text = <"*Test name(en">
-					description = <"*Name of the laboratory investigation performed on the specimen(s). (en">
+					text = <"*Test name(en)">
+					description = <"*Name of the laboratory investigation performed on the specimen(s). (en)">
 					comment = <"*A test result may be for a single analyte, or a group of items, including panel tests. It is strongly recommended that 'Test name' be coded with a terminology, for example LOINC or SNOMED CT. For example: 'Glucose', 'Urea and Electrolytes', 'Swab', 'Cortisol (am)', 'Potassium in perspiration' or 'Melanoma histopathology'. The name may sometimes include specimen type and patient state, for example 'Fasting blood glucose' or include other information, as 'Potassium (PNA blood gas)'. (en)">
 				>
 				["at0017"] = <
@@ -1407,82 +1149,6 @@ Coding with a terminology is desirable, where possible.  (en)">
 					text = <"*Test method (en)">
 					description = <"*">
 					comment = <"*Coding with a terminology is desirable, where possible.  (en)">
-				>
-				["at0122"] = <
-					text = <"*Structured test diagnosis (en)">
-					description = <"*A structured or complex diagnosis for the laboratory test. (en)">
-					comment = <"*For example: Anatomical pathology diagnoses consisting of several different axes such as morphology, etiology and function. (en)">
-				>
-				["at0123"] = <
-					text = <"blood  routine test">
-					description = <"*">
-				>
-				["at0124"] = <
-					text = <"Blood coagulation test">
-					description = <"*">
-				>
-				["at0125"] = <
-					text = <"Arterial blood gas analysis">
-					description = <"*">
-				>
-				["at0126"] = <
-					text = <"Cytokine detection">
-					description = <"*">
-				>
-				["at0127"] = <
-					text = <"Nucleic acid testing">
-					description = <"*">
-				>
-				["at0128"] = <
-					text = <"Real-time fluorescent  RT-PCR assay ">
-					description = <"*">
-				>
-				["at0129"] = <
-					text = <"Rapid antigen detection">
-					description = <"*">
-				>
-				["at0130"] = <
-					text = <"Multiplex polymerase chainreaction">
-					description = <"*">
-				>
-				["at0131"] = <
-					text = <"Gene Sequencing">
-					description = <"*">
-				>
-				["at0132"] = <
-					text = <"Multiplex polymerase chainreaction">
-					description = <"*">
-				>
-				["at0135"] = <
-					text = <"Gene detection">
-					description = <"*">
-				>
-				["at0136"] = <
-					text = <"pathological examination">
-					description = <"*">
-				>
-				["at0137"] = <
-					text = <"Erythrocyte sedimentation rate ">
-					description = <"*">
-				>
-				["at0140"] = <
-					text = <"procalcitonin(PCT)">
-					description = <"*">
-				>
-				["at0142"] = <
-					text = <"Serological test">
-					description = <"*">
-				>
-				["at0143"] = <
-					text = <"NGS">
-				>
-				["at0144"] = <
-					text = <"urine routine  test">
-					description = <"*">
-				>
-				["at0145"] = <
-					text = <"biochemical detection">
-					description = <"*">
 				>
 			>
 		>
@@ -1682,82 +1348,6 @@ Bekannte Schwierigkeiten bei der Probenentnahme oder -behandlung, wie z.B. die \
 					text = <"Testmethode">
 					description = <"Die Beschreibung der Methode, mit dem der Test durchgeführt wurde.">
 					comment = <"Wenn möglich, ist eine Kodierung mit einer Terminologie wünschenswert.">
-				>
-				["at0122"] = <
-					text = <"Strukturierte Testdiagnostik">
-					description = <"Eine strukturierte oder komplexe Diagnose für die Laboruntersuchung.">
-					comment = <"Zum Beispiel: Anatomische Pathologiediagnosen, die aus mehreren verschiedenen Schwerpunkten wie Morphologie, Ätiologie und Funktion zusammengesetzt sind.">
-				>
-				["at0123"] = <
-					text = <"Typical routine blood test">
-					description = <"*">
-				>
-				["at0124"] = <
-					text = <"Blood coagulation test">
-					description = <"*">
-				>
-				["at0125"] = <
-					text = <"Arterial blood gas analysis">
-					description = <"*">
-				>
-				["at0126"] = <
-					text = <"Cytokine detection">
-					description = <"*">
-				>
-				["at0127"] = <
-					text = <"Etiology test">
-					description = <"*">
-				>
-				["at0128"] = <
-					text = <"Real-time fluorescent  RT-PCR assay ">
-					description = <"*">
-				>
-				["at0129"] = <
-					text = <"Rapid antigen detection">
-					description = <"*">
-				>
-				["at0130"] = <
-					text = <"Multiplex polymerase chainreaction">
-					description = <"*">
-				>
-				["at0131"] = <
-					text = <"Rapid antigen detection">
-					description = <"*">
-				>
-				["at0132"] = <
-					text = <"Multiplex polymerase chainreaction">
-					description = <"*">
-				>
-				["at0135"] = <
-					text = <"Gene detection">
-					description = <"*">
-				>
-				["at0136"] = <
-					text = <"pathological examination">
-					description = <"*">
-				>
-				["at0137"] = <
-					text = <"Erythrocyte sedimentation rate ">
-					description = <"*">
-				>
-				["at0140"] = <
-					text = <"procalcitonin(PCT)">
-					description = <"*">
-				>
-				["at0142"] = <
-					text = <"Serological test">
-					description = <"*">
-				>
-				["at0143"] = <
-					text = <"NGS">
-				>
-				["at0144"] = <
-					text = <"*urine routine  test(en)">
-					description = <"**(en)">
-				>
-				["at0145"] = <
-					text = <"*biochemical detection(en)">
-					description = <"**(en)">
 				>
 			>
 		>

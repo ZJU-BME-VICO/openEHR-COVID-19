@@ -2,7 +2,8 @@ archetype (adl_version=1.4; uid=48803d0f-2ffd-446f-9c0a-7b42f8486a68)
 	openEHR-EHR-CLUSTER.specimen.v0
 
 concept
-	[at0000]	-- Specimen
+	[at0000]
+
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -39,17 +40,21 @@ language
 			>
 		>
 	>
+
 description
 	original_author = <
+		["date"] = <"2009-01-27">
 		["name"] = <"Dr Ian McNicoll">
 		["organisation"] = <"freshEHR Clinical Informatics">
 		["email"] = <"ian.mcnicoll@oceaninformatics.com">
-		["date"] = <"2009-01-27">
 	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Marit Alice Venheim, Helse Vest IKT, Norway","Erling Are Hole, Helse Bergen, Norway","Vebjørn Arntzen, Oslo University Hospital, Norway (openEHR Editor)","Koray Atalag, University of Auckland, New Zealand","Heidi Aursand, Oslo universitetssykehus, Norway","Silje Ljosland Bakke, Helse Vest IKT AS, Norway (openEHR Editor)","SB Bhattacharyya, Sudisa Consultancy Services, India","Greg Burch, Tiny Medical Apps, United Kingdom","Ady Angelica Castro Acosta, CIBERES-Hospital 12 de Octubre, Spain","Peter Fedorcsak, Oslo universitetssykehus, Norway","Shahla Foozonkhah, Iran ministry of health and education, Iran","Francesca Frexia, CRS4 - Center for advanced studies, research and development in Sardinia, Italy","Heather Grain, Llewelyn Grain Informatics, Australia","Åshild Halvorsen, Helse Nord RHF, Norway","Sam Heard, Ocean Informatics, Australia","Evelyn Hovenga, EJSH Consulting, Australia","Lars Ivar Mehlum, Nasjonal IKT HF, Norway","Christina Jaeger-Schmidt, Heidelberg University Hospital, Germany","Lars Morgan Karlsen, DIPS ASA, Norway","Nils Kolstrup, Skansen Legekontor og Nasjonalt Senter for samhandling og telemedisin, Norway","Ronald Krawec, Alberta Health Services, Canada","Tomi Laptoš, Marand, Slovenia","Siri Laronningen, Kreftregisteret, Norway","Liv Laugen, Oslo universitetssykehus, Norway","Sabine Leh, Helse Bergen, Norway","Heather Leslie, Atomica Informatics, Australia (openEHR Editor)","Jens Lien, Bouvet Norge AS, Norway","Neranga Liyanaarachchi, Ministry of Health, Postgraduate Institute of Medicine, Sri Lanka","Anne M Gromsrud, DIPS AS, Norway","Gunn Marit Barstad, Stavanger Universitetssykehus HF, Norway","Ole Martin Sand, DIPS ASA, Norway","Shane McKee, Belfast Health & Social Care Trust, United Kingdom","Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)","John Meredith, NHS Wales Informatics Service, United Kingdom","Pourya Nasimi, Trita Health-tech Company, Iran","Arunakiry Natarajan, management4health, Germany","Bjørn Næss, DIPS ASA, Norway","Andrej Orel, Marand d.o.o., Slovenia","Jayashree Panickar, Karolinska Institute, Sweden","Ana Pereira, CINTESIS, CUF-Porto, Portugal","Nils Petter Tveranger, Helse Vest IKT, Norway","Jussara Rotzsch, Hospital Alemão Oswaldo Cruz, Brazil","Ingrid Skard, Edproof, Norway","Lídia Sousa, CINTESIS; Faculty of Medicine of Oporto University, Portugal","Natalia Strauch, Medizinische Hochschule Hannover, Germany","German Review Summary, HiGHmed Germany, Germany","Norwegian Review Summary, Nasjonal IKT HF, Norway","Rowan Thomas, St. Vincent's Hospital Melbourne, Australia","Anders Thurin, VGR, Sweden","John Tore Valand, Helse Bergen, Norway (openEHR Editor)","Ørjan Vermeer, Haukeland Universitetssjukehus, Kvinneklinikken, Norway","Lin Zhang, Taikang Insurance Group, China","Enagnon ZOUNCTHEME, Aix Marseille Univerity, Benin">
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Dokumentation einer zu untersuchenden physischen Probe, Untersuchung oder Analyse, die von einer Person gesammelt wurde oder sich auf eine Person bezieht.">
+			keywords = <"Probe","Laborprobe","Stichprobe","Sammlung","Probenentnahme","Biopsy","Gewebe","Zytologie","Mikrobiologie","Pathologie","Histopathologie","Histologie","Labor","Flüssigkeit","Abstrich","Blut","Exsudat","Serum","Plasma","Urin","Speichel","Sekret","Synovia","Lymphflüssigkeit","Kot","Fäzes","Stuhl","Aszites","Speien","Abstrich","Brustmilch","Eiter","Drainageflüssigkeit","Knochenmark","Kultur","Kratzen","Aspirieren">
 			use = <"Zur Dokumentation einer zu untersuchenden physischen Probe, Untersuchung oder Analyse, die von einer Person gesammelt wurde oder sich auf eine Person bezieht.
 
 Dieser Archetyp wurde speziell für die drei unten aufgeführten Anwendungsbereiche entwickelt, kann aber auch innerhalb anderer ENTRY oder Cluster Archetypen verwendet werden, sofern dies klinisch sinnvoll ist.
@@ -68,12 +73,12 @@ Dieser Archetyp soll durch andere CLUSTER-Archetypen für Konzepte wie Probenbeh
 Dieser Archetyp kann zusammen mit dem Archetyp \"Probenbehälter\" auf zwei Arten verwendet werden: \"Probenbehälter\" in \"Probe\" verschachtelt (z.B. wenn eine venöse Blutprobe in zwei Röhrchen Behälter aufgeteilt wird oder ein ganzer Dickdarm in drei Behälter aufgeteilt wird). Oder als 'Probe' in 'Probenbehälter' verschachtelt (z.B. wenn ein Eimer Formalin einen Abschnitt Dickdarm und einen Mastdarm enthält oder ein Gefäß fünf einzeln markierte Mole enthält).
 
 Das Wort \"Entnahme\", das in diesem Archetyp verwendet wird, bezieht sich immer auf die Handlung, die Probe direkt von der Person zu erhalten, nicht auf den Transport der Probe, nachdem sie von der Person entfernt wurde.">
-			keywords = <"Probe", "Laborprobe", "Stichprobe", "Sammlung", "Probenentnahme", "Biopsy", "Gewebe", "Zytologie", "Mikrobiologie", "Pathologie", "Histopathologie", "Histologie", "Labor", "Flüssigkeit", "Abstrich", "Blut", "Exsudat", "Serum", "Plasma", "Urin", "Speichel", "Sekret", "Synovia", "Lymphflüssigkeit", "Kot", "Fäzes", "Stuhl", "Aszites", "Speien", "Abstrich", "Brustmilch", "Eiter", "Drainageflüssigkeit", "Knochenmark", "Kultur", "Kratzen", "Aspirieren">
 			misuse = <"Nicht zur Erfassung von Informationen über Proben, die sich nicht auf eine bestimmte Person beziehen. Zum Beispiel für routinemäßige Wasserproben aus einem Wasserwerk oder für Stichproben aus Einrichtungen der Lebensmittelproduktion.">
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			purpose = <"For å registrere detaljer om et fysisk prøvemateriale for undersøkelse eller analyse, tatt fra eller relatert til et individ.">
+			keywords = <"laboratorium","prøve","prøvetaking","laboratorieprøve","prøvemateriale","prøveeksemplar","preparat","prøvesamling","biopsi","vevsprøve","celleprøve","mikrobiologi","patologi","histologi","lab","væske","utstryk","blod","sårvæske","serum","plasma","urin","spytt","sekret","leddvæske","lymfe","avføring","ascites","ekspektorat","pensel","morsmelk","puss","drensvæske","beinmarg","kultur","avskrap","aspirat">
 			use = <"Brukes for å registrere detaljer om et fysisk prøvemateriale for undersøkelse eller analyse, tatt fra eller relatert til et individ.
 
 Denne CLUSTER-arketypen er laget for å brukes i de tre hovedsammenhengene beskrevet under, men kan også brukes innenfor andre ENTRY- eller CLUSTER-arketyper, der det er klinisk passende:
@@ -92,7 +97,6 @@ Denne arketypen kompletteres av andre CLUSTER-arketyper for konsepter som Prøve
 Denne arketypen kan brukes sammen med Prøvebeholder-arketypen på to hovedmåter: Ved nøsting av \"Prøvebeholder\" inni \"Prøvemateriale\" (for eksempel når et vakuumglass med venøst blod fordeles på to mindre glass, eller en hel tykktarm deles på tre bøtter), eller \"Prøvemateriale\" nøstet inni \"Prøvebeholder\" (for eksempel når en bøtte inneholder en seksjon av en tykktarm og en endetarm, eller et glass inneholder fem individuelt merkede føflekker).
 
 NB! Uttrykket \"prøvetaking\" er i denne arketypen ment å bety aktiviteten å ta en prøve fra et individ. Det er ikke ment å representere transporten fra individet til laboratoriet.">
-			keywords = <"laboratorium", "prøve", "prøvetaking", "laboratorieprøve", "prøvemateriale", "prøveeksemplar", "preparat", "prøvesamling", "biopsi", "vevsprøve", "celleprøve", "mikrobiologi", "patologi", "histologi", "lab", "væske", "utstryk", "blod", "sårvæske", "serum", "plasma", "urin", "spytt", "sekret", "leddvæske", "lymfe", "avføring", "ascites", "ekspektorat", "pensel", "morsmelk", "puss", "drensvæske", "beinmarg", "kultur", "avskrap", "aspirat">
 			misuse = <"Ikke ment å brukes til å registrere informasjon om prøvematerialer som ikke er relaterte til et spesifikt individ, som for eksempel rutineprøver fra vannverk eller stikkprøver fra matvareproduksjon.">
 		>
 		["pt-br"] = <
@@ -100,9 +104,8 @@ NB! Uttrykket \"prøvetaking\" er i denne arketypen ment å bety aktiviteten å 
 			purpose = <"Para gravar detalhes de um espécime laboratorial. Será frequentemente usado em diferentes contextos, p.e, dentro de um arquétipo tipo Instruction para descrever os espécimes que devem ser obtidos, ou descrevendo o espécime que acompanha a solicitação laboratorial. Pode ocorre dentro de um arquétipo tipo Action, p.e., descrevendo espécimes retirados como parte de um procedimento cirúrgico. 
 
 Será finalmente utilizado dentro de um arquétipo de resultado laboratorial para descrever o espécime reportado.">
+			keywords = <"espécime","laboratório","amostra","coleta">
 			use = <"Geralmente utilizado dentro de OBSERVATION. laboratory_test.v1 e outros arquétipos tipo Instruction ou Action relacionados.">
-			keywords = <"espécime", "laboratório", "amostra", "coleta">
-			misuse = <"">
 		>
 		["ar-sy"] = <
 			language = <[ISO_639-1::ar-sy]>
@@ -110,14 +113,15 @@ Será finalmente utilizado dentro de um arquétipo de resultado laboratorial par
 يستخدم غالبا في سياقات مختلفة, مثلا: في داخل نموذج (تعليمات) ليصف العينة التي ينبغي أخذها, أو يصف العينة المرافقة لطلب معملي. 
 و قد يحدث ذلك في داخل نموذج (فعل), مثال: وصف العينات التي تم أخذها كجزء من إجراء طبي جراحي. 
 و سيستخدم أخيرا في داخل نموذج نتيجة اختبار المعمل ليصف العينة التي يتم تقديم عينة حولها.">
-			use = <"يستخدم عادةً في داخل نموذج (ملاحظة. معمل) و النماذج الأخرى تعليمات و فعل المتعلقة بالمعمل.">
-			keywords = <"النموذج/العينة", "المعمل/المختبر", "العينة", "التجميع">
-			misuse = <"">
+			keywords = <"النموذج/العينة","المعمل/المختبر","العينة","التجميع">
 			copyright = <"© openEHR Foundation">
+			use = <"يستخدم عادةً في داخل نموذج (ملاحظة. معمل) و النماذج الأخرى تعليمات و فعل المتعلقة بالمعمل.">
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"To record details about a physical sample for investigation, examination or analysis, collected from or related to an individual.">
+			keywords = <"specimen","laboratory","sample","collection","sampling","biopsy","tissue","cytology","microbiology","pathology","histopathology","histology","lab","fluid","smear","blood","exudate","serum","plasma","urine","saliva","secretion","synovial","lymph","feces","faeces","fæces","ascites","expectorate","swab","breast milk","pus","drain fluid","bone marrow","culture","scraping","aspirate">
+			copyright = <"© openEHR Foundation">
 			use = <"Use to record details about a physical sample for investigation, examination or analysis, collected from or related to an individual.
 
 This archetype has been specifically designed to be used in the three ways listed below, but can also be used within other ENTRY or CLUSTER archetypes, where clinically appropriate.
@@ -136,13 +140,9 @@ This archetype is intended to be supplemented by other CLUSTER archetypes for co
 This archetype can be used together with the Specimen container archetype in two main ways: 'Specimen container' nested within 'Specimen' (for example when a venous blood specimen is divided between two vials, or a whole large intestine is divided into three buckets), or 'Specimen' nested within 'Specimen container' (for example when a bucket of formalin contains a section of large intestine and a rectum, or a jar contains five individually marked moles).
 
 Please note: The term 'collection' used in this archetype always refers to the activity of obtaining a specimen from an individual. It is not intended to represent the transport of the specimen from the individual to the testing laboratory.">
-			keywords = <"specimen", "laboratory", "sample", "collection", "sampling", "biopsy", "tissue", "cytology", "microbiology", "pathology", "histopathology", "histology", "lab", "fluid", "smear", "blood", "exudate", "serum", "plasma", "urine", "saliva", "secretion", "synovial", "lymph", "feces", "faeces", "fæces", "ascites", "expectorate", "swab", "breast milk", "pus", "drain fluid", "bone marrow", "culture", "scraping", "aspirate">
 			misuse = <"Not intended to be used for recording information about specimens that are not related to a specific individual. For example routine water samples from a waterworks, or spot samples from food production facilities.">
-			copyright = <"© openEHR Foundation">
 		>
 	>
-	lifecycle_state = <"in_development">
-	other_contributors = <"Marit Alice Venheim, Helse Vest IKT, Norway", "Erling Are Hole, Helse Bergen, Norway", "Vebjørn Arntzen, Oslo University Hospital, Norway (openEHR Editor)", "Koray Atalag, University of Auckland, New Zealand", "Heidi Aursand, Oslo universitetssykehus, Norway", "Silje Ljosland Bakke, Helse Vest IKT AS, Norway (openEHR Editor)", "SB Bhattacharyya, Sudisa Consultancy Services, India", "Greg Burch, Tiny Medical Apps, United Kingdom", "Ady Angelica Castro Acosta, CIBERES-Hospital 12 de Octubre, Spain", "Peter Fedorcsak, Oslo universitetssykehus, Norway", "Shahla Foozonkhah, Iran ministry of health and education, Iran", "Francesca Frexia, CRS4 - Center for advanced studies, research and development in Sardinia, Italy", "Heather Grain, Llewelyn Grain Informatics, Australia", "Åshild Halvorsen, Helse Nord RHF, Norway", "Sam Heard, Ocean Informatics, Australia", "Evelyn Hovenga, EJSH Consulting, Australia", "Lars Ivar Mehlum, Nasjonal IKT HF, Norway", "Christina Jaeger-Schmidt, Heidelberg University Hospital, Germany", "Lars Morgan Karlsen, DIPS ASA, Norway", "Nils Kolstrup, Skansen Legekontor og Nasjonalt Senter for samhandling og telemedisin, Norway", "Ronald Krawec, Alberta Health Services, Canada", "Tomi Laptoš, Marand, Slovenia", "Siri Laronningen, Kreftregisteret, Norway", "Liv Laugen, Oslo universitetssykehus, Norway", "Sabine Leh, Helse Bergen, Norway", "Heather Leslie, Atomica Informatics, Australia (openEHR Editor)", "Jens Lien, Bouvet Norge AS, Norway", "Neranga Liyanaarachchi, Ministry of Health, Postgraduate Institute of Medicine, Sri Lanka", "Anne M Gromsrud, DIPS AS, Norway", "Gunn Marit Barstad, Stavanger Universitetssykehus HF, Norway", "Ole Martin Sand, DIPS ASA, Norway", "Shane McKee, Belfast Health & Social Care Trust, United Kingdom", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)", "John Meredith, NHS Wales Informatics Service, United Kingdom", "Pourya Nasimi, Trita Health-tech Company, Iran", "Arunakiry Natarajan, management4health, Germany", "Bjørn Næss, DIPS ASA, Norway", "Andrej Orel, Marand d.o.o., Slovenia", "Jayashree Panickar, Karolinska Institute, Sweden", "Ana Pereira, CINTESIS, CUF-Porto, Portugal", "Nils Petter Tveranger, Helse Vest IKT, Norway", "Jussara Rotzsch, Hospital Alemão Oswaldo Cruz, Brazil", "Ingrid Skard, Edproof, Norway", "Lídia Sousa, CINTESIS; Faculty of Medicine of Oporto University, Portugal", "Natalia Strauch, Medizinische Hochschule Hannover, Germany", "German Review Summary, HiGHmed Germany, Germany", "Norwegian Review Summary, Nasjonal IKT HF, Norway", "Rowan Thomas, St. Vincent's Hospital Melbourne, Australia", "Anders Thurin, VGR, Sweden", "John Tore Valand, Helse Bergen, Norway (openEHR Editor)", "Ørjan Vermeer, Haukeland Universitetssjukehus, Kvinneklinikken, Norway", "Lin Zhang, Taikang Insurance Group, China", "Enagnon ZOUNCTHEME, Aix Marseille Univerity, Benin">
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
 		["custodian_organisation"] = <"openEHR Foundation">
@@ -305,7 +305,6 @@ definition
 			}
 		}
 	}
-
 
 ontology
 	term_definitions = <

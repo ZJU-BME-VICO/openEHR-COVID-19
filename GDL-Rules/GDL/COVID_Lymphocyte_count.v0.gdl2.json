@@ -30,7 +30,7 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
     }
   },
   "definition": {
@@ -73,7 +73,7 @@
         "id": "gt0009",
         "priority": 9,
         "when": [
-          "$gt0003|Analyte name|==local::at0028|Lymphocyte count(LY)|",
+          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
           "$gt0004|Analyte result|<'1.0'",
           "$gt0008|Conclusion|=='low white cell count'"
         ],
@@ -85,7 +85,7 @@
         "id": "gt0010",
         "priority": 8,
         "when": [
-          "$gt0003|Analyte name|==local::at0028|Lymphocyte count(LY)|",
+          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
           "$gt0004|Analyte result|<'1.0'",
           "$gt0008|Conclusion|=='normal white cell count'"
         ],
@@ -97,7 +97,7 @@
         "id": "gt0011",
         "priority": 7,
         "when": [
-          "$gt0003|Analyte name|==local::at0028|Lymphocyte count(LY)|",
+          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
           "$gt0004|Analyte result|<'1.0'",
           "$gt0008|Conclusion|=='high white cell count'"
         ],
@@ -109,7 +109,7 @@
         "id": "gt0014",
         "priority": 6,
         "when": [
-          "$gt0003|Analyte name|==local::at0028|Lymphocyte count(LY)|",
+          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
           "$gt0004|Analyte result|>='1.0'",
           "$gt0008|Conclusion|=='low white cell count'",
           "$gt0004|Analyte result|<'3.9'"
@@ -122,7 +122,7 @@
         "id": "gt0013",
         "priority": 5,
         "when": [
-          "$gt0003|Analyte name|==local::at0028|Lymphocyte count(LY)|",
+          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
           "$gt0004|Analyte result|>='1.0'",
           "$gt0008|Conclusion|=='normal white cell count'",
           "$gt0004|Analyte result|<'3.9'"
@@ -135,7 +135,7 @@
         "id": "gt0012",
         "priority": 4,
         "when": [
-          "$gt0003|Analyte name|==local::at0028|Lymphocyte count(LY)|",
+          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
           "$gt0004|Analyte result|>='1.0'",
           "$gt0008|Conclusion|=='high white cell count'",
           "$gt0004|Analyte result|<'3.9'"
@@ -148,7 +148,7 @@
         "id": "gt0015",
         "priority": 3,
         "when": [
-          "$gt0003|Analyte name|==local::at0028|Lymphocyte count(LY)|",
+          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
           "$gt0008|Conclusion|=='low white cell count'",
           "$gt0004|Analyte result|>='3.9'"
         ],
@@ -160,7 +160,7 @@
         "id": "gt0016",
         "priority": 2,
         "when": [
-          "$gt0003|Analyte name|==local::at0028|Lymphocyte count(LY)|",
+          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
           "$gt0008|Conclusion|=='normal white cell count'",
           "$gt0004|Analyte result|>='3.9'"
         ],
@@ -172,7 +172,7 @@
         "id": "gt0017",
         "priority": 1,
         "when": [
-          "$gt0003|Analyte name|==local::at0028|Lymphocyte count(LY)|",
+          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
           "$gt0008|Conclusion|=='high white cell count'",
           "$gt0004|Analyte result|>'3.9'"
         ],

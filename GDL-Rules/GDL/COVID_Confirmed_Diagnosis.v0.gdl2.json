@@ -21,7 +21,7 @@
     "details": {
       "en": {
         "id": "en",
-        "purpose": "Quickly confirm whether a patient is a confirmed case of COVID-19, according to Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition).",
+        "purpose": "Quickly confirm whether a patient is a confirmed case of COVID-19, according to Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition).",
         "keywords": [
           "COVID-19"
         ],
@@ -30,7 +30,7 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
     }
   },
   "definition": {
@@ -65,13 +65,13 @@
         "template_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
         "type": "INPUT",
         "elements": {
-          "gt0021": {
-            "id": "gt0021",
-            "path": "/protocol[at0004]/items[at0121]"
-          },
           "gt0023": {
             "id": "gt0023",
             "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0001]"
+          },
+          "gt0024": {
+            "id": "gt0024",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0024]"
           }
         }
       }
@@ -81,24 +81,24 @@
         "id": "gt0014",
         "priority": 2,
         "when": [
-          "$gt0003|Diagnostic certainty|==local::at0090|Suspected|",
-          "$gt0021|Test method|==local::at0128|Real-time fluorescent  RT-PCR assay |",
+          "$gt0003|Diagnostic certainty|==local::at0074|Suspected|",
+          "$gt0024|Analyte name|=='SARS-CoV-2 Nucleic Acid'",
           "$gt0023|Analyte result|=='Positive'"
         ],
         "then": [
-          "$gt0006|Diagnostic certainty|=local::at0092|Confirmed|"
+          "$gt0006|Diagnostic certainty|=local::at0076|Confirmed|"
         ]
       },
       "gt0015": {
         "id": "gt0015",
         "priority": 1,
         "when": [
-          "$gt0003|Diagnostic certainty|==local::at0090|Suspected|",
-          "$gt0021|Test method|==local::at0131|Gene Sequencing|",
+          "$gt0003|Diagnostic certainty|==local::at0074|Suspected|",
+          "$gt0024|Analyte name|=='Severe Acute Respiratory Syndrome Coronavirus 2(SARS-CoV-2)'",
           "$gt0023|Analyte result|=='Positive'"
         ],
         "then": [
-          "$gt0006|Diagnostic certainty|=local::at0092|Confirmed|"
+          "$gt0006|Diagnostic certainty|=local::at0076|Confirmed|"
         ]
       }
     }
@@ -123,21 +123,6 @@
             "text": "Diagnostic certainty",
             "description": "The level of confidence in the identification of the diagnosis."
           },
-          "gt0011": {
-            "id": "gt0011",
-            "text": "COVID-19",
-            "description": "The name of the analyte result."
-          },
-          "gt0012": {
-            "id": "gt0012",
-            "text": "Analyte result",
-            "description": "The value of the analyte result."
-          },
-          "gt0013": {
-            "id": "gt0013",
-            "text": "Test method",
-            "description": "Description about the method used to perform the test."
-          },
           "gt0014": {
             "id": "gt0014",
             "text": "Confirmed Diagnosis1"
@@ -146,15 +131,15 @@
             "id": "gt0015",
             "text": "Confirmed Diagnosis2"
           },
-          "gt0021": {
-            "id": "gt0021",
-            "text": "Test method",
-            "description": "Description about the method used to perform the test."
-          },
           "gt0023": {
             "id": "gt0023",
             "text": "Analyte result",
             "description": "The value of the analyte result."
+          },
+          "gt0024": {
+            "id": "gt0024",
+            "text": "Analyte name",
+            "description": "The name of the analyte result."
           }
         }
       }

@@ -1,4 +1,4 @@
-archetype (adl_version=1.4; uid=9ae33444-96c1-4f1c-8724-7a0e4366aebf)
+﻿archetype (adl_version=1.4; uid=9ae33444-96c1-4f1c-8724-7a0e4366aebf)
 	openEHR-EHR-OBSERVATION.imaging_exam_result.v0
 
 concept

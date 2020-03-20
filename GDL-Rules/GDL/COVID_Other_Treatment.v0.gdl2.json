@@ -30,7 +30,7 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
     }
   },
   "definition": {
@@ -48,6 +48,10 @@
           "gt0004": {
             "id": "gt0004",
             "path": "/data[at0001]/items[at0005]"
+          },
+          "gt0038": {
+            "id": "gt0038",
+            "path": "/data[at0001]/items[at0002]"
           }
         }
       },
@@ -60,30 +64,6 @@
           "gt0016": {
             "id": "gt0016",
             "path": "/activities[at0001]/description[at0002]/items[at0070]"
-          }
-        }
-      },
-      "gt0017": {
-        "id": "gt0017",
-        "model_id": "openEHR-EHR-INSTRUCTION.care_plan_request.v0",
-        "template_id": "openEHR-EHR-INSTRUCTION.care_plan_request.v0",
-        "type": "OUTPUT",
-        "elements": {
-          "gt0018": {
-            "id": "gt0018",
-            "path": "/activities[at0001]/description[at0004]/items[at0017]"
-          }
-        }
-      },
-      "gt0022": {
-        "id": "gt0022",
-        "model_id": "openEHR-EHR-INSTRUCTION.service_request.v1",
-        "template_id": "openEHR-EHR-INSTRUCTION.service_request.v1",
-        "type": "OUTPUT",
-        "elements": {
-          "gt0023": {
-            "id": "gt0023",
-            "path": "/activities[at0001]/description[at0009]/items[at0121]"
           }
         }
       },
@@ -142,6 +122,18 @@
             "path": "/data[at0001]/events[at0002]/state[at0022]/items[openEHR-EHR-CLUSTER.inspired_oxygen.v1]/items[at0051]"
           }
         }
+      },
+      "gt0036": {
+        "id": "gt0036",
+        "model_id": "openEHR-EHR-EVALUATION.recommendation.v1",
+        "template_id": "openEHR-EHR-EVALUATION.recommendation.v1",
+        "type": "OUTPUT",
+        "elements": {
+          "gt0037": {
+            "id": "gt0037",
+            "path": "/data[at0001]/items[at0002]"
+          }
+        }
       }
     },
     "rules": {
@@ -149,7 +141,7 @@
         "id": "gt0034",
         "priority": 3,
         "when": [
-          "$gt0030|Analyte name|==local::at0039|PaO₂|",
+          "$gt0030|Analyte name|=='PaO₂'",
           "$gt0033|Flow rate|.unit=='l/min'"
         ],
         "then": [
@@ -160,26 +152,28 @@
         "id": "gt0011",
         "priority": 2,
         "when": [
-          "$gt0003|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
           "$gt0028|Findings|=='The condition of imaging findings degenerates rapidly'",
-          "$gt0035|PaO2/FiO2|<300"
+          "$gt0035|PaO2/FiO2|<=300",
+          "$gt0038|Problem/Diagnosis name|=='Cytokine-associated toxicity'",
+          "($gt0004|Severity|==local::at0079|Critical|)||($gt0004|Severity|==local::at0049|Severe|)"
         ],
         "then": [
-          "$gt0018|Plan name|='enhance psychological counseling'",
-          "$gt0016|Medication item|='Glucocorticoids, Xuebijing injection, Intestines Micro-ecological regulators'"
+          "$gt0016|Medication item|='Glucocorticoids, Xuebijing injection, Intestines Micro-ecological regulators'",
+          "$gt0037|Recommendation|='Enhance psychological counseling'"
         ]
       },
       "gt0019": {
         "id": "gt0019",
         "priority": 1,
         "when": [
-          "$gt0003|Diagnostic certainty|==local::at0092|Confirmed|",
-          "$gt0004|Severity|==local::at0089|Critical|",
+          "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
+          "$gt0004|Severity|==local::at0079|Critical|",
           "($gt0025|Symptom/Sign name|=='Redness')||($gt0025|Symptom/Sign name|=='Fever')",
           "$gt0026|Severity category|==local::at0025|Severe|"
         ],
         "then": [
-          "$gt0023|Service name|='Plasmapheresis, Plasma adsorption, Plasma perfusion, Hemofiltration, Plasma filtration'"
+          "$gt0037|Recommendation|='Plasmapheresis, Plasma adsorption, Plasma perfusion, Hemofiltration, Plasma filtration'"
         ]
       }
     }
@@ -213,19 +207,9 @@
             "text": "Medication item",
             "description": "Name of the medication, vaccine or other therapeutic/prescribable item being ordered."
           },
-          "gt0018": {
-            "id": "gt0018",
-            "text": "Plan name",
-            "description": "Identification of the care plan."
-          },
           "gt0019": {
             "id": "gt0019",
             "text": "Inflammatory _Treatment"
-          },
-          "gt0023": {
-            "id": "gt0023",
-            "text": "Service name",
-            "description": "The name of the single service or activity requested."
           },
           "gt0025": {
             "id": "gt0025",
@@ -265,6 +249,16 @@
             "id": "gt0035",
             "text": "PaO2/FiO2",
             "description": ""
+          },
+          "gt0037": {
+            "id": "gt0037",
+            "text": "Recommendation",
+            "description": "Narrative description of the recommendation."
+          },
+          "gt0038": {
+            "id": "gt0038",
+            "text": "Problem/Diagnosis name",
+            "description": "Identification of the problem or diagnosis, by name."
           }
         }
       }

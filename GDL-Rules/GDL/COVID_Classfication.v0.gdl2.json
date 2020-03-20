@@ -30,7 +30,7 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
     }
   },
   "definition": {
@@ -69,13 +69,9 @@
         "template_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
         "type": "INPUT",
         "elements": {
-          "gt0009": {
-            "id": "gt0009",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0021]"
-          },
-          "gt0034": {
-            "id": "gt0034",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_result-covid_19.v0]/items[at0001.1]/items[at0.20]"
+          "gt0035": {
+            "id": "gt0035",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_result.v0]/items[at0001]/items[openEHR-EHR-CLUSTER.imaging_result_details.v0]/items[at0002]/items[at0003]"
           }
         }
       },
@@ -145,7 +141,7 @@
         "id": "gt0024",
         "priority": 5,
         "when": [
-          "$gt0013|Analyte name|==local::at0039|PaO₂|",
+          "$gt0013|Analyte name|=='PaO₂'",
           "$gt0019|Flow rate|.unit=='l/min'"
         ],
         "then": [
@@ -156,46 +152,46 @@
         "id": "gt0026",
         "priority": 4,
         "when": [
-          "$gt0003|Diagnostic certainty|==local::at0092|Confirmed|",
-          "$gt0009|Conclusion|=='no imaging findings of COVID-19'",
-          "$gt0033|Description|=='slight clinical symptoms'"
+          "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
+          "$gt0035|Imaging result details|=='no imaging findings of COVID-19'",
+          "$gt0033|Symptom Description|=='slight clinical symptoms'"
         ],
         "then": [
-          "$gt0006|Severity|=local::at0086|Mild|"
+          "$gt0006|Severity|=local::at0047|Mild|"
         ]
       },
       "gt0027": {
         "id": "gt0027",
         "priority": 3,
         "when": [
-          "$gt0003|Diagnostic certainty|==local::at0092|Confirmed|",
+          "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
           "($gt0011|Symptom/Sign name|=='Fever')||((($gt0011|Symptom/Sign name|=='Dry Cough')||($gt0011|Symptom/Sign name|=='Pain in throat'))||((($gt0011|Symptom/Sign name|=='Rhinorrhea')||($gt0011|Symptom/Sign name|=='Nasal Congestion'))||($gt0011|Symptom/Sign name|=='Difficulty breathing')))",
-          "$gt0009|Conclusion|=='With imaging findings of COVID-19'"
+          "$gt0035|Imaging result details|=='With imaging findings of COVID-19'"
         ],
         "then": [
-          "$gt0006|Severity|=local::at0087|Normal |"
+          "$gt0006|Severity|=local::at0048|Moderate|"
         ]
       },
       "gt0028": {
         "id": "gt0028",
         "priority": 2,
         "when": [
-          "$gt0003|Diagnostic certainty|==local::at0092|Confirmed|",
-          "(($gt0020|Rate|>=30,/min)||($gt0032|Comment|=='Blood oxygen saturation of finger is less than or equal to 93% in the resting state'))||(($gt0025|PaO2/FiO2|<=300)||($gt0034|Progression of lesions greater than 50% within 24-48 hours|==true))"
+          "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
+          "(($gt0020|Respiratoty Rate|>=30,/min)||($gt0032|Pulse oximetry Comment|=='Blood oxygen saturation of finger is less than or equal to 93% in the resting state'))||(($gt0025|PaO2/FiO2|<=300)||($gt0035|Imaging result details|=='Progression of lesions greater than 50% within 24-48 hours'))"
         ],
         "then": [
-          "$gt0006|Severity|=local::at0088|Severe|"
+          "$gt0006|Severity|=local::at0049|Severe|"
         ]
       },
       "gt0029": {
         "id": "gt0029",
         "priority": 1,
         "when": [
-          "$gt0003|Diagnostic certainty|==local::at0092|Confirmed|",
-          "($gt0030|Problem/Diagnosis name|==local::at0083|Respiratory failure |)||(($gt0030|Problem/Diagnosis name|==local::at0093|Shock|)||($gt0030|Problem/Diagnosis name|==local::at0085|Multiple organ failure |))"
+          "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
+          "($gt0030|Problem/Diagnosis name|=='Respiratory failure ')||(($gt0030|Problem/Diagnosis name|=='Shock')||($gt0030|Problem/Diagnosis name|=='Multiple organ failure '))"
         ],
         "then": [
-          "$gt0006|Severity|=local::at0089|Critical|"
+          "$gt0006|Severity|=local::at0079|Critical|"
         ]
       }
     }
@@ -220,11 +216,6 @@
             "text": "Severity",
             "description": "An assessment of the overall severity of the problem or diagnosis."
           },
-          "gt0009": {
-            "id": "gt0009",
-            "text": "Conclusion",
-            "description": "Concise and clinically contextualised narrative interpretation of the imaging examination findings."
-          },
           "gt0011": {
             "id": "gt0011",
             "text": "Symptom/Sign name",
@@ -240,11 +231,6 @@
             "text": "Analyte result",
             "description": "The value of the analyte result."
           },
-          "gt0016": {
-            "id": "gt0016",
-            "text": "SpO₂",
-            "description": "The saturation of oxygen in the peripheral blood, measured via pulse oximetry."
-          },
           "gt0019": {
             "id": "gt0019",
             "text": "Flow rate",
@@ -252,7 +238,7 @@
           },
           "gt0020": {
             "id": "gt0020",
-            "text": "Rate",
+            "text": "Respiratoty Rate",
             "description": "The frequency of spontaneous breathing."
           },
           "gt0023": {
@@ -292,18 +278,18 @@
           },
           "gt0032": {
             "id": "gt0032",
-            "text": "Comment",
+            "text": "Pulse oximetry Comment",
             "description": "A text comment about the pulse oximetry result."
           },
           "gt0033": {
             "id": "gt0033",
-            "text": "Description",
+            "text": "Symptom Description",
             "description": "Narrative description about the reported symptom or sign."
           },
-          "gt0034": {
-            "id": "gt0034",
-            "text": "Progression of lesions greater than 50% within 24-48 hours",
-            "description": "*"
+          "gt0035": {
+            "id": "gt0035",
+            "text": "Imaging result details",
+            "description": "**(zh)"
           }
         }
       }
