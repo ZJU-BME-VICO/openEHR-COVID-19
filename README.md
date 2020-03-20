@@ -89,7 +89,7 @@ Tianhua Tang (Zhejiang University, China)
 
 Kuai Yu (Hangzhou Vico Software Cooperation, China)  
 Shan Nan (Zhejiang University, China)  
-Tianhua Tang (Zhejiang University, China) 
+Tianhua Tang (Zhejiang University, China)  
 Kechong Pan (Hangzhou Vico Software Cooperation, China)
 
 ### Clinical application
