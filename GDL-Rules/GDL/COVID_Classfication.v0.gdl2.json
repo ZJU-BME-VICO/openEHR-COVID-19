@@ -69,9 +69,9 @@
         "template_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
         "type": "INPUT",
         "elements": {
-          "gt0035": {
-            "id": "gt0035",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_result.v0]/items[at0001]/items[openEHR-EHR-CLUSTER.imaging_result_details.v0]/items[at0002]/items[at0003]"
+          "gt0036": {
+            "id": "gt0036",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_result-COVID_19.v0]/items[at0.15]/items[at0.16]"
           }
         }
       },
@@ -153,8 +153,8 @@
         "priority": 4,
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "$gt0035|Imaging result details|=='no imaging findings of COVID-19'",
-          "$gt0033|Symptom Description|=='slight clinical symptoms'"
+          "$gt0033|Symptom Description|=='slight clinical symptoms'",
+          "$gt0036|Imaging result details|=='no imaging findings of COVID-19'"
         ],
         "then": [
           "$gt0006|Severity|=local::at0047|Mild|"
@@ -166,7 +166,7 @@
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
           "($gt0011|Symptom/Sign name|=='Fever')||((($gt0011|Symptom/Sign name|=='Dry Cough')||($gt0011|Symptom/Sign name|=='Pain in throat'))||((($gt0011|Symptom/Sign name|=='Rhinorrhea')||($gt0011|Symptom/Sign name|=='Nasal Congestion'))||($gt0011|Symptom/Sign name|=='Difficulty breathing')))",
-          "$gt0035|Imaging result details|=='With imaging findings of COVID-19'"
+          "$gt0036|Imaging result details|=='With imaging findings of COVID-19'"
         ],
         "then": [
           "$gt0006|Severity|=local::at0048|Moderate|"
@@ -177,7 +177,7 @@
         "priority": 2,
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "(($gt0020|Respiratoty Rate|>=30,/min)||($gt0032|Pulse oximetry Comment|=='Blood oxygen saturation of finger is less than or equal to 93% in the resting state'))||(($gt0025|PaO2/FiO2|<=300)||($gt0035|Imaging result details|=='Progression of lesions greater than 50% within 24-48 hours'))"
+          "(($gt0020|Respiratoty Rate|>=30,/min)||($gt0032|Pulse oximetry Comment|=='Blood oxygen saturation of finger is less than or equal to 93% in the resting state'))||(($gt0025|PaO2/FiO2|<=300)||($gt0036|Imaging result details|=='Cases with chest imaging that showed obvious lesion progression within 24-48 hours >50%'))"
         ],
         "then": [
           "$gt0006|Severity|=local::at0049|Severe|"
@@ -286,10 +286,10 @@
             "text": "Symptom Description",
             "description": "Narrative description about the reported symptom or sign."
           },
-          "gt0035": {
-            "id": "gt0035",
+          "gt0036": {
+            "id": "gt0036",
             "text": "Imaging result details",
-            "description": "**(zh)"
+            "description": "*"
           }
         }
       }

@@ -158,7 +158,7 @@
         "priority": 2,
         "when": [
           "$gt0008|Symptom Number|>=2",
-          "(($gt0039|Risk factor|=='History of travel to or residence in Wuhan and its surrounding areas, or in other communities where cases have been reported within 14 days prior to the onset of the disease')||($gt0039|Risk factor|=='In contact with novel coronavirus infected people (with positive results for the nucleic acid test) within 14 days prior to the onset of the disease'))||(($gt0039|Risk factor|=='In contact with patients who have fever or respiratory symptoms from Wuhan and its surrounding area, or from communities where confirmed cases have been reported within 14 days before the onset of the disease')||($gt0039|Risk factor|=='Clustered cases (2 or more cases with fever and/or respiratory symptoms in a small area such families, offices, schools etc within 2 weeks)'))"
+          "(($gt0039|Risk factor|=='History of travel to or residence in Wuhan and its surrounding areas or in other communities where cases have been reported within 14 days prior to the onset of the disease')||($gt0039|Risk factor|=='In contact with novel coronavirus infected people (with positive results for the nucleic acid test) within 14 days prior to the onset of the disease'))||(($gt0039|Risk factor|=='In contact with patients who have fever or respiratory symptoms from Wuhan and its surrounding area or from communities where confirmed cases have been reported within 14 days before the onset of the disease')||($gt0039|Risk factor|=='Clustered cases (2 or more cases with fever and/or respiratory symptoms in a small area such families/offices/schools etc within 2 weeks)'))"
         ],
         "then": [
           "$gt0017|Diagnostic certainty|=local::at0074|Suspected|"

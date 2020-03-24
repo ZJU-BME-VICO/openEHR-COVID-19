@@ -1,10 +1,10 @@
-archetype (adl_version=1.4; uid=02741e5d-37e3-4322-9915-8589cd73dfe9)
-	openEHR-EHR-CLUSTER.imaging_result-covid_19.v0
+﻿archetype (adl_version=1.4; uid=02741e5d-37e3-4322-9915-8589cd73dfe9)
+	openEHR-EHR-CLUSTER.imaging_result-COVID_19.v0
 specialize
 	openEHR-EHR-CLUSTER.imaging_result.v0
 
 concept
-	[at0000.1]	-- Imaging result of COVID_19
+	[at0000.1]	-- Imaging result!
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -51,15 +51,15 @@ As well as a single result value, the archetype also allows for a specific anato
 		["build_uid"] = <"86ca9284-18fe-4202-8730-354e0e69753a">
 		["original_namespace"] = <"org.openehr">
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
-		["MD5-CAM-1.0.1"] = <"8D99D41D37B3E0463F4D27CD7B01F4B2">
+		["MD5-CAM-1.0.1"] = <"021050398956C580090EAF80F23FDA8E">
 		["custodian_namespace"] = <"org.openehr">
 		["custodian_organisation"] = <"openEHR Foundation">
 	>
 
 definition
-	CLUSTER[at0000.1] matches {	-- Imaging result of COVID_19
+	CLUSTER[at0000.1] matches {	-- Imaging result!
 		items cardinality matches {1..*; unordered} matches {
-			CLUSTER[at0001.1] occurrences matches {0..1} matches {	-- Imaging result
+			CLUSTER[at0001] occurrences matches {0..1} matches {	-- Imaging result
 				items cardinality matches {1..*; unordered} matches {
 					ELEMENT[at0002] occurrences matches {0..1} matches {*}
 					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Comment
@@ -95,30 +95,32 @@ definition
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location_relative(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.anatomical_location_clock(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v1/}
 					}
-					ELEMENT[at0.15] occurrences matches {0..1} matches {	-- Progression of acute exudative lesions
-						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {
-									[local::
-									at0.16, 	-- Worsening
-									at0.17, 	-- Improving
-									at0.18]	-- Resolved
-								}
-							}
-						}
-					}
-					ELEMENT[at0.20] occurrences matches {0..1} matches {	-- Progression of lesions greater than 50% within 24-48 hours
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
 				}
 			}
 			allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {	-- Other detail
 				include
 					archetype_id/value matches {/.*/}
+			}
+			CLUSTER[at0.15] occurrences matches {0..1} matches {	-- Per result details
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0.16] occurrences matches {0..1} matches {	-- Imaging result details
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0.17] occurrences matches {0..1} matches {	-- Presence
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0.18, 	-- Present
+									at0.19, 	-- Absent
+									at0.20]	-- Unknown
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -128,23 +130,27 @@ ontology
 		["en"] = <
 			items = <
 				["at0.15"] = <
-					text = <"Progression of acute exudative lesions">
+					text = <"Per result details">
 					description = <"*">
 				>
 				["at0.16"] = <
-					text = <"Worsening">
+					text = <"Imaging result details">
 					description = <"*">
 				>
 				["at0.17"] = <
-					text = <"Improving">
+					text = <"Presence">
 					description = <"*">
 				>
 				["at0.18"] = <
-					text = <"Resolved">
+					text = <"Present">
+					description = <"*">
+				>
+				["at0.19"] = <
+					text = <"Absent">
 					description = <"*">
 				>
 				["at0.20"] = <
-					text = <"Progression of lesions greater than 50% within 24-48 hours">
+					text = <"Unknown">
 					description = <"*">
 				>
 				["at0000"] = <
@@ -152,14 +158,10 @@ ontology
 					description = <"Imaging result as a single value or as a nested group result.">
 				>
 				["at0000.1"] = <
-					text = <"Imaging result of COVID_19">
+					text = <"Imaging result!">
 					description = <"Imaging result as a single value or as a nested group result.!">
 				>
 				["at0001"] = <
-					text = <"Imaging result">
-					description = <"Specific detailed imaging result, including both the value of the result item, and additional information that may be useful for clinical interpretation.">
-				>
-				["at0001.1"] = <
 					text = <"Imaging result">
 					description = <"Specific detailed imaging result, including both the value of the result item, and additional information that may be useful for clinical interpretation.">
 				>
@@ -220,23 +222,27 @@ ontology
 		["de"] = <
 			items = <
 				["at0.15"] = <
-					text = <"*Progression of acute exudative lesions(en)">
+					text = <"*Per result details(en)">
 					description = <"**(en)">
 				>
 				["at0.16"] = <
-					text = <"*Worsening(en)">
+					text = <"*Imaging result details(en)">
 					description = <"**(en)">
 				>
 				["at0.17"] = <
-					text = <"*Improving(en)">
+					text = <"*Presence(en)">
 					description = <"**(en)">
 				>
 				["at0.18"] = <
-					text = <"*Resolved(en)">
+					text = <"*Present(en)">
+					description = <"**(en)">
+				>
+				["at0.19"] = <
+					text = <"*Absent(en)">
 					description = <"**(en)">
 				>
 				["at0.20"] = <
-					text = <"*Progression of lesions greater than 50% within 24-48 hours(en)">
+					text = <"*Unknown(en)">
 					description = <"**(en)">
 				>
 				["at0000"] = <
@@ -244,16 +250,12 @@ ontology
 					description = <"Ergebnis der Bildgebung als Einzelwert oder als eine verschachtelte Gruppe von Ergebniswerten.">
 				>
 				["at0000.1"] = <
-					text = <"*Imaging result of COVID_19(en)">
+					text = <"*Imaging result!(en)">
 					description = <"*Imaging result as a single value or as a nested group result.!(en)">
 				>
 				["at0001"] = <
 					text = <"Ergebnis der Bildgebung">
 					description = <"Ein spezifisches detailliertes Ergebnis der Bildgebung, das sowohl den Wert des Ergebnisses, als auch zusätzliche Informationen enthält, die für die klinische Interpretation nützlich sein können.">
-				>
-				["at0001.1"] = <
-					text = <"*Imaging result(en)">
-					description = <"*Specific detailed imaging result, including both the value of the result item, and additional information that may be useful for clinical interpretation.(en)">
 				>
 				["at0002"] = <
 					text = <"Ergebnis">

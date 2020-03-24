@@ -53,9 +53,9 @@
         "template_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
         "type": "INPUT",
         "elements": {
-          "gt0045": {
-            "id": "gt0045",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_result.v0]/items[at0001]/items[openEHR-EHR-CLUSTER.imaging_result_details.v0]/items[at0002]/items[at0003]"
+          "gt0050": {
+            "id": "gt0050",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_result-COVID_19.v0]/items[at0.15]/items[at0.16]"
           }
         }
       },
@@ -127,7 +127,7 @@
           "$gt0032|Progression|==local::at0184|Resolved|",
           "$gt0037|Diagnostic certainty|==local::at0076|Confirmed|",
           "$gt0049|Problem/Diagnosis name|=='COVID-19'",
-          "$gt0045|Imaging result details|=='Substantial improvement of acute exudative lesions'"
+          "$gt0050|Imaging result details|=='Substantial improvement of acute exudative lesions'"
         ],
         "then": [
           "$gt0048|Recommendation|='Discharge from hospital'"
@@ -188,11 +188,6 @@
             "text": "Diagnostic certainty",
             "description": "The level of confidence in the identification of the diagnosis."
           },
-          "gt0045": {
-            "id": "gt0045",
-            "text": "Imaging result details",
-            "description": "**(zh)"
-          },
           "gt0048": {
             "id": "gt0048",
             "text": "Recommendation",
@@ -202,6 +197,11 @@
             "id": "gt0049",
             "text": "Problem/Diagnosis name",
             "description": "Identification of the problem or diagnosis, by name."
+          },
+          "gt0050": {
+            "id": "gt0050",
+            "text": "Imaging result details",
+            "description": "*"
           }
         }
       }
