@@ -68,7 +68,7 @@ Translation of the Chinese guideline: https://www.chinalawtranslate.com/en/coron
 The HMC platform: http://hmc.openehr.org.cn/#/archetype  
 GDL related resources: https://gdl-lang.org/  
 GDL2 Editor Docker for Windows: https://store.docker.com/editions/community/docker-ce-desktop-windows  
-GDL2 Editor Docker for Windows: https://store.docker.com/editions/community/docker-ce-desktop-mac
+GDL2 Editor Docker for Mac: https://store.docker.com/editions/community/docker-ce-desktop-mac
 
 ## Contributors
 
