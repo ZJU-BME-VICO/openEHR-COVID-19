@@ -1,0 +1,179 @@
+archetype (adl_version=1.4; uid=c16556dd-c527-4f61-bdbd-3f912fbe5e01)
+	openEHR-EHR-OBSERVATION.age.v0
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"Sarah Ballout">
+				["organisation"] = <"MHH-Hannover">
+				["email"] = <"ballout.sarah@mh-hannover.de">
+			>
+		>
+	>
+
+description
+	original_author = <
+		["date"] = <"2018-07-23">
+		["name"] = <"Heather Leslie">
+		["organisation"] = <"Atomica Informatics">
+		["email"] = <"heather.leslie@atomicainformatics.com">
+	>
+	lifecycle_state = <"in_development">
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Darstellung der Altersparameter einer Person.">
+			keywords = <"Alter","Lebensalter">
+			use = <"Zur Darstellung der Altersparameter einer Person.
+
+Diesen Archetypen zusammen mit dem OBSERVATION.child_growth Archetypen im Template verwenden, um das korrigierte Alter eines Säuglings im Rahmen der Überwachung des Kinderwachstums darzustellen.">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record parameters about the age of an individual.">
+			copyright = <"© openEHR Foundation">
+			use = <"Use to record parameters about the age of an individual.
+
+Use to in a template alongside OBSERVATION.child_growth to record the adjusted age of an infant as part of monitoring child growth patterns.">
+		>
+	>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["current_contact"] = <"Heather Leslie, Atomica Informatics<heather.leslie@atomicainformatics.com>">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"DC3170C3E873B139C3C004F67A0469FD">
+		["build_uid"] = <"3e1d5141-8b32-4fb0-9dfc-d6a7ee092a19">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Age
+		data matches {
+			HISTORY[at0001] matches {    -- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Chronological age
+										value matches {
+                                            C_DV_QUANTITY <
+                                                property = <[openehr::128]>
+                                                list = <
+                                                    ["1"] = <
+                                                        units = <"a">
+                                                    >
+                                                    ["2"] = <
+                                                        units = <"wk">
+                                                    >
+                                                    ["3"] = <
+                                                        units = <"mo">
+                                                    >
+                                                    ["4"] = <
+                                                        units = <"d">
+                                                    >
+                                                    ["5"] = <
+                                                        units = <"yr">
+                                                    >
+                                                >
+                                            >
+                                        }
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {    -- Adjusted age
+										value matches {
+											DV_DURATION matches {*}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Age">
+					description = <"Details about the age of an individual.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Chronological age">
+					description = <"Age based on actual date of birth.">
+				>
+				["at0005"] = <
+					text = <"Adjusted age">
+					description = <"Age based on due date.">
+				>
+				["at0006"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the age of an individual, not captured in other fields.">
+					comment = <"For example: pre-term delivery">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Alter">
+					description = <"Angaben über das Alter einer Person.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Beliebiges Ereignis">
+					description = <"Standardwert, ein undefinierter/s Zeitpunkt oder Intervallereignis, das explizit im Template oder zur Laufzeit der Anwendung definiert werden kann.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Chronologisches Alter">
+					description = <"Das Alter bezieht sich auf das tatsächliche Geburtsdatum.">
+				>
+				["at0005"] = <
+					text = <"Korrigiertes Alter">
+					description = <"Das Alter bezogen auf das errechnete Geburtsdatum.
+">
+				>
+				["at0006"] = <
+					text = <"Kommentar">
+					description = <"Beschreibung des Alters einer Person, das nicht in anderen Datenelementen dargestellt wird.">
+					comment = <"Zum Beispiel: Frühgeburt">
+				>
+			>
+		>
+	>

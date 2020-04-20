@@ -227,6 +227,7 @@ plesmythography
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"To record blood oxygen and related measurements, measured by pulse oximetry or pulse CO-oximetry.">
+			keywords = <"oxygen","oxygenation","saturation","SpO2","spMet","spCO","spOC","carboxyhaemoglobin","methaemoglobin","pulse","oximeter","oximetry","concentration","partial","pressure","non-invasive","vital","O2","SaO₂","SaO2","sat","sats","hypoxaemia">
 			copyright = <"© openEHR Foundation">
 			use = <"Use to record blood oxygen and related measurements, measured by pulse oximetry or pulse CO-oximetry.
 
@@ -297,9 +298,15 @@ definition
 								items cardinality matches {0..*; unordered} matches {
 									ELEMENT[at0006] occurrences matches {0..1} matches {    -- SpO₂
 										value matches {
-											DV_PROPORTION matches {
-												type matches {2}
-											}
+											C_DV_QUANTITY <
+												property = <[openehr::380]>
+												list = <
+													["1"] = <
+														units = <"%">
+														precision = <|1|>
+													>
+												>
+											>
 										}
 									}
 									ELEMENT[at0044] occurrences matches {0..1} matches {    -- SpOC
@@ -380,11 +387,7 @@ definition
 				items cardinality matches {0..*; unordered} matches {
 					ELEMENT[at0009] occurrences matches {0..1} matches {    -- Sensor site
 						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {
-									[local::at0065]    -- Finger structure
-								}
-							}
+							DV_TEXT matches {*}
 						}
 					}
 					ELEMENT[at0061] occurrences matches {0..1} matches {    -- Pre/post-ductal
@@ -527,10 +530,6 @@ ontology
 					text = <"*Indeterminate(en)">
 					description = <"*Unable to assess whether the sensor site is pre- or post-ductal.(en)">
 				>
-				["at0065"] = <
-					text = <"Finger structure">
-					description = <"*">
-				>
 			>
 		>
 		["es-ar"] = <
@@ -637,10 +636,6 @@ ontology
 					text = <"*Indeterminate(en)">
 					description = <"*Unable to assess whether the sensor site is pre- or post-ductal.(en)">
 				>
-				["at0065"] = <
-					text = <"Finger structure">
-					description = <"*">
-				>
 			>
 		>
 		["de"] = <
@@ -745,10 +740,6 @@ ontology
 				["at0064"] = <
 					text = <"*Indeterminate(en)">
 					description = <"*Unable to assess whether the sensor site is pre- or post-ductal.(en)">
-				>
-				["at0065"] = <
-					text = <"Finger structure">
-					description = <"*">
 				>
 			>
 		>
@@ -856,10 +847,6 @@ ontology
 					text = <"Indeterminate">
 					description = <"Unable to assess whether the sensor site is pre- or post-ductal.">
 				>
-				["at0065"] = <
-					text = <"Finger structure">
-					description = <"*">
-				>
 			>
 		>
 		["fa"] = <
@@ -965,10 +952,6 @@ ontology
 				["at0064"] = <
 					text = <"*Indeterminate(en)">
 					description = <"*Unable to assess whether the sensor site is pre- or post-ductal.(en)">
-				>
-				["at0065"] = <
-					text = <"Finger structure">
-					description = <"*">
 				>
 			>
 		>
@@ -1076,10 +1059,6 @@ ontology
 					text = <"*Indeterminate(en)">
 					description = <"*Unable to assess whether the sensor site is pre- or post-ductal.(en)">
 				>
-				["at0065"] = <
-					text = <"Finger structure">
-					description = <"*">
-				>
 			>
 		>
 		["nb"] = <
@@ -1185,10 +1164,6 @@ ontology
 				["at0064"] = <
 					text = <"Ubestemmelig">
 					description = <"Det er ikke mulig å vurdere hvorvidt målestedet er pre- eller postduktalt.">
-				>
-				["at0065"] = <
-					text = <"Finger structure">
-					description = <"*">
 				>
 			>
 		>
@@ -1301,10 +1276,6 @@ barn, för att avgöra om blodtillförseln till kroppsdelen sensorn sitter på �
 					text = <"Obestämd">
 					description = <"Det går inte att bedöma om sensorplatsen är pre- eller post-duktal">
 				>
-				["at0065"] = <
-					text = <"Finger structure">
-					description = <"*">
-				>
 			>
 		>
 		["pt-br"] = <
@@ -1411,10 +1382,6 @@ barn, för att avgöra om blodtillförseln till kroppsdelen sensorn sitter på �
 					text = <"Indeterminado">
 					description = <"Incapaz de acessar se o local do sensor é pré ou pós ductal.">
 				>
-				["at0065"] = <
-					text = <"Finger structure">
-					description = <"*">
-				>
 			>
 		>
 		["fi"] = <
@@ -1520,10 +1487,6 @@ barn, för att avgöra om blodtillförseln till kroppsdelen sensorn sitter på �
 				["at0064"] = <
 					text = <"Ei määritettävissä">
 					description = <"Ei voida määrittää, onko anturin paikka pre- vai postduktaalinen.">
-				>
-				["at0065"] = <
-					text = <"Finger structure">
-					description = <"*">
 				>
 			>
 		>

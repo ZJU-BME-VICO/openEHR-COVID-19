@@ -7,7 +7,7 @@
   },
   "description": {
     "original_author": {
-      "date": "2020-03-12",
+      "date": "2020-04-08",
       "name": "Hongshuo Feng",
       "organisation": "Zhejiang University",
       "email": "842089819@qq.com"
@@ -30,7 +30,7 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
     }
   },
   "definition": {
@@ -48,18 +48,6 @@
           "gt0015": {
             "id": "gt0015",
             "path": "/data[at0001]/items[at0005]"
-          },
-          "gt0021": {
-            "id": "gt0021",
-            "path": "/data[at0001]/items[at0002]"
-          },
-          "gt0024": {
-            "id": "gt0024",
-            "path": "/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v1]/items[at0083]"
-          },
-          "gt0027": {
-            "id": "gt0027",
-            "path": "/protocol[at0032]/items[at0070]"
           }
         }
       },
@@ -75,27 +63,47 @@
           }
         }
       },
-      "gt0025": {
-        "id": "gt0025",
-        "model_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
-        "template_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
-        "type": "OUTPUT",
+      "gt0030": {
+        "id": "gt0030",
+        "model_id": "openEHR-EHR-OBSERVATION.condition_screening.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.condition_screening.v0",
+        "type": "INPUT",
         "elements": {
-          "gt0026": {
-            "id": "gt0026",
-            "path": "/protocol[at0032]/items[at0070]"
+          "gt0031": {
+            "id": "gt0031",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0004]"
+          },
+          "gt0032": {
+            "id": "gt0032",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]"
           }
         }
       },
-      "gt0028": {
-        "id": "gt0028",
-        "model_id": "openEHR-EHR-EVALUATION.recommendation.v1",
-        "template_id": "openEHR-EHR-EVALUATION.recommendation.v1",
+      "gt0034": {
+        "id": "gt0034",
+        "model_id": "openEHR-EHR-INSTRUCTION.therapeutic_order.v0",
+        "template_id": "openEHR-EHR-INSTRUCTION.therapeutic_order.v0",
         "type": "OUTPUT",
         "elements": {
-          "gt0029": {
-            "id": "gt0029",
-            "path": "/data[at0001]/items[at0002]"
+          "gt0035": {
+            "id": "gt0035",
+            "path": "/activities[at0001]/description[at0009]/items[at0121]"
+          }
+        }
+      },
+      "gt0041": {
+        "id": "gt0041",
+        "model_id": "openEHR-EHR-EVALUATION.health_risk.v1",
+        "template_id": "openEHR-EHR-EVALUATION.health_risk.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0042": {
+            "id": "gt0042",
+            "path": "/data[at0001]/items[at0016]/items[at0013]"
+          },
+          "gt0043": {
+            "id": "gt0043",
+            "path": "/data[at0001]/items[at0016]/items[at0017]"
           }
         }
       }
@@ -106,10 +114,10 @@
         "priority": 4,
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "($gt0015|Severity|==local::at0049|Severe|)||($gt0015|Severity|==local::at0079|Critical|)"
+          "($gt0015|Severity|==local::at0049|Severe|)||($gt0015|Severity|==local::at0078|Critical|)"
         ],
         "then": [
-          "$gt0029|Recommendation|='Nasal catheter for oxygen or Face-masked Oxygen Supply'"
+          "$gt0035|Activity name|='Nasal cannulas or masks for oxygen inhalation'"
         ]
       },
       "gt0017": {
@@ -117,13 +125,12 @@
         "priority": 3,
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "($gt0015|Severity|==local::at0049|Severe|)||($gt0015|Severity|==local::at0079|Critical|)",
-          "($gt0021|Problem/Diagnosis name|=='Hypoxemia')||($gt0021|Problem/Diagnosis name|=='Respiratory distress')",
-          "$gt0024|Resolution phase|==local::at0086|Not resolving|"
+          "($gt0015|Severity|==local::at0049|Severe|)||($gt0015|Severity|==local::at0078|Critical|)",
+          "$gt0042|Risk factor|=='Respiratory distress and/or hypoxemia cannot be alleviated'",
+          "$gt0043|Presence|==local::at0018|Present|"
         ],
         "then": [
-          "$gt0026|Last updated|=$currentDateTime",
-          "$gt0029|Recommendation|='High-flow nasal cannula (HFNC) oxygen therapy or Non-invasive mechanical ventilation'"
+          "$gt0035|Activity name|='High-flow nasal cannula (HFNC) oxygen therapy or Non-invasive mechanical ventilation'"
         ]
       },
       "gt0019": {
@@ -131,15 +138,13 @@
         "priority": 2,
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "($gt0015|Severity|==local::at0049|Severe|)||($gt0015|Severity|==local::at0079|Critical|)",
-          "($gt0021|Problem/Diagnosis name|=='Hypoxemia')||($gt0021|Problem/Diagnosis name|=='Respiratory distress')",
-          "$gt0027|Last updated|>($currentDateTime-2,h)",
-          "$gt0027|Last updated|<=($currentDateTime-1,h)",
-          "($gt0024|Resolution phase|==local::at0086|Not resolving|)||($gt0024|Resolution phase|==local::at0097|Relapsed|)"
+          "($gt0015|Severity|==local::at0049|Severe|)||($gt0015|Severity|==local::at0078|Critical|)",
+          "$gt0042|Risk factor|=='Respiratory distress and/or hypoxemia cannot be alleviated or even get worse'",
+          "$gt0043|Presence|==local::at0018|Present|"
         ],
         "then": [
-          "$gt0009|Medication item|='Sedation and muscle relaxants'",
-          "$gt0029|Recommendation|='Invasive mechanical ventilation'"
+          "$gt0009|Medication item|='Sedative and muscle relaxants'",
+          "$gt0035|Activity name|='Invasive mechanical ventilation'"
         ]
       },
       "gt0020": {
@@ -147,12 +152,12 @@
         "priority": 1,
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "($gt0015|Severity|==local::at0049|Severe|)||($gt0015|Severity|==local::at0079|Critical|)",
-          "$gt0021|Problem/Diagnosis name|=='Acute Respiratory Distress Syndrome'",
-          "$gt0024|Resolution phase|==local::at0097|Relapsed|"
+          "($gt0015|Severity|==local::at0049|Severe|)||($gt0015|Severity|==local::at0078|Critical|)",
+          "$gt0031|Condition name|=='Acute Respiratory Distress Syndrome'",
+          "$gt0032|Presence?|==local::at0023|Present|"
         ],
         "then": [
-          "$gt0029|Recommendation|='Lung recruitment,Prone ventilation,ECMO'"
+          "$gt0035|Activity name|='Lung recruitment,Prone body position,Extracorporeal membrane oxygenation'"
         ]
       }
     }
@@ -198,30 +203,30 @@
             "id": "gt0020",
             "text": "Severe_Critical_Treatment4"
           },
-          "gt0021": {
-            "id": "gt0021",
-            "text": "Problem/Diagnosis name",
-            "description": "Identification of the problem or diagnosis, by name."
+          "gt0031": {
+            "id": "gt0031",
+            "text": "Condition name",
+            "description": "Name of the condition being screened."
           },
-          "gt0024": {
-            "id": "gt0024",
-            "text": "Resolution phase",
-            "description": "Phase of healing for an acute problem or diagnosis."
+          "gt0032": {
+            "id": "gt0032",
+            "text": "Presence?",
+            "description": "Presence of the condition."
           },
-          "gt0026": {
-            "id": "gt0026",
-            "text": "Last updated",
-            "description": "The date this problem or diagnosis was last updated."
+          "gt0035": {
+            "id": "gt0035",
+            "text": "Activity name",
+            "description": "The name of the single therapy or activity requested."
           },
-          "gt0027": {
-            "id": "gt0027",
-            "text": "Last updated",
-            "description": "The date this problem or diagnosis was last updated."
+          "gt0042": {
+            "id": "gt0042",
+            "text": "Risk factor",
+            "description": "Identification of the risk factor, by name."
           },
-          "gt0029": {
-            "id": "gt0029",
-            "text": "Recommendation",
-            "description": "Narrative description of the recommendation."
+          "gt0043": {
+            "id": "gt0043",
+            "text": "Presence",
+            "description": "Presence of the risk factor."
           }
         }
       }

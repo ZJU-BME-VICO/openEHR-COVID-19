@@ -1,5 +1,5 @@
 {
-  "id": "COVID_General_Treatment.v0",
+  "id": "COVID_Immunotherapy.v0",
   "gdl_version": "2.0",
   "concept": "gt0001",
   "language": {
@@ -21,7 +21,7 @@
     "details": {
       "en": {
         "id": "en",
-        "purpose": "General treatment options for COVID-19 patients.",
+        "purpose": "Other treatment for COVID-19 patients.",
         "keywords": [
           "COVID-19"
         ],
@@ -37,33 +37,57 @@
     "data_bindings": {
       "gt0002": {
         "id": "gt0002",
+        "model_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt0015": {
+            "id": "gt0015",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_finding.v0]/items[at0024]"
+          }
+        }
+      },
+      "gt0004": {
+        "id": "gt0004",
         "model_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
         "template_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
         "type": "INPUT",
         "elements": {
-          "gt0003": {
-            "id": "gt0003",
-            "path": "/data[at0001]/items[at0073]"
-          },
-          "gt0004": {
-            "id": "gt0004",
+          "gt0005": {
+            "id": "gt0005",
             "path": "/data[at0001]/items[at0005]"
+          },
+          "gt0021": {
+            "id": "gt0021",
+            "path": "/data[at0001]/items[at0073]"
           }
         }
       },
-      "gt0007": {
-        "id": "gt0007",
+      "gt0009": {
+        "id": "gt0009",
         "model_id": "openEHR-EHR-INSTRUCTION.medication_order.v2",
         "template_id": "openEHR-EHR-INSTRUCTION.medication_order.v2",
         "type": "OUTPUT",
         "elements": {
-          "gt0008": {
-            "id": "gt0008",
+          "gt0010": {
+            "id": "gt0010",
             "path": "/activities[at0001]/description[at0002]/items[at0070]"
+          }
+        }
+      },
+      "gt0016": {
+        "id": "gt0016",
+        "model_id": "openEHR-EHR-EVALUATION.health_risk.v1",
+        "template_id": "openEHR-EHR-EVALUATION.health_risk.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0017": {
+            "id": "gt0017",
+            "path": "/data[at0001]/items[at0016]/items[at0013]"
           },
-          "gt0016": {
-            "id": "gt0016",
-            "path": "/activities[at0001]/description[at0002]/items[at0107]"
+          "gt0018": {
+            "id": "gt0018",
+            "path": "/data[at0001]/items[at0016]/items[at0017]"
           }
         }
       },
@@ -85,13 +109,15 @@
         "id": "gt0014",
         "priority": 1,
         "when": [
-          "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "(($gt0004|Severity|==local::at0047|Mild|)||($gt0004|Severity|==local::at0048|Moderate|))||(($gt0004|Severity|==local::at0049|Severe|)||($gt0004|Severity|==local::at0078|Critical|))"
+          "($gt0005|Severity|==local::at0049|Severe|)||($gt0005|Severity|==local::at0078|Critical|)",
+          "$gt0015|Finding name|=='Extensive lung lesions'",
+          "$gt0017|Risk factor|=='Progressive increase in IL-6'",
+          "$gt0018|Presence|==local::at0018|Present|",
+          "$gt0021|Diagnostic certainty|==local::at0076|Confirmed|"
         ],
         "then": [
-          "$gt0008|Medication item|='Alpha-Interferon, Lopinavir/Ritonavir, Ribavirin, Chloroquine Phosphate, Arbidol'",
-          "$gt0016|Monitoring instruction|='(1) Pay attention to the adverse reactions related to Ritonavir/Lopinavir,such as diarrhea, nausea, vomi, liver damage and the interaction with other drugs. (2) It is not recommended to use 3 or more antiviral drugs at the same time, and the use of related drugs should be stopped when intolerable side effects occur.(3) Avoid blind or inappropriate use of antimicrobials, especially in combination with broad-spectrum antimicrobials'",
-          "$gt0020|Activity name|='Bedrest; Fluid balance monitoring; Vital signs monitoring; Oxygen therapy support; Antiviral therapy; Antibiotic therapy; Traditional Chinese Medicine therapy'"
+          "$gt0010|Medication item|='Tocilizumab'",
+          "$gt0020|Activity name|='Immunotherapy'"
         ]
       }
     }
@@ -103,37 +129,47 @@
         "terms": {
           "gt0001": {
             "id": "gt0001",
-            "text": "COVID_General_Treatment",
-            "description": "General treatment options for COVID-19 patients."
+            "text": "COVID_Immunotherapy",
+            "description": "Immunotherapy for COVID-19 patients."
           },
-          "gt0003": {
-            "id": "gt0003",
-            "text": "Diagnostic certainty",
-            "description": "The level of confidence in the identification of the diagnosis."
-          },
-          "gt0004": {
-            "id": "gt0004",
+          "gt0005": {
+            "id": "gt0005",
             "text": "Severity",
             "description": "An assessment of the overall severity of the problem or diagnosis."
           },
-          "gt0008": {
-            "id": "gt0008",
+          "gt0010": {
+            "id": "gt0010",
             "text": "Medication item",
             "description": "Name of the medication, vaccine or other therapeutic/prescribable item being ordered."
           },
           "gt0014": {
             "id": "gt0014",
-            "text": "General_treatment"
+            "text": "Immunity Treatment"
           },
-          "gt0016": {
-            "id": "gt0016",
-            "text": "Monitoring instruction",
-            "description": "An additional instruction which gives advice on recommended or required monitoring of the ordered item."
+          "gt0015": {
+            "id": "gt0015",
+            "text": "Finding name",
+            "description": "The name of the finding."
+          },
+          "gt0017": {
+            "id": "gt0017",
+            "text": "Risk factor",
+            "description": "Identification of the risk factor, by name."
+          },
+          "gt0018": {
+            "id": "gt0018",
+            "text": "Presence",
+            "description": "Presence of the risk factor."
           },
           "gt0020": {
             "id": "gt0020",
             "text": "Activity name",
             "description": "The name of the single therapy or activity requested."
+          },
+          "gt0021": {
+            "id": "gt0021",
+            "text": "Diagnostic certainty",
+            "description": "The level of confidence in the identification of the diagnosis."
           }
         }
       }

@@ -1,0 +1,484 @@
+archetype (adl_version=1.4; uid=8f6656b9-5c1c-4d18-bb66-4336e5d7f334)
+	openEHR-EHR-OBSERVATION.symptom_sign_screening.v0
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["fi"] = <
+			language = <[ISO_639-1::fi]>
+			author = <
+			>
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+			>
+		>
+	>
+
+description
+	original_author = <
+		["date"] = <"2020-03-13">
+		["name"] = <"Heather Leslie">
+		["organisation"] = <"Atomica Informatics">
+		["email"] = <"heather.leslie@atomicainformatics.com">
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Silje Ljosland Bakke, Helse Vest IKT AS, Norway (openEHR Editor)","Heather Leslie, Atomica Informatics, Australia (openEHR Editor)">
+	details = <
+		["fi"] = <
+			language = <[ISO_639-1::fi]>
+			purpose = <"*To record the responses to an individual- or self-reported questionnaire screening for symptoms and signs.(en)">
+			use = <"*Use to record the responses to an individual- or self-reported questionnaire screening for symptoms and signs.
+
+Common use cases include, but are not limited to:
+- Systematic questioning in any consultation; or
+- Specific questioning related to infectious disease surveillance.(en)">
+			misuse = <"*Not to be used to record details about a specific reported symptom or sign as part of a typical clinical consultation. Use CLUSTER.symptom_sign for this purpose.(en)">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"*To record the responses to an individual- or self-reported questionnaire screening for symptoms and signs.(en)">
+			use = <"*Use to record the responses to an individual- or self-reported questionnaire screening for symptoms and signs.
+
+Common use cases include, but are not limited to:
+- Systematic questioning in any consultation; or
+- Specific questioning related to infectious disease surveillance.(en)">
+			misuse = <"*Not to be used to record details about a specific reported symptom or sign as part of a typical clinical consultation. Use CLUSTER.symptom_sign for this purpose.(en)">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the responses to an individual- or self-reported questionnaire screening for symptoms and signs.">
+			use = <"Use to record the responses to an individual- or self-reported questionnaire screening for symptoms and signs.
+
+Common use cases include, but are not limited to:
+- Systematic questioning in any consultation; or
+- Specific questioning related to infectious disease surveillance.">
+			misuse = <"Not to be used to record details about a specific reported symptom or sign as part of a typical clinical consultation. Use CLUSTER.symptom_sign for this purpose.">
+		>
+	>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"8176C0BCAFE2D6C76F0546C522B4FC2D">
+		["build_uid"] = <"1bde6cc2-82e8-4b30-b8dc-3957b08e3ebf">
+		["ip_acknowledgements"] = <"This artefact includes content from SNOMED Clinical Terms® (SNOMED CT®) which is copyrighted material of the International Health Terminology Standards Development Organisation (IHTSDO). Where an implementation of this artefact makes use of SNOMED CT content, the implementer must have the appropriate SNOMED CT Affiliate license - for more information contact http://www.snomed.org/snomed-ct/get-snomedct or info@snomed.org.">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Symptom/sign screening questionnaire
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {0..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0034] occurrences matches {0..1} matches {    -- Screening purpose
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0028] occurrences matches {0..1} matches {    -- Presence of any symptoms or signs?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0031,    -- Present
+													at0032,    -- Absent
+													at0033]    -- Indeterminate
+												}
+											}
+										}
+									}
+									ELEMENT[at0029] occurrences matches {0..1} matches {    -- Onset of any symptoms or signs
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0036] occurrences matches {0..1} matches {    -- Description
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									CLUSTER[at0022] occurrences matches {0..*} matches {    -- Specific symptom/sign
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0004] matches {    -- Symptom or sign name
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0005] occurrences matches {0..1} matches {    -- Presence?
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0023,    -- Present
+															at0024,    -- Absent
+															at0027]    -- Indeterminate
+														}
+													}
+												}
+											}
+											ELEMENT[at0006] occurrences matches {0..1} matches {    -- Onset
+												value matches {
+													DV_DATE_TIME matches {*}
+												}
+											}
+											ELEMENT[at0035] occurrences matches {0..1} matches {    -- Comment
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0026] occurrences matches {0..*} matches {    -- Additional details
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0025] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0007] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0021] occurrences matches {0..*} matches {    -- Extension
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	terminologies_available = <"SNOMED-CT", ...>
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Symptom/sign screening questionnaire">
+					description = <"An individual- or self-reported questionnaire screening for symptoms and signs.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Symptom or sign name">
+					description = <"Name of the symptom or sign being screened.">
+				>
+				["at0005"] = <
+					text = <"Presence?">
+					description = <"Presence of the symptom or sign.">
+				>
+				["at0006"] = <
+					text = <"Onset">
+					description = <"The date/time when the symptom or sign was first noticed.">
+					comment = <"Partial dates are allowed.">
+				>
+				["at0007"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0021"] = <
+					text = <"Extension">
+					description = <"Additional information required to capture local content or to align with other reference models/formalisms.">
+					comment = <"For example: local information requirements or additional metadata to align with FHIR or CIMI equivalents.">
+				>
+				["at0022"] = <
+					text = <"Specific symptom/sign">
+					description = <"Grouping of data elements related to screening for a single symptom or sign.">
+				>
+				["at0023"] = <
+					text = <"Present">
+					description = <"The specific symptom or sign is present.">
+				>
+				["at0024"] = <
+					text = <"Absent">
+					description = <"The specific symptom or sign is not present.">
+				>
+				["at0025"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the symptoms and signs, not captured in other fields.">
+				>
+				["at0026"] = <
+					text = <"Additional details">
+					description = <"Additional structured details related to symptom screening.">
+				>
+				["at0027"] = <
+					text = <"Indeterminate">
+					description = <"It is not possible to know if the symptom or sign is present or absent.">
+				>
+				["at0028"] = <
+					text = <"Presence of any symptoms or signs?">
+					description = <"Presence of the any relevant symptoms or signs.">
+				>
+				["at0029"] = <
+					text = <"Onset of any symptoms or signs">
+					description = <"The date/time when any symptoms or signs were first noticed.">
+					comment = <"Partial dates are allowed.">
+				>
+				["at0031"] = <
+					text = <"Present">
+					description = <"Symptoms or signs are present.">
+				>
+				["at0032"] = <
+					text = <"Absent">
+					description = <"Symptoms or signs are not present.">
+				>
+				["at0033"] = <
+					text = <"Indeterminate">
+					description = <"It is not possible to know if any symptoms or signs are present or absent.">
+				>
+				["at0034"] = <
+					text = <"Screening purpose">
+					description = <"The reason for overall screening.">
+					comment = <"For example: screening for an infectious disease, such as SARS-COV-2.">
+				>
+				["at0035"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the specific symptom or sign, not captured in other fields.">
+				>
+				["at0036"] = <
+					text = <"Description">
+					description = <"Narrative description about all symptoms or signs.">
+				>
+			>
+		>
+		["fi"] = <
+			items = <
+				["at0000"] = <
+					text = <"Oire / tuntemus seulontakysely">
+					description = <"Kysely arvioimaan oiretta tai sen mahdollista olemassaoloa.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"*Any event(en)">
+					description = <"*Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time.(en)">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Oire tai tuntemuksen nimi">
+					description = <"Oireen tai tuntemuksen nimi jota arvioidaan">
+				>
+				["at0005"] = <
+					text = <"Olemassalolo">
+					description = <"Oireen tai tuntemuksen olemassaolo">
+				>
+				["at0006"] = <
+					text = <"Toteamisen ajankohta">
+					description = <"Aika jolloin oire on ensimmäisen kerran havaittu">
+					comment = <"*Partial dates are allowed.(en)">
+				>
+				["at0007"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0021"] = <
+					text = <"*Extension(en)">
+					description = <"*Additional information required to capture local content or to align with other reference models/formalisms.(en)">
+					comment = <"*For example: local information requirements or additional metadata to align with FHIR or CIMI equivalents.(en)">
+				>
+				["at0022"] = <
+					text = <"Oire / tuntemus ryhmitys">
+					description = <"*Grouping of data elements related to screening for a single symptom or sign.(en)">
+				>
+				["at0023"] = <
+					text = <"*Present(en)">
+					description = <"Yksilöity oire on olemassa / havaittavissa">
+				>
+				["at0024"] = <
+					text = <"*Absent(en)">
+					description = <"Yksilöityä oiretta ei ole havaittavissa / olemassa">
+				>
+				["at0025"] = <
+					text = <"Kommentit">
+					description = <"Lisätietoa tarkentamaan oireita tai tuntemuksia.">
+				>
+				["at0026"] = <
+					text = <"Lisätietoa">
+					description = <"Oireiden seulontaan liittyvät muut jäsennellyt yksityiskohdat.">
+				>
+				["at0027"] = <
+					text = <"Määrittelemätön">
+					description = <"Ei ole mahdollista varmistaa, onko oire tai tuntemus olemassa vaiko ei.">
+				>
+				["at0028"] = <
+					text = <"Oireen tai tuntemuksen olemassaolo">
+					description = <"Oireiden tai tuntemuksien vahva näyttö">
+				>
+				["at0029"] = <
+					text = <"Toteamisen ajankohta">
+					description = <"Aika jolloin oireet tai tuntemukset olivat havaittu ensimmäisen kerran.">
+					comment = <"*Partial dates are allowed.(en)">
+				>
+				["at0031"] = <
+					text = <"Olemassa">
+					description = <"Oire / tuntemus on olemassa">
+				>
+				["at0032"] = <
+					text = <"Poissa">
+					description = <"Oire / tuntemusta ei ole olemassa">
+				>
+				["at0033"] = <
+					text = <"Määrittelemätön">
+					description = <"On mahdotonta päätellä onko oire / tuntemus olemassa vai ei">
+				>
+				["at0034"] = <
+					text = <"*Screening purpose(en)">
+					description = <"*The reason for overall screening.(en)">
+					comment = <"*For example: screening for an infectious disease, such as SARS-COV-2.(en)">
+				>
+				["at0035"] = <
+					text = <"*Comment(en)">
+					description = <"*Additional narrative about the specific symptom or sign, not captured in other fields.(en)">
+				>
+				["at0036"] = <
+					text = <"*Description(en)">
+					description = <"*Narrative description about all symptoms or signs.(en)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Spørreskjema for screening av symptomer/sykdomstegn">
+					description = <"*An individual- or self-reported questionnaire screening for symptoms and signs.(en)">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Uspesifikk hendelse">
+					description = <"*Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time.(en)">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Navn på symptom/sykdomstegn">
+					description = <"*Name of the symptom or sign being screened.(en)">
+				>
+				["at0005"] = <
+					text = <"Tilstede?">
+					description = <"*Presence of the symptom or sign.(en)">
+				>
+				["at0006"] = <
+					text = <"Debut">
+					description = <"*The date/time when the symptom or sign was first noticed.(en)">
+					comment = <"*Partial dates are allowed.(en)">
+				>
+				["at0007"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0021"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"*Additional information required to capture local content or to align with other reference models/formalisms.(en)">
+					comment = <"*For example: local information requirements or additional metadata to align with FHIR or CIMI equivalents.(en)">
+				>
+				["at0022"] = <
+					text = <"Spesifikt symptom/sykdomstegn">
+					description = <"*Grouping of data elements related to screening for a single symptom or sign.(en)">
+				>
+				["at0023"] = <
+					text = <"Tilstede">
+					description = <"*The specific symptom or sign is present.(en)">
+				>
+				["at0024"] = <
+					text = <"Fraværende">
+					description = <"*The specific symptom or sign is not present.(en)">
+				>
+				["at0025"] = <
+					text = <"Kommentar">
+					description = <"*Additional narrative about the symptoms and signs, not captured in other fields.(en)">
+				>
+				["at0026"] = <
+					text = <"Ytterligere detaljer">
+					description = <"*Additional structured details related to symptom screening.(en)">
+				>
+				["at0027"] = <
+					text = <"Ubestemmelig">
+					description = <"*It is not possible to know if the symptom or sign is present or absent.(en)">
+				>
+				["at0028"] = <
+					text = <"Tilstedeværelse av noen symptomer/sykdomstegn?">
+					description = <"*Presence of the any relevant symptoms or signs.(en)">
+				>
+				["at0029"] = <
+					text = <"Debut av noen symptomer/sykdomstegn">
+					description = <"*The date/time when any symptoms or signs were first noticed.(en)">
+					comment = <"*Partial dates are allowed.(en)">
+				>
+				["at0031"] = <
+					text = <"Tilstede">
+					description = <"*Symptoms or signs are present.(en)">
+				>
+				["at0032"] = <
+					text = <"Fraværende">
+					description = <"*Symptoms or signs are not present.(en)">
+				>
+				["at0033"] = <
+					text = <"Ubestemmelig">
+					description = <"*It is not possible to know if any symptoms or signs are present or absent.(en)">
+				>
+				["at0034"] = <
+					text = <"Formål med screeningen">
+					description = <"*The reason for overall screening.(en)">
+					comment = <"*For example: screening for an infectious disease, such as SARS-COV-2.(en)">
+				>
+				["at0035"] = <
+					text = <"Kommentar">
+					description = <"*Additional narrative about the specific symptom or sign, not captured in other fields.(en)">
+				>
+				["at0036"] = <
+					text = <"Beskrivelse">
+					description = <"*Narrative description about all symptoms or signs.(en)">
+				>
+			>
+		>
+	>
+	term_binding = <
+		["SNOMED-CT"] = <
+			items = <
+				["at0023"] = <[SNOMED-CT::52101004]>
+				["at0024"] = <[SNOMED-CT::2667000]>
+				["at0031"] = <[SNOMED-CT::52101004]>
+				["at0032"] = <[SNOMED-CT::2667000]>
+				["at0033"] = <[SNOMED-CT::82334004]>
+			>
+		>
+	>

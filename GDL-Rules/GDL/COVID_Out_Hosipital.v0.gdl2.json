@@ -7,7 +7,7 @@
   },
   "description": {
     "original_author": {
-      "date": "2020-03-12",
+      "date": "2020-04-07",
       "name": "Hongshuo Feng",
       "organisation": "Zhejiang University",
       "email": "842089819@qq.com"
@@ -30,63 +30,11 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
     }
   },
   "definition": {
     "data_bindings": {
-      "gt0018": {
-        "id": "gt0018",
-        "model_id": "openEHR-EHR-OBSERVATION.body_temperature.v2",
-        "template_id": "openEHR-EHR-OBSERVATION.body_temperature.v2",
-        "type": "INPUT",
-        "elements": {
-          "gt0019": {
-            "id": "gt0019",
-            "path": "/data[at0002]/events[at0003]/data[at0001]/items[at0063]"
-          }
-        }
-      },
-      "gt0020": {
-        "id": "gt0020",
-        "model_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
-        "template_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
-        "type": "INPUT",
-        "elements": {
-          "gt0050": {
-            "id": "gt0050",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_result-COVID_19.v0]/items[at0.15]/items[at0.16]"
-          }
-        }
-      },
-      "gt0023": {
-        "id": "gt0023",
-        "model_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
-        "template_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
-        "type": "INPUT",
-        "elements": {
-          "gt0025": {
-            "id": "gt0025",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0057]"
-          }
-        }
-      },
-      "gt0030": {
-        "id": "gt0030",
-        "model_id": "openEHR-EHR-OBSERVATION.story.v1",
-        "template_id": "openEHR-EHR-OBSERVATION.story.v1",
-        "type": "INPUT",
-        "elements": {
-          "gt0032": {
-            "id": "gt0032",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0180]"
-          },
-          "gt0033": {
-            "id": "gt0033",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0001]"
-          }
-        }
-      },
       "gt0035": {
         "id": "gt0035",
         "model_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
@@ -96,22 +44,34 @@
           "gt0037": {
             "id": "gt0037",
             "path": "/data[at0001]/items[at0073]"
-          },
-          "gt0049": {
-            "id": "gt0049",
-            "path": "/data[at0001]/items[at0002]"
           }
         }
       },
-      "gt0047": {
-        "id": "gt0047",
-        "model_id": "openEHR-EHR-EVALUATION.recommendation.v1",
-        "template_id": "openEHR-EHR-EVALUATION.recommendation.v1",
+      "gt0050": {
+        "id": "gt0050",
+        "model_id": "openEHR-EHR-EVALUATION.health_risk.v1",
+        "template_id": "openEHR-EHR-EVALUATION.health_risk.v1",
         "type": "OUTPUT",
         "elements": {
-          "gt0048": {
-            "id": "gt0048",
-            "path": "/data[at0001]/items[at0002]"
+          "gt0051": {
+            "id": "gt0051",
+            "path": "/data[at0001]/items[at0003]"
+          }
+        }
+      },
+      "gt0052": {
+        "id": "gt0052",
+        "model_id": "openEHR-EHR-EVALUATION.health_risk.v1",
+        "template_id": "openEHR-EHR-EVALUATION.health_risk.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0053": {
+            "id": "gt0053",
+            "path": "/data[at0001]/items[at0016]/items[at0013]"
+          },
+          "gt0054": {
+            "id": "gt0054",
+            "path": "/data[at0001]/items[at0016]/items[at0017]"
           }
         }
       }
@@ -121,16 +81,12 @@
         "id": "gt0028",
         "priority": 2,
         "when": [
-          "$gt0019|Body Temperature Comment|=='Body temperature is normal for more than three consecutive days'",
-          "$gt0025|Lab Test Conclusion|=='Continuous twice negative results on nucleic acid detection of respiratory specimen(the interval time of sampling is at least 1 day)'",
-          "((($gt0033|Symptom/Sign name|=='Dry Cough')||($gt0033|Symptom/Sign name|=='Rhinorrhea'))||($gt0033|Symptom/Sign name|=='Nasal Congestion'))||(($gt0033|Symptom/Sign name|=='Pain in throat')||($gt0033|Symptom/Sign name|=='Difficulty breathing'))",
-          "$gt0032|Progression|==local::at0184|Resolved|",
           "$gt0037|Diagnostic certainty|==local::at0076|Confirmed|",
-          "$gt0049|Problem/Diagnosis name|=='COVID-19'",
-          "$gt0050|Imaging result details|=='Substantial improvement of acute exudative lesions'"
+          "$gt0053|Risk factor|=='Body temperature normal for more than 3 days AND Respiratory symptoms improved AND Chest x-ray shows absorption of inflammation AND Nucleic acid tests negative on 2 consecutive samples(at least 24 hours apart)'",
+          "$gt0054|Presence|==local::at0018|Present|"
         ],
         "then": [
-          "$gt0048|Recommendation|='Discharge from hospital'"
+          "$gt0051|Risk assessment|='Fit for discharge'"
         ]
       },
       "gt0034": {
@@ -140,7 +96,7 @@
           "!fired($gt0028)"
         ],
         "then": [
-          "$gt0048|Recommendation|='Continue isolation treatment'"
+          "$gt0051|Risk assessment|='Not fit for discharge'"
         ]
       }
     }
@@ -155,29 +111,9 @@
             "text": "COVID_Out_Hosipital",
             "description": "Discharge diagnosis for COVID-19 patients."
           },
-          "gt0019": {
-            "id": "gt0019",
-            "text": "Body Temperature Comment",
-            "description": "Additional comment about the body temperature measurement not captured in other fields."
-          },
-          "gt0025": {
-            "id": "gt0025",
-            "text": "Lab Test Conclusion",
-            "description": "Narrative description of the key findings."
-          },
           "gt0028": {
             "id": "gt0028",
             "text": "Out_hospital_Diagnosis1"
-          },
-          "gt0032": {
-            "id": "gt0032",
-            "text": "Progression",
-            "description": "Description progression of the symptom or sign at the time of reporting."
-          },
-          "gt0033": {
-            "id": "gt0033",
-            "text": "Symptom/Sign name",
-            "description": "The name of the reported symptom or sign."
           },
           "gt0034": {
             "id": "gt0034",
@@ -188,20 +124,20 @@
             "text": "Diagnostic certainty",
             "description": "The level of confidence in the identification of the diagnosis."
           },
-          "gt0048": {
-            "id": "gt0048",
-            "text": "Recommendation",
-            "description": "Narrative description of the recommendation."
+          "gt0051": {
+            "id": "gt0051",
+            "text": "Risk assessment",
+            "description": "Evaluation of the health risk."
           },
-          "gt0049": {
-            "id": "gt0049",
-            "text": "Problem/Diagnosis name",
-            "description": "Identification of the problem or diagnosis, by name."
+          "gt0053": {
+            "id": "gt0053",
+            "text": "Risk factor",
+            "description": "Identification of the risk factor, by name."
           },
-          "gt0050": {
-            "id": "gt0050",
-            "text": "Imaging result details",
-            "description": "*"
+          "gt0054": {
+            "id": "gt0054",
+            "text": "Presence",
+            "description": "Presence of the risk factor."
           }
         }
       }

@@ -1,8 +1,9 @@
-﻿archetype (adl_version=1.4; uid=f806ed48-a801-4510-8409-be84acc1079d)
+archetype (adl_version=1.4; uid=f806ed48-a801-4510-8409-be84acc1079d)
 	openEHR-EHR-INSTRUCTION.medication_order.v2
 
 concept
-	[at0000]	-- Medication order
+	[at0000]
+
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -40,17 +41,21 @@ language
 			accreditation = <"R.N.">
 		>
 	>
+
 description
 	original_author = <
+		["date"] = <"2015-10-21">
 		["name"] = <"Ian McNicoll">
 		["organisation"] = <"freshEHR Clinical Informatics">
 		["email"] = <"ian@freshehr.com">
-		["date"] = <"2015-10-21">
 	>
+	lifecycle_state = <"published">
+	other_contributors = <"Morten Aas, Oslo Universitetssykehus, Norway","Tomas Alme, DIPS, Norway","Ole Andreas Bjordal, Webmed, Norway","Erling Are Hole, Helse Bergen, Norway","Vebjørn Arntzen, Oslo University Hospital, Norway","Koray Atalag, University of Auckland, New Zealand","Silje Ljosland Bakke, Nasjonal IKT HF, Norway (openEHR Editor)","Marcus Baw, openGPSoC / BawMedical Ltd, United Kingdom","John Bennett, NEHTA, Australia","Kristian Berg, Universitetssykehuset Nord Norge, Norway (Nasjonal IKT redaktør)","SumanBhusan Bhattacharyya, Sudisa Consultancy Services, India","Sharmila Biswas, Australia","Lars Bitsch-Larsen, Haukeland University hospital, Norway","Laila Bruun, Oslo universitetssykehus HF, Norway","Bjørn Christensen, Helse Bergen HF, Norway","Stephen Chu, NEHTA, Australia (Editor)","Matthew Cordell, NEHTA, Australia","Lisbeth Dahlhaug, Helse Midt - Norge IT, Norway","Inderjit Daphu, Helse Bergen, Norway","Gail Easterbrook, Flinders Medical Centre, Australia","Gunn Elin Blakkisrud, DIPS ASA, Norway","Stig Erik Hegrestad, Helse Førde, Norway","David Evans, Queensland Health, Australia","Samuel Frade, Marand, Portugal","Hildegard Franke, freshEHR Clinical Informatics Ltd., United Kingdom","Sarah Gaunt, NEHTA, Australia","Heather Grain, Llewelyn Grain Informatics, Australia","Cecilie Graver, Oslo universitetssykehus HF, Norway","Trina Gregory, cpc, Australia","Bjørn Grøva, Diretoratet for e-helse, Norway","Robert Hausam, Hausam Consulting LLC, United States","Sam Heard, Ocean Informatics, Australia (Editor)","Kristian Heldal, Telemark Hospital Trust, Norway","Annette Hole Sjøborg, DIPS ASA, Norway","Hilde Hollås, DIPS ASA, Norway","Roar Holm, Helse Vest IKT A/S, Norway","Evelyn Hovenga, EJSH Consulting, Australia","Gunnar Jårvik, Nasjonal IKT HF, Norway","Lars Morgan Karlsen, DIPS ASA, Norway","Mary Kelaher, NEHTA, Australia","Nils Kolstrup, Skansen Legekontor og Nasjonalt Senter for samhandling og telemedisin, Norway","Ole Kristian Losvik, Losol AS, Norway","Robert L'egan, NEHTA, Australia","Russell Leftwich, Russell B Leftwich MD, United States","Fest Legemiddelverket, Statens Legemiddelverk, Norway","Øygunn Leite Kallevik, Helse Bergen, Norway","Heather Leslie, Ocean Health Systems, Australia (openEHR Editor)","Colin Macfarlane, Elsevier, United Kingdom","Alan March, Hospital Universitario Austral, Argentina","Siv Marie Lien, DIPS ASA, Norway","Susan McIndoe, Royal District Nursing Service, Australia","David McKillop, NEHTA, Australia","Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)","Chris Mitchell, RACGP, Australia","Stewart Morrison, NEHTA, Australia","Bjørn Næss, DIPS ASA, Norway","Andrej Orel, Marand d.o.o., Slovenia","Anne Pauline Anderssen, Helse Nord RHF, Norway","Martin Paulson, Sykehuset i Vestfold, Norway","Chris Pearce, Melbourne East GP Network, Australia","Kristian Pedersen, Nordlandssykehuset HF, Norway","Rune Pedersen, Universitetssykehuset i Nord Norge, Norway","Vladimir Pizzo, Hospital Sírio Libanês, Brazil","Camilla Preeston, Royal Australian College of General Practitioners, Australia","Margaret Prichard, NEHTA, Australia","Cathy Richardson, NEHTA, Australia","Robyn Richards, NEHTA - Clinical Terminology, Australia","Tanja Riise, Nasjonal IKT HF, Norway","Anoop Shah, University College London, United Kingdom","Line Silsand, Universitetssykehuset i Nord-Norge, Norway","Raymond Simkus, Brookswood Family Practice, Canada","Iztok Stotl, UKCLJ, Slovenia","John Taylor, NEHTA, Australia","Nyree Taylor, Ocean Informatics, Australia","Tesfay Teame, Folkehelseinstituttet, Norway","Richard Townley-O'Neill, Australian Digital Health Agency, Australia","John Tore Valand, Helse Bergen, Norway (openEHR Editor)","Ines Vaz, UFN, Portugal","Nils Widnes, Helse-Bergen, Norway","Kylie Young, The Royal Australian College of General Practitioners, Australia">
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Repräsentation aller Aspekte einer Verordnung eines Arzneimittels, Impfstoffs, Ernährungsprodukts oder eines anderen therapeutischen Mittels für eine bestimmte Person.">
+			keywords = <"Medikament","Verordnung","Rezept","verschreiben","verordnen","Therapie","Substanz","Wirkstoff","Arzneimittel","therapeutisch","OTC","rezeptfrei","therapeutisches Mittel","Pharmazeutikum","Produkt","Posologie","Dosierung","Behandlung","Flüssigkeit","Ernährung","Arzneimittelverordnung","CPOE">
 			use = <"Verwende diesen Archetypen, um alle Aspekte einer Verordnung eines Arzneimittels, Impfstoffs, Ernährungsprodukts oder medizinischen Bedarfs für eine bestimmte Person darzustellen.
 
 Der Archetyp ist für jede Arzneimittelart und die damit verbundene Verordnung bestimmt, unabhängig davon, ob sie von einem medizinischen Fachpersonal verschrieben wird oder, ob sie \"rezeptfrei\" erhältlich ist. Der Anwendungsbereich dieses Medikamenten-Archetyps umfasst auch Verordnungen von Impfungen, parenteralen Flüssigkeiten oder anderen therapeutischen Mitteln, wie Verbände, Ernährungsprodukte oder andere Erzeugnisse, die angewendet oder verabreicht werden, um eine therapeutische Wirkung zu erzielen, sowie ein gemeinsames Muster für die Datenerfassung haben.
@@ -87,7 +92,6 @@ SLOTs mit CLUSTER-Archetypen wurden aus drei Gründen verwendet, um einen Teil d
 Mehrfache Verordnungen können als separate Aktivitäten innerhalb dieser einzigen Archetypen-Instanz dargestellt werden, um eng gebundene Verordnungen verschiedener Medikamente zu tragen, z.B. H. pylori-Therapie, wenn diese nicht als einzelne Packung verschrieben wird.
 
 Beachten Sie, dass diese Verwendungen sowohl die Anwendungsfälle der FHIR-Profile „Medikation Order“ als auch „Medikation Statement“ zusammenfassen. D.h. dieser Archetyp ist eine Übereinstimmung für beide FHIR-Ressourcen, die im entsprechenden Kontext verwendet werden.">
-			keywords = <"Medikament", "Verordnung", "Rezept", "verschreiben", "verordnen", "Therapie", "Substanz", "Wirkstoff", "Arzneimittel", "therapeutisch", "OTC", "rezeptfrei", "therapeutisches Mittel", "Pharmazeutikum", "Produkt", "Posologie", "Dosierung", "Behandlung", "Flüssigkeit", "Ernährung", "Arzneimittelverordnung", "CPOE">
 			misuse = <"Nicht zur Repräsentation der Aktivitäten im Zusammenhang mit der Ausführung der Verordnung von Medikamenten, Impfstoffen, Nahrungsmitteln oder therapeutischen Mitteln verwenden, z. B. Angaben zur tatsächlichen Verabreichung oder Abgabe. Verwenden Sie dafür den Archetyp ACTION.medication.
 
 Nicht zur Repräsentation der Verordnung von Blutprodukten verwenden, da dies einen grundlegend anderen klinischen Prozess beinhaltet und wahrscheinlich andere unterstützende Informationen erfordert. Verwenden Sie dafür den Archetyp INSTRUCTION.transfusion.
@@ -97,6 +101,7 @@ Nicht zur Repräsentation der Verordnung zum Einsetzen von Implantaten oder medi
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			purpose = <"For å registrere alle aspekter av ordinering av et legemiddel, en vaksine, ernæringsprodukt eller medisinsk forbruksmateriell for et spesifikt individ.">
+			keywords = <"medikasjon","foreskriving","forordning","forordne","terapi","substans","stoff","virkestoff","medikament","legemiddel","terapeutisk","medisinsk forbruksmateriell","ordinering","preparat","spesialpreparat","diagnostikum","forskrivning","forskriving","resept","legemiddelhåndtering","farmasøytisk","produkt","posologi","ordinasjon","rekvirering","behandling","væske","ernæring","ordinere","medisin","medisiner","medisinering">
 			use = <"Brukes for å registrere alle aspekter av ordinering av et legemiddel, en vaksine, enæringsvare eller medisinsk forbruksmateriell for et spesifikt individ.
 
 Arketypen kan brukes i alle legemiddelrelaterte ordineringer, enten de er for reseptpliktige legemidler ordinert av en kliniker, eller for reseptfrie legemidler. Arketypen dekker også ordinering av vaksiner, parenterale væsker, eller medisinsk forbruksmateriell, som bandasjer, ernæringsprodukter eller andre varer som påføres eller administreres for å ha en terapeutisk effekt, og der dataene som skal registreres er de samme.
@@ -137,7 +142,6 @@ SLOTer med CLUSTER-arketyper brukes for å representere deler av innholdet av tr
 Det er mulig å legge inn flere ordinasjoner som aktiviteter innenfor én instans av arketypen for å representere tett sammenbundne ordinasjoner av forskjellige legemidler, for eksempel en legemiddelpakke mot H. pylori der denne ikke ordineres som en enkelt pakning.
 
 Merk at disse bruksområdene innbefatter FHIR-ressursene for både \"Medication Order\" og \"Medication Statement\", det vil si at denne arketypen matcher begge disse FHIR-ressursene i passende brukssammenhenger.">
-			keywords = <"medikasjon", "foreskriving", "forordning", "forordne", "terapi", "substans", "stoff", "virkestoff", "medikament", "legemiddel", "terapeutisk", "medisinsk forbruksmateriell", "ordinering", "preparat", "spesialpreparat", "diagnostikum", "forskrivning", "forskriving", "resept", "legemiddelhåndtering", "farmasøytisk", "produkt", "posologi", "ordinasjon", "rekvirering", "behandling", "væske", "ernæring", "ordinere", "medisin", "medisiner", "medisinering">
 			misuse = <"Skal ikke brukes for å registrere faktisk administrering eller utdeling av legemidler, vaksiner, parenterale væsker, ernæringsprodukter eller medisinsk forbruksmateriell. Bruk arketypen ACTION.medication for dette formålet.
 
 Skal ikke brukes for å registrere ordinering av blodkomponenter, som omfatter en fundamentalt ulik klinisk prosess og sannsynligvis vil trenge ulik støtteinformasjon. Bruk arketypen INSTRUCTION.transfusion for dette formålet.
@@ -147,6 +151,7 @@ Skal ikke brukes for å registrere ordinering av innlegging av implantater og me
 		["es-ar"] = <
 			language = <[ISO_639-1::es-ar]>
 			purpose = <"Registrar todos los aspectos de una orden de medicamento, vacuna, producto nutricional u otro ítem terapéutico para un individuo identificado.">
+			keywords = <"medicamento","orden","prescribir","prescripción","terapéutica","substancia","droga","terapéutico","sin receta","insumo terapéutico","fármaco","producto","posología","tratamiento","fluido","nutrición","CPOE">
 			use = <"Utilizar para el registro de todos los aspectos de una orden de medicamento, vacuna, producto nutricional u otro ítem terapéutico para un individuo identificado.
 
 Su objetivo es la utilización para cualquier orden de medicamento o ítems relacionados, ya sea que los prescriba un profesional de la salud o que se encuentren disponibles sin receta médica. El alcance de este arquetipo de medicamento incluye órdenes de vacuna, fluidos parenterales u otros insumos terpéuticos tales como vendajes, productos nutricionales u otros ítems que se aplican o son administrados para obtener un efecto terapéutico, y que tiene un patrón común de registro de datos.
@@ -182,7 +187,6 @@ Los SLOTs que contienen arquetipos CLUSTER han sido utilizados para representar 
 Varias órdenes pueden ser representadas como actividades separadas dentro de una sola instancia de este arquetipo, para el uso de órdenes fuertemente vinculadas (como la terapia del Helicobacter Pylori) cuando estas nos son prescriptas como paquete único.
 
 Debe tenerse en cuenta que estos usos subsumen lso casos de uso tanto de la Orden de Medicamento FHIR como de la Declaración de Medicamento, es decir que este arquetipo coincide con ambos recursos FHIR, utilizados en el contexto apropiado.">
-			keywords = <"medicamento", "orden", "prescribir", "prescripción", "terapéutica", "substancia", "droga", "terapéutico", "sin receta", "insumo terapéutico", "fármaco", "producto", "posología", "tratamiento", "fluido", "nutrición", "CPOE">
 			misuse = <"No debe ser utilizado para el registro de las actividades relacionadas con el cumplimiento de la orden del medicamento, vacuna, producto nutricional o ítem terapéutico, tal como los detalles de su administración o dispensa. Se debe utilizar el ACTION.medication para este propósito.
 
 No debe ser utilizado para el registro de órdenes de sangre o sus preparados, lo cual involucra un proceso clínico fundamentalmente diferente que muy probablemente requiera otro tipo de información. Se debe utilizar el ACTION.transfusion para este propósito.
@@ -192,6 +196,7 @@ No debe ser utilizado para el registro de órdenes de inserción de implantes o 
 		["pt-br"] = <
 			language = <[ISO_639-1::pt-br]>
 			purpose = <"Registrar todos os aspectos de uma prescrição de medicamento, vacina, produtos nutricionais ou outros itens terapêuticos para um indivíduo identificado.">
+			keywords = <"medicamento","prescrição","prescrever","terapia","substância","droga","terapêutico","Otc","produto terapêutico","Farmacêutico","produtos","Posologia","tratamento","Solução","nutrição","Prescrição Eletrônica">
 			use = <"Utilizado para registrar todos os aspectos da prescrição de medicamentos, vacinas, produtos nutricionais ou outros itens terapêuticos, para um indivíduo identificado.
 
 Destina-se a ser usado para qualquer tipo de medicamento e prescrição relacionada, quer seja prescrito por um profissional de saúde ou disponível para compra \"no balcão\"da farmácia. O escopo deste arquétipo de medicamentos também inclui prescrições de vacinas, fluidos parenterais ou outros produtos terapêuticos, como bandagens, produtos nutricionais ou outros ítens que possuem um padrão comum para o seu registro e são aplicados ou administrados com vistas a um efeito terapêutico. 
@@ -229,7 +234,6 @@ SLOTs contendo arquétipos do tipo CLUSTER foram utilizados ​​para represent
 Várias prescrições podem ser representadas como atividades separadas nesta instância de arquétipo, para, por exemplo, representar prescrições de diferentes medicamentos, conectadas entre si, como ocorre na terapia de H. pylori, quando se opta por não prescrever como um único pacote.
 
 Observar que esses casos de usos acima descritos incluem os casos de uso da Prescrição de Medicamento e Medicamentos do FHIR. Isto é, este arquétipo é uma correspondência para ambos os recursos do FHIR, desde que utilizado no contexto apropriado.">
-			keywords = <"medicamento", "prescrição", "prescrever", "terapia", "substância", "droga", "terapêutico", "Otc", "produto terapêutico", "Farmacêutico", "produtos", "Posologia", "tratamento", "Solução", "nutrição", "Prescrição Eletrônica">
 			misuse = <"Não deve ser utilizado para registrar as atividades relacionadas à realização da prescrição de medicação, vacina, produto nutricional ou item terapêutico, como detalhes sobre a administração ou a dispensação. Use o arquétipo ACTION.medication para este propósito.
 
 Não deve ser utilizado para registrar o pedido de produtos sanguíneos, o que envolve um processo clínico fundamentalmente diferente e é provável que exija informações adicionais diferentes. Use o arquétipo INSTRUCTION.transfusion para este propósito.
@@ -239,6 +243,8 @@ Não deve ser utilizado para registrar a ordem de inserção de implantes ou dis
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"To record all aspects of an order of a medication, vaccine, nutritional product or other therapeutic item for an identified individual.">
+			keywords = <"medication","order","prescribe","therapy","substance","drug","therapeutic","otc","therapeutic good","pharmaceutical","product","posology","treatment","fluid","nutrition","CPOE">
+			copyright = <"© openEHR Foundation">
 			use = <"Use to record all aspects of an order of a medication, vaccine, nutritional product or other therapeutic item for an identified individual.
 
 It is intended to be used for any type of medication and related order, whether prescribed by a health professional or available for purchase 'over the counter'. The scope of this medication archetype also includes orders for vaccinations, parenteral fluids or other therapeutic goods, such as bandages, nutritional products or other items that are applied or administered to have a therapeutic effect and which have a common pattern for data recording.
@@ -275,17 +281,13 @@ SLOTs containing CLUSTER archetypes have been used to represent some of the cont
 Multiple orders can be represented as separate activities within this single archetype instance to carry tightly bound orders of different medications, for example, H. pylori therapy when this is not prescribed as a single pack.
 
 It should be noted that these uses subsume both the FHIR Medication Order and Medication Statement use cases. i.e this archetype is a match for both FHIR resources, used in the appropriate context.">
-			keywords = <"medication", "order", "prescribe", "therapy", "substance", "drug", "therapeutic", "otc", "therapeutic good", "pharmaceutical", "product", "posology", "treatment", "fluid", "nutrition", "CPOE">
 			misuse = <"Not to be used to record the activities related to carrying out the order for medication, vaccine, nutritional product or therapeutic item, such as details about actual administration or dispensing. Use the ACTION.medication for this purpose.
 
 Not to be used to record the ordering of blood products, which involves a fundamentally different clinical process and is likely to require different supporting information Use the INSTRUCTION.transfusion for this purpose.
 
 Not to be used to record the order for insertion of implants or medical devices such as pacemakers and defibrillators. Use the INSTRUCTION.procedure for this purpose.">
-			copyright = <"© openEHR Foundation">
 		>
 	>
-	lifecycle_state = <"published">
-	other_contributors = <"Morten Aas, Oslo Universitetssykehus, Norway", "Tomas Alme, DIPS, Norway", "Ole Andreas Bjordal, Webmed, Norway", "Erling Are Hole, Helse Bergen, Norway", "Vebjørn Arntzen, Oslo University Hospital, Norway", "Koray Atalag, University of Auckland, New Zealand", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (openEHR Editor)", "Marcus Baw, openGPSoC / BawMedical Ltd, United Kingdom", "John Bennett, NEHTA, Australia", "Kristian Berg, Universitetssykehuset Nord Norge, Norway (Nasjonal IKT redaktør)", "SumanBhusan Bhattacharyya, Sudisa Consultancy Services, India", "Sharmila Biswas, Australia", "Lars Bitsch-Larsen, Haukeland University hospital, Norway", "Laila Bruun, Oslo universitetssykehus HF, Norway", "Bjørn Christensen, Helse Bergen HF, Norway", "Stephen Chu, NEHTA, Australia (Editor)", "Matthew Cordell, NEHTA, Australia", "Lisbeth Dahlhaug, Helse Midt - Norge IT, Norway", "Inderjit Daphu, Helse Bergen, Norway", "Gail Easterbrook, Flinders Medical Centre, Australia", "Gunn Elin Blakkisrud, DIPS ASA, Norway", "Stig Erik Hegrestad, Helse Førde, Norway", "David Evans, Queensland Health, Australia", "Samuel Frade, Marand, Portugal", "Hildegard Franke, freshEHR Clinical Informatics Ltd., United Kingdom", "Sarah Gaunt, NEHTA, Australia", "Heather Grain, Llewelyn Grain Informatics, Australia", "Cecilie Graver, Oslo universitetssykehus HF, Norway", "Trina Gregory, cpc, Australia", "Bjørn Grøva, Diretoratet for e-helse, Norway", "Robert Hausam, Hausam Consulting LLC, United States", "Sam Heard, Ocean Informatics, Australia (Editor)", "Kristian Heldal, Telemark Hospital Trust, Norway", "Annette Hole Sjøborg, DIPS ASA, Norway", "Hilde Hollås, DIPS ASA, Norway", "Roar Holm, Helse Vest IKT A/S, Norway", "Evelyn Hovenga, EJSH Consulting, Australia", "Gunnar Jårvik, Nasjonal IKT HF, Norway", "Lars Morgan Karlsen, DIPS ASA, Norway", "Mary Kelaher, NEHTA, Australia", "Nils Kolstrup, Skansen Legekontor og Nasjonalt Senter for samhandling og telemedisin, Norway", "Ole Kristian Losvik, Losol AS, Norway", "Robert L'egan, NEHTA, Australia", "Russell Leftwich, Russell B Leftwich MD, United States", "Fest Legemiddelverket, Statens Legemiddelverk, Norway", "Øygunn Leite Kallevik, Helse Bergen, Norway", "Heather Leslie, Ocean Health Systems, Australia (openEHR Editor)", "Colin Macfarlane, Elsevier, United Kingdom", "Alan March, Hospital Universitario Austral, Argentina", "Siv Marie Lien, DIPS ASA, Norway", "Susan McIndoe, Royal District Nursing Service, Australia", "David McKillop, NEHTA, Australia", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)", "Chris Mitchell, RACGP, Australia", "Stewart Morrison, NEHTA, Australia", "Bjørn Næss, DIPS ASA, Norway", "Andrej Orel, Marand d.o.o., Slovenia", "Anne Pauline Anderssen, Helse Nord RHF, Norway", "Martin Paulson, Sykehuset i Vestfold, Norway", "Chris Pearce, Melbourne East GP Network, Australia", "Kristian Pedersen, Nordlandssykehuset HF, Norway", "Rune Pedersen, Universitetssykehuset i Nord Norge, Norway", "Vladimir Pizzo, Hospital Sírio Libanês, Brazil", "Camilla Preeston, Royal Australian College of General Practitioners, Australia", "Margaret Prichard, NEHTA, Australia", "Cathy Richardson, NEHTA, Australia", "Robyn Richards, NEHTA - Clinical Terminology, Australia", "Tanja Riise, Nasjonal IKT HF, Norway", "Anoop Shah, University College London, United Kingdom", "Line Silsand, Universitetssykehuset i Nord-Norge, Norway", "Raymond Simkus, Brookswood Family Practice, Canada", "Iztok Stotl, UKCLJ, Slovenia", "John Taylor, NEHTA, Australia", "Nyree Taylor, Ocean Informatics, Australia", "Tesfay Teame, Folkehelseinstituttet, Norway", "Richard Townley-O'Neill, Australian Digital Health Agency, Australia", "John Tore Valand, Helse Bergen, Norway (openEHR Editor)", "Ines Vaz, UFN, Portugal", "Nils Widnes, Helse-Bergen, Norway", "Kylie Young, The Royal Australian College of General Practitioners, Australia">
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
 		["custodian_organisation"] = <"openEHR Foundation">
@@ -308,98 +310,96 @@ Standards for medication and medical device records – technical annex [Interne
 	>
 
 definition
-	INSTRUCTION[at0000] matches {	-- Medication order
+	INSTRUCTION[at0000] matches {    -- Medication order
 		activities cardinality matches {0..*; unordered} matches {
-			ACTIVITY[at0001] occurrences matches {0..*} matches {	-- Order
+			ACTIVITY[at0001] occurrences matches {0..*} matches {    -- Order
 				description matches {
-					ITEM_TREE[at0002] matches {	-- Tree
+					ITEM_TREE[at0002] matches {    -- Tree
 						items cardinality matches {1..*; ordered} matches {
-							ELEMENT[at0070] matches {	-- Medication item
+							ELEMENT[at0070] matches {    -- Medication item
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							allow_archetype CLUSTER[at0143] occurrences matches {0..1} matches {	-- Preparation details
+							allow_archetype CLUSTER[at0143] occurrences matches {0..1} matches {    -- Preparation details
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication(-[a-zA-Z0-9_]+)*\.v1/}
 							}
-							ELEMENT[at0091] occurrences matches {0..*} matches {	-- Route
+							ELEMENT[at0091] occurrences matches {0..*} matches {    -- Route
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0092] occurrences matches {0..1} matches {	-- Body site
+							ELEMENT[at0092] occurrences matches {0..1} matches {    -- Body site
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							allow_archetype CLUSTER[at0093] occurrences matches {0..1} matches {	-- Structured body site
+							allow_archetype CLUSTER[at0093] occurrences matches {0..1} matches {    -- Structured body site
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.anatomical_location_clock(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.anatomical_location_clock(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.anatomical_location_relative(-[a-zA-Z0-9_]+)*\.v1/}
 							}
-							ELEMENT[at0094] occurrences matches {0..*} matches {	-- Administration method
+							ELEMENT[at0094] occurrences matches {0..*} matches {    -- Administration method
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							allow_archetype CLUSTER[at0095] occurrences matches {0..*} matches {	-- Administration device
+							allow_archetype CLUSTER[at0095] occurrences matches {0..*} matches {    -- Administration device
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
 							}
-							ELEMENT[at0009] occurrences matches {0..1} matches {	-- Overall directions description
+							ELEMENT[at0009] occurrences matches {0..1} matches {    -- Overall directions description
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0047] occurrences matches {0..1} matches {	-- Parsable directions
+							ELEMENT[at0047] occurrences matches {0..1} matches {    -- Parsable directions
 								value matches {
 									DV_PARSABLE matches {
-										formalism matches {"text/html", "text/plain", "text/xml"}
+										formalism matches {"text/html","text/plain","text/xml"}
 									}
 								}
 							}
-							ELEMENT[at0173] occurrences matches {0..*} matches {	-- Specific directions description
+							ELEMENT[at0173] occurrences matches {0..*} matches {    -- Specific directions description
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0174] occurrences matches {0..*} matches {	-- Dosage justification
+							ELEMENT[at0174] occurrences matches {0..*} matches {    -- Dosage justification
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							allow_archetype CLUSTER[at0177] occurrences matches {0..*} matches {	-- Structured dose and timing directions
+							allow_archetype CLUSTER[at0177] occurrences matches {0..*} matches {    -- Structured dose and timing directions
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.therapeutic_direction(-[a-zA-Z0-9_]+)*\.v1/}
 								exclude
 									archetype_id/value matches {/.*/}
 							}
-							CLUSTER[at0062] occurrences matches {0..1} matches {	-- Medication safety
+							CLUSTER[at0062] occurrences matches {0..1} matches {    -- Medication safety
 								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0064] occurrences matches {0..1} matches {	-- Exceptional safety override?
+									ELEMENT[at0064] occurrences matches {0..1} matches {    -- Exceptional safety override?
 										value matches {
-											DV_BOOLEAN matches {
-												value matches {True, False}
-											}
+											DV_BOOLEAN matches {*}
 										}
 									}
-									CLUSTER[at0178] occurrences matches {0..*} matches {	-- Safety override
+									CLUSTER[at0178] occurrences matches {0..*} matches {    -- Safety override
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0171] occurrences matches {0..1} matches {	-- Overriden safety advice
+											ELEMENT[at0171] occurrences matches {0..1} matches {    -- Overriden safety advice
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0162] occurrences matches {0..*} matches {	-- Override reason
+											ELEMENT[at0162] occurrences matches {0..*} matches {    -- Override reason
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
 										}
 									}
-									CLUSTER[at0051] occurrences matches {0..*} matches {	-- Maximum dose
+									CLUSTER[at0051] occurrences matches {0..*} matches {    -- Maximum dose
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0130] occurrences matches {0..1} matches {	-- Maximum amount
+											ELEMENT[at0130] occurrences matches {0..1} matches {    -- Maximum amount
 												value matches {
 													C_DV_QUANTITY <
 														property = <[openehr::380]>
@@ -412,12 +412,12 @@ definition
 													>
 												}
 											}
-											ELEMENT[at0146] occurrences matches {0..1} matches {	-- Maximum amount unit
+											ELEMENT[at0146] occurrences matches {0..1} matches {    -- Maximum amount unit
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0053] occurrences matches {0..1} matches {	-- Allowed period
+											ELEMENT[at0053] occurrences matches {0..1} matches {    -- Allowed period
 												value matches {
 													DV_DURATION matches {
 														value matches {|>=PT0S|}
@@ -426,14 +426,14 @@ definition
 											}
 										}
 									}
-									CLUSTER[at0150] occurrences matches {0..1} matches {	-- Total daily effective dose
+									CLUSTER[at0150] occurrences matches {0..1} matches {    -- Total daily effective dose
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0165] occurrences matches {0..1} matches {	-- Purpose
+											ELEMENT[at0165] occurrences matches {0..1} matches {    -- Purpose
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0151] occurrences matches {0..1} matches {	-- Total daily amount
+											ELEMENT[at0151] occurrences matches {0..1} matches {    -- Total daily amount
 												value matches {
 													C_DV_QUANTITY <
 														property = <[openehr::380]>
@@ -446,7 +446,7 @@ definition
 													>
 												}
 											}
-											ELEMENT[at0152] occurrences matches {0..1} matches {	-- Total daily amount unit
+											ELEMENT[at0152] occurrences matches {0..1} matches {    -- Total daily amount unit
 												value matches {
 													DV_TEXT matches {*}
 												}
@@ -455,130 +455,130 @@ definition
 									}
 								}
 							}
-							ELEMENT[at0044] occurrences matches {0..*} matches {	-- Additional instruction
+							ELEMENT[at0044] occurrences matches {0..*} matches {    -- Additional instruction
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0105] occurrences matches {0..*} matches {	-- Patient information
+							ELEMENT[at0105] occurrences matches {0..*} matches {    -- Patient information
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0107] occurrences matches {0..*} matches {	-- Monitoring instruction
+							ELEMENT[at0107] occurrences matches {0..*} matches {    -- Monitoring instruction
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0018] occurrences matches {0..*} matches {	-- Clinical indication
+							ELEMENT[at0018] occurrences matches {0..*} matches {    -- Clinical indication
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0148] occurrences matches {0..*} matches {	-- Therapeutic intent
+							ELEMENT[at0148] occurrences matches {0..*} matches {    -- Therapeutic intent
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							CLUSTER[at0113] occurrences matches {0..1} matches {	-- Order details
+							CLUSTER[at0113] occurrences matches {0..1} matches {    -- Order details
 								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Order start date/time
+									ELEMENT[at0012] occurrences matches {0..1} matches {    -- Order start date/time
 										value matches {
 											DV_DATE_TIME matches {*}
 										}
 									}
-									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Order stop date/time
+									ELEMENT[at0013] occurrences matches {0..1} matches {    -- Order stop date/time
 										value matches {
 											DV_DATE_TIME matches {*}
 										}
 									}
-									ELEMENT[at0011] occurrences matches {0..*} matches {	-- Order start criterion
+									ELEMENT[at0011] occurrences matches {0..*} matches {    -- Order start criterion
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0016] occurrences matches {0..*} matches {	-- Order stop criterion
+									ELEMENT[at0016] occurrences matches {0..*} matches {    -- Order stop criterion
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0060] occurrences matches {0..1} matches {	-- Administrations completed
+									ELEMENT[at0060] occurrences matches {0..1} matches {    -- Administrations completed
 										value matches {
 											DV_COUNT matches {
 												magnitude matches {|>=0|}
 											}
 										}
 									}
-									ELEMENT[at0050] occurrences matches {0..1} matches {	-- Duration of order completed
+									ELEMENT[at0050] occurrences matches {0..1} matches {    -- Duration of order completed
 										value matches {
 											DV_DURATION matches {
 												value matches {PWDTH/|>=PT0H|}
 											}
 										}
 									}
-									allow_archetype CLUSTER[at0112] occurrences matches {0..*} matches {	-- Order summary
+									allow_archetype CLUSTER[at0112] occurrences matches {0..*} matches {    -- Order summary
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_order_summary(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.medication_order_summary(-[a-zA-Z0-9_]+)*\.v1/}
 									}
 								}
 							}
-							allow_archetype CLUSTER[at0069] occurrences matches {0..*} matches {	-- Authorisation directions
+							allow_archetype CLUSTER[at0069] occurrences matches {0..*} matches {    -- Authorisation directions
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_authorisation(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.medication_authorisation(-[a-zA-Z0-9_]+)*\.v1/}
 							}
-							CLUSTER[at0129] occurrences matches {0..1} matches {	-- Dispense directions
+							CLUSTER[at0129] occurrences matches {0..1} matches {    -- Dispense directions
 								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0106] occurrences matches {0..*} matches {	-- Dispense instruction
+									ELEMENT[at0106] occurrences matches {0..*} matches {    -- Dispense instruction
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0065] occurrences matches {0..*} matches {	-- Dispense amount
+									allow_archetype CLUSTER[at0065] occurrences matches {0..*} matches {    -- Dispense amount
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_supply_amount(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.medication_supply_amount(-[a-zA-Z0-9_]+)*\.v1/}
 									}
-									ELEMENT[at0132] occurrences matches {0..1} matches {	-- Substitution direction
+									ELEMENT[at0132] occurrences matches {0..1} matches {    -- Substitution direction
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0168, 	-- Permitted
-													at0169]	-- Not permitted
+													at0168,    -- Permitted
+													at0169]    -- Not permitted
 												}
 											}
 										}
 									}
-									ELEMENT[at0154] occurrences matches {0..1} matches {	-- Non-substitution reason
+									ELEMENT[at0154] occurrences matches {0..1} matches {    -- Non-substitution reason
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0139] occurrences matches {0..1} matches {	-- Priority
+									ELEMENT[at0139] occurrences matches {0..1} matches {    -- Priority
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0155] occurrences matches {0..1} matches {	-- Dispensing start date
+									ELEMENT[at0155] occurrences matches {0..1} matches {    -- Dispensing start date
 										value matches {
 											DV_DATE_TIME matches {*}
 										}
 									}
-									ELEMENT[at0161] occurrences matches {0..1} matches {	-- Dispensing expiry date
+									ELEMENT[at0161] occurrences matches {0..1} matches {    -- Dispensing expiry date
 										value matches {
 											DV_DATE_TIME matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0170] occurrences matches {0..*} matches {	-- Dispense details
+									allow_archetype CLUSTER[at0170] occurrences matches {0..*} matches {    -- Dispense details
 										include
 											archetype_id/value matches {/.*/}
 									}
 								}
 							}
-							allow_archetype CLUSTER[at0166] occurrences matches {0..*} matches {	-- Additional details
+							allow_archetype CLUSTER[at0166] occurrences matches {0..*} matches {    -- Additional details
 								include
 									archetype_id/value matches {/.*/}
 							}
-							ELEMENT[at0167] occurrences matches {0..1} matches {	-- Comment
+							ELEMENT[at0167] occurrences matches {0..1} matches {    -- Comment
 								value matches {
 									DV_TEXT matches {*}
 								}
@@ -589,14 +589,14 @@ definition
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0005] matches {	-- Dose amount description
+			ITEM_TREE[at0005] matches {    -- Dose amount description
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0004] occurrences matches {0..*} matches {	-- Order identifier
+					ELEMENT[at0004] occurrences matches {0..*} matches {    -- Order identifier
 						value matches {
 							DV_IDENTIFIER matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0008] occurrences matches {0..*} matches {	-- Extension
+					allow_archetype CLUSTER[at0008] occurrences matches {0..*} matches {    -- Extension
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -604,8 +604,6 @@ definition
 			}
 		}
 	}
-
-
 
 ontology
 	term_definitions = <

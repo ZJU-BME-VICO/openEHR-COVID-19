@@ -1,0 +1,142 @@
+{
+  "id": "COVID_Blood_Purification_Treatment.v0",
+  "gdl_version": "2.0",
+  "concept": "gt0001",
+  "language": {
+    "original_language": "ISO_639-1::en"
+  },
+  "description": {
+    "original_author": {
+      "date": "2020-04-07",
+      "name": "Hongshuo Feng",
+      "organisation": "Zhejiang University",
+      "email": "842089819@qq.com"
+    },
+    "other_contributors": [
+      "Tianhua Tang",
+      "Shan Nan",
+      "Yijie Wang"
+    ],
+    "lifecycle_state": "Author draft",
+    "details": {
+      "en": {
+        "id": "en",
+        "purpose": "Blood purification treatment for COVID-19 patients.",
+        "keywords": [
+          "COVID-19"
+        ],
+        "use": "COVID-19 diagnosis and treatment decision support.",
+        "copyright": "Zhejiang University"
+      }
+    },
+    "other_details": {
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
+    }
+  },
+  "definition": {
+    "data_bindings": {
+      "gt0002": {
+        "id": "gt0002",
+        "model_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "template_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0003": {
+            "id": "gt0003",
+            "path": "/data[at0001]/items[at0005]"
+          },
+          "gt0022": {
+            "id": "gt0022",
+            "path": "/data[at0001]/items[at0073]"
+          }
+        }
+      },
+      "gt0017": {
+        "id": "gt0017",
+        "model_id": "openEHR-EHR-INSTRUCTION.therapeutic_order.v0",
+        "template_id": "openEHR-EHR-INSTRUCTION.therapeutic_order.v0",
+        "type": "OUTPUT",
+        "elements": {
+          "gt0018": {
+            "id": "gt0018",
+            "path": "/activities[at0001]/description[at0009]/items[at0121]"
+          }
+        }
+      },
+      "gt0019": {
+        "id": "gt0019",
+        "model_id": "openEHR-EHR-OBSERVATION.condition_screening.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.condition_screening.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt0020": {
+            "id": "gt0020",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0004]"
+          },
+          "gt0021": {
+            "id": "gt0021",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]"
+          }
+        }
+      }
+    },
+    "rules": {
+      "gt0009": {
+        "id": "gt0009",
+        "priority": 1,
+        "when": [
+          "($gt0003|Severity|==local::at0049|Severe|)||($gt0003|Severity|==local::at0078|Critical|)",
+          "$gt0020|Condition name|=='Cytokine storm'",
+          "$gt0021|Presence?|==local::at0023|Present|",
+          "$gt0022|Diagnostic certainty|==local::at0076|Confirmed|"
+        ],
+        "then": [
+          "$gt0018|Activity name|='Blood purification treatment:Plasma exchange, Plasma adsorption, Plasma perfusion, Hemofiltration, Plasma filtration'"
+        ]
+      }
+    }
+  },
+  "ontology": {
+    "term_definitions": {
+      "en": {
+        "id": "en",
+        "terms": {
+          "gt0001": {
+            "id": "gt0001",
+            "text": "COVID_Blood_Purification_Treatment",
+            "description": "Blood purification treatment for COVID-19 patients."
+          },
+          "gt0003": {
+            "id": "gt0003",
+            "text": "Severity",
+            "description": "An assessment of the overall severity of the problem or diagnosis."
+          },
+          "gt0009": {
+            "id": "gt0009",
+            "text": "Blood purification treatment"
+          },
+          "gt0018": {
+            "id": "gt0018",
+            "text": "Activity name",
+            "description": "The name of the single therapy or activity requested."
+          },
+          "gt0020": {
+            "id": "gt0020",
+            "text": "Condition name",
+            "description": "Name of the condition being screened."
+          },
+          "gt0021": {
+            "id": "gt0021",
+            "text": "Presence?",
+            "description": "Presence of the condition."
+          },
+          "gt0022": {
+            "id": "gt0022",
+            "text": "Diagnostic certainty",
+            "description": "The level of confidence in the identification of the diagnosis."
+          }
+        }
+      }
+    }
+  }
+}

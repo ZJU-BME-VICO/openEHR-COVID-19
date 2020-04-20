@@ -1,5 +1,5 @@
 {
-  "id": "COVID_Circulation_support_Treatment.v0",
+  "id": "COVID_Continuous_Renal_Replacement_Therapy.v0",
   "gdl_version": "2.0",
   "concept": "gt0001",
   "language": {
@@ -21,7 +21,7 @@
     "details": {
       "en": {
         "id": "en",
-        "purpose": "Circulation support treatment for COVID-19 patients.",
+        "purpose": "Continuous renal replacement therapy for COVID-19 patients.",
         "keywords": [
           "COVID-19"
         ],
@@ -41,25 +41,13 @@
         "template_id": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
         "type": "INPUT",
         "elements": {
-          "gt0003": {
-            "id": "gt0003",
+          "gt0005": {
+            "id": "gt0005",
             "path": "/data[at0001]/items[at0073]"
           },
-          "gt0004": {
-            "id": "gt0004",
+          "gt0006": {
+            "id": "gt0006",
             "path": "/data[at0001]/items[at0005]"
-          }
-        }
-      },
-      "gt0007": {
-        "id": "gt0007",
-        "model_id": "openEHR-EHR-INSTRUCTION.medication_order.v2",
-        "template_id": "openEHR-EHR-INSTRUCTION.medication_order.v2",
-        "type": "OUTPUT",
-        "elements": {
-          "gt0008": {
-            "id": "gt0008",
-            "path": "/activities[at0001]/description[at0002]/items[at0070]"
           }
         }
       },
@@ -74,6 +62,22 @@
             "path": "/activities[at0001]/description[at0009]/items[at0121]"
           }
         }
+      },
+      "gt0014": {
+        "id": "gt0014",
+        "model_id": "openEHR-EHR-OBSERVATION.condition_screening.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.condition_screening.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt0015": {
+            "id": "gt0015",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0004]"
+          },
+          "gt0016": {
+            "id": "gt0016",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]"
+          }
+        }
       }
     },
     "rules": {
@@ -81,12 +85,12 @@
         "id": "gt0009",
         "priority": 1,
         "when": [
-          "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "($gt0004|Severity|==local::at0049|Severe|)||($gt0004|Severity|==local::at0078|Critical|)"
+          "$gt0005|Diagnostic certainty|==local::at0076|Confirmed|",
+          "($gt0006|Severity|==local::at0049|Severe|)||($gt0006|Severity|==local::at0078|Critical|)",
+          "((($gt0015|Condition name|=='Hyperkalemia')&&($gt0016|Presence?|==local::at0023|Present|))||((($gt0015|Condition name|=='Metabolic acidosis')&&($gt0016|Presence?|==local::at0023|Present|))||(($gt0015|Condition name|=='Pulmonary edema')&&($gt0016|Presence?|==local::at0023|Present|))))||((($gt0015|Condition name|=='Fluid overload pulmonary edema')&&($gt0016|Presence?|==local::at0023|Present|))||(($gt0015|Condition name|=='Multiple organ failure')&&($gt0016|Presence?|==local::at0023|Present|)))"
         ],
         "then": [
-          "$gt0008|Medication item|='Vasoactive drugs'",
-          "$gt0013|Activity name|='Circulatory care'"
+          "$gt0013|Activity name|='Renal care'"
         ]
       }
     }
@@ -98,32 +102,37 @@
         "terms": {
           "gt0001": {
             "id": "gt0001",
-            "text": "COVID_Circulation_support_Treatment",
-            "description": "Circulation support treatment for COVID-19 patients."
+            "text": "COVID_Continuous_Renal_Replacement_Therapy",
+            "description": "Continuous renal replacement therapy for COVID-19 patients."
           },
-          "gt0003": {
-            "id": "gt0003",
+          "gt0005": {
+            "id": "gt0005",
             "text": "Diagnostic certainty",
             "description": "The level of confidence in the identification of the diagnosis."
           },
-          "gt0004": {
-            "id": "gt0004",
+          "gt0006": {
+            "id": "gt0006",
             "text": "Severity",
             "description": "An assessment of the overall severity of the problem or diagnosis."
           },
-          "gt0008": {
-            "id": "gt0008",
-            "text": "Medication item",
-            "description": "Name of the medication, vaccine or other therapeutic/prescribable item being ordered."
-          },
           "gt0009": {
             "id": "gt0009",
-            "text": "Severe&Critical Treatment"
+            "text": "Continuous renal replacement therapy"
           },
           "gt0013": {
             "id": "gt0013",
             "text": "Activity name",
             "description": "The name of the single therapy or activity requested."
+          },
+          "gt0015": {
+            "id": "gt0015",
+            "text": "Condition name",
+            "description": "Name of the condition being screened."
+          },
+          "gt0016": {
+            "id": "gt0016",
+            "text": "Presence?",
+            "description": "Presence of the condition."
           }
         }
       }

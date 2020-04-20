@@ -7,7 +7,7 @@
   },
   "description": {
     "original_author": {
-      "date": "2020-03-12",
+      "date": "2020-04-07",
       "name": "Hongshuo Feng",
       "organisation": "Zhejiang University",
       "email": "842089819@qq.com"
@@ -30,7 +30,7 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
     }
   },
   "definition": {
@@ -73,111 +73,111 @@
         "id": "gt0009",
         "priority": 9,
         "when": [
-          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
+          "$gt0003|Analyte name|=='Lymphocytes'",
           "$gt0004|Analyte result|<'1.0'",
-          "$gt0008|Conclusion|=='low white cell count'"
+          "$gt0008|Conclusion|=='low white blood cell count'"
         ],
         "then": [
-          "$gt0007|Conclusion|='low white cell count and low lymphocyte count'"
+          "$gt0007|Conclusion|='low white blood cell count and low lymphocyte count'"
         ]
       },
       "gt0010": {
         "id": "gt0010",
         "priority": 8,
         "when": [
-          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
+          "$gt0003|Analyte name|=='Lymphocytes'",
           "$gt0004|Analyte result|<'1.0'",
-          "$gt0008|Conclusion|=='normal white cell count'"
+          "$gt0008|Conclusion|=='normal white blood cell count'"
         ],
         "then": [
-          "$gt0007|Conclusion|='normal white cell count and low lymphocyte count'"
+          "$gt0007|Conclusion|='normal white blood cell count and low lymphocyte count'"
         ]
       },
       "gt0011": {
         "id": "gt0011",
         "priority": 7,
         "when": [
-          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
+          "$gt0003|Analyte name|=='Lymphocytes'",
           "$gt0004|Analyte result|<'1.0'",
-          "$gt0008|Conclusion|=='high white cell count'"
+          "$gt0008|Conclusion|=='high white blood cell count'"
         ],
         "then": [
-          "$gt0007|Conclusion|='high white cell count and low lymphocyte count'"
+          "$gt0007|Conclusion|='high white blood cell count and low lymphocyte count'"
         ]
       },
       "gt0014": {
         "id": "gt0014",
         "priority": 6,
         "when": [
-          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
+          "$gt0003|Analyte name|=='Lymphocytes'",
           "$gt0004|Analyte result|>='1.0'",
-          "$gt0008|Conclusion|=='low white cell count'",
+          "$gt0008|Conclusion|=='low white blood cell count'",
           "$gt0004|Analyte result|<'3.9'"
         ],
         "then": [
-          "$gt0007|Conclusion|='low white cell count and normal lymphocyte count'"
+          "$gt0007|Conclusion|='low white blood cell count and normal lymphocyte count'"
         ]
       },
       "gt0013": {
         "id": "gt0013",
         "priority": 5,
         "when": [
-          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
+          "$gt0003|Analyte name|=='Lymphocytes'",
           "$gt0004|Analyte result|>='1.0'",
-          "$gt0008|Conclusion|=='normal white cell count'",
+          "$gt0008|Conclusion|=='normal white blood cell count'",
           "$gt0004|Analyte result|<'3.9'"
         ],
         "then": [
-          "$gt0007|Conclusion|='normal white cell count and normal lymphocyte count'"
+          "$gt0007|Conclusion|='normal white blood cell count and normal lymphocyte count'"
         ]
       },
       "gt0012": {
         "id": "gt0012",
         "priority": 4,
         "when": [
-          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
+          "$gt0003|Analyte name|=='Lymphocytes'",
           "$gt0004|Analyte result|>='1.0'",
-          "$gt0008|Conclusion|=='high white cell count'",
+          "$gt0008|Conclusion|=='high white blood cell count'",
           "$gt0004|Analyte result|<'3.9'"
         ],
         "then": [
-          "$gt0007|Conclusion|='high white cell count and normal lymphocyte count'"
+          "$gt0007|Conclusion|='high white blood cell count and normal lymphocyte count'"
         ]
       },
       "gt0015": {
         "id": "gt0015",
         "priority": 3,
         "when": [
-          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
-          "$gt0008|Conclusion|=='low white cell count'",
+          "$gt0003|Analyte name|=='Lymphocytes'",
+          "$gt0008|Conclusion|=='low white blood cell count'",
           "$gt0004|Analyte result|>='3.9'"
         ],
         "then": [
-          "$gt0007|Conclusion|='low white cell count and high lymphocyte count'"
+          "$gt0007|Conclusion|='low white blood cell count and high lymphocyte count'"
         ]
       },
       "gt0016": {
         "id": "gt0016",
         "priority": 2,
         "when": [
-          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
-          "$gt0008|Conclusion|=='normal white cell count'",
+          "$gt0003|Analyte name|=='Lymphocytes'",
+          "$gt0008|Conclusion|=='normal white blood cell count'",
           "$gt0004|Analyte result|>='3.9'"
         ],
         "then": [
-          "$gt0007|Conclusion|='normal white cell count and high lymphocyte count'"
+          "$gt0007|Conclusion|='normal white blood cell count and high lymphocyte count'"
         ]
       },
       "gt0017": {
         "id": "gt0017",
         "priority": 1,
         "when": [
-          "$gt0003|Analyte name|=='Lymphocyte count(LY)'",
-          "$gt0008|Conclusion|=='high white cell count'",
+          "$gt0003|Analyte name|=='Lymphocytes'",
+          "$gt0008|Conclusion|=='high white blood cell count'",
           "$gt0004|Analyte result|>'3.9'"
         ],
         "then": [
-          "$gt0007|Conclusion|='high white cell count and high lymphocyte count'"
+          "$gt0007|Conclusion|='high white blood cell count and high lymphocyte count'"
         ]
       }
     }
@@ -252,10 +252,6 @@
           "gt0017": {
             "id": "gt0017",
             "text": "lymphocyte count9"
-          },
-          "gt0018": {
-            "id": "gt0018",
-            "text": "Copy of lymphocyte count1"
           }
         }
       }

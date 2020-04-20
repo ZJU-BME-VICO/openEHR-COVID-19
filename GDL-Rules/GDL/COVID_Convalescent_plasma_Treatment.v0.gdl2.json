@@ -7,7 +7,7 @@
   },
   "description": {
     "original_author": {
-      "date": "2020-03-12",
+      "date": "2020-04-07",
       "name": "Hongshuo Feng",
       "organisation": "Zhejiang University",
       "email": "842089819@qq.com"
@@ -30,7 +30,7 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
     }
   },
   "definition": {
@@ -59,15 +59,15 @@
           }
         }
       },
-      "gt0014": {
-        "id": "gt0014",
-        "model_id": "openEHR-EHR-EVALUATION.recommendation.v1",
-        "template_id": "openEHR-EHR-EVALUATION.recommendation.v1",
+      "gt0016": {
+        "id": "gt0016",
+        "model_id": "openEHR-EHR-INSTRUCTION.therapeutic_order.v0",
+        "template_id": "openEHR-EHR-INSTRUCTION.therapeutic_order.v0",
         "type": "OUTPUT",
         "elements": {
-          "gt0015": {
-            "id": "gt0015",
-            "path": "/data[at0001]/items[at0002]"
+          "gt0017": {
+            "id": "gt0017",
+            "path": "/activities[at0001]/description[at0009]/items[at0121]"
           }
         }
       }
@@ -78,12 +78,12 @@
         "priority": 1,
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "($gt0004|Severity|==local::at0049|Severe|)||($gt0004|Severity|==local::at0079|Critical|)",
-          "$gt0012|Problem/Diagnosis name|=='COVID-19'",
+          "($gt0004|Severity|==local::at0049|Severe|)||($gt0004|Severity|==local::at0078|Critical|)",
+          "$gt0012|Problem/Diagnosis name|=='Viral pneumonia'",
           "$gt0013|Resolution phase|==local::at0097|Relapsed|"
         ],
         "then": [
-          "$gt0015|Recommendation|='Convalescent plasma treatment'"
+          "$gt0017|Activity name|='Convalescent plasma treatment'"
         ]
       }
     }
@@ -108,11 +108,6 @@
             "text": "Severity",
             "description": "An assessment of the overall severity of the problem or diagnosis."
           },
-          "gt0006": {
-            "id": "gt0006",
-            "text": "Medication item",
-            "description": "Name of the medication, vaccine or other therapeutic/prescribable item being ordered."
-          },
           "gt0007": {
             "id": "gt0007",
             "text": "Severe&Critical Treatment"
@@ -127,10 +122,10 @@
             "text": "Resolution phase",
             "description": "Phase of healing for an acute problem or diagnosis."
           },
-          "gt0015": {
-            "id": "gt0015",
-            "text": "Recommendation",
-            "description": "Narrative description of the recommendation."
+          "gt0017": {
+            "id": "gt0017",
+            "text": "Activity name",
+            "description": "The name of the single therapy or activity requested."
           }
         }
       }

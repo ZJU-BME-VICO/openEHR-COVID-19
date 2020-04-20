@@ -1,4 +1,4 @@
-archetype (adl_version=1.4; uid=e97ec76c-9fc6-419a-9395-59ba5af3a7f4)
+archetype (adl_version=1.4; uid=7bb54daf-b7a3-4189-83f3-85ee407388bd)
 	openEHR-EHR-OBSERVATION.exposure_assessment.v0
 
 concept
@@ -14,11 +14,12 @@ description
 		["organisation"] = <"Atomica Informatics">
 		["email"] = <"heather.leslie@atomicainformatics.com">
 	>
-	lifecycle_state = <"unmanaged">
+	lifecycle_state = <"in_development">
 	details = <
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"To record details about risk factors that indicate, or may contribute to an assessment about, actual or potential exposure to a chemical, physical or biological agent.">
+			copyright = <"© openEHR Foundation">
 			use = <"Use to record details about risk factors that indicate, or may contribute to an assessment about, actual or potential exposure to a chemical, physical or biological agent.">
 		>
 	>
@@ -28,8 +29,9 @@ description
 		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"openEHR Foundation">
 		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"03977c66967e75856a0e59de57d77731">
-		["build_uid"] = <"a50ece72-1cf3-3f38-8d1b-9ac02ecbf7be">
+		["MD5-CAM-1.0.1"] = <"28560D4A790C81124E3E877950338CE5">
+		["build_uid"] = <"fe67aceb-cbad-4798-8ffe-d740b557b733">
+		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
@@ -141,49 +143,49 @@ ontology
 				>
 				["at0044"] = <
 					text = <"Per risk factor">
-					description = <"Details about each possible risk factor.">
+					description = <"Details about each possible exposure risk factor.">
 				>
 				["at0045"] = <
 					text = <"Risk factor">
-					description = <"The name of the risk factor.">
+					description = <"The name of the exposure risk factor.">
 					comment = <"For example: Travel to an 'at risk' location; or exposure to infected body fluids. Coding of 'Risk factor' with a terminology is preferred, where possible.">
 				>
 				["at0046"] = <
 					text = <"Presence">
-					description = <"Presence of the risk factor.">
+					description = <"Presence of the exposure risk factor.">
 				>
 				["at0047"] = <
 					text = <"Present">
-					description = <"The risk factor has been identified for this individual.">
+					description = <"Exposure risk has been identified for this individual.">
 				>
 				["at0048"] = <
 					text = <"Indeterminate">
-					description = <"It is not possible to determine if the risk factor is present or absent.">
+					description = <"It is not possible to determine if the exposure risk is present or absent.">
 				>
 				["at0049"] = <
 					text = <"Absent">
-					description = <"The risk factor has not been identified for this individual.">
+					description = <"Exposure risk has not been identified for this individual.">
 				>
 				["at0050"] = <
 					text = <"Description">
-					description = <"Narrative description about the risk factor.">
+					description = <"Narrative description about the exposure risk.">
 				>
 				["at0051"] = <
 					text = <"Date identified">
-					description = <"The date/time that the risk factor was identified.">
+					description = <"The date/time that the exposure risk was identified.">
 				>
 				["at0053"] = <
 					text = <"Link to evidence">
-					description = <"Identification of the path to the archetype or data node for the evidence of risk.">
+					description = <"Identification of the path to the archetype or data node for the evidence of exposure.">
 				>
 				["at0054"] = <
 					text = <"Detail">
-					description = <"Structured detail about other aspects of the risk factor assessment.">
+					description = <"Structured detail about other aspects of the exposure risk factor assessment.">
 					comment = <"For example: Prevalence of the risk factor in family members.">
 				>
 				["at0055"] = <
 					text = <"Comment">
-					description = <"Additional narrative about the risk factor not captured in other fields.">
+					description = <"Additional narrative about the exposure risk factor not captured in other fields.">
 				>
 				["at0056"] = <
 					text = <"Extension">

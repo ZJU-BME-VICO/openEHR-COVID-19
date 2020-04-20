@@ -1,8 +1,9 @@
-﻿archetype (adl_version=1.4; uid=9ae33444-96c1-4f1c-8724-7a0e4366aebf)
+archetype (adl_version=1.4; uid=9ae33444-96c1-4f1c-8724-7a0e4366aebf)
 	openEHR-EHR-OBSERVATION.imaging_exam_result.v0
 
 concept
-	[at0000]	-- Imaging examination result
+	[at0000]
+
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -22,17 +23,21 @@ language
 			>
 		>
 	>
+
 description
 	original_author = <
+		["date"] = <"2011-02-07">
 		["name"] = <"Grahame Grieve">
 		["organisation"] = <"Health Intersections Pty Ltd">
 		["email"] = <"grahame@healthintersections.com.au">
-		["date"] = <"2011-02-07">
 	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Silje Ljosland Bakke, Nasjonal IKT HF, Norway (openEHR Editor)","Sharmila Biswas, Australia","Eric Browne","David Cartwright, Queensland Health, Australia","Stephen Chu, NEHTA, Australia (Editor)","Matthew Cordell, NEHTA, Australia","Andre de Wolf, NeHTA, Australia","David Evans, Queensland Health, Australia","Hildegard Franke, freshEHR Clinical Informatics Ltd., United Kingdom","Jacquie Garton-Smith, Royal Perth Hospital and DoHWA, Australia","Grahame Grieve, Health Intersections Pyty Ltd, Australia (Editor)","Mary Kelaher, NEHTA, Australia","Diane Kirkham, NEHTA, Australia","Robert L'egan, NEHTA, Australia","Heather Leslie, Ocean Health Systems, Australia (openEHR Editor)","Mike Martyn, The Hobart Anaesthetic Group, Australia","Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)","Chris Mitchell, RACGP, Australia","Stewart Morrison, NEHTA, Australia","Michael Osborne, Mater Health Services, Australia","Ning Pan","Chris Pearce, Melbourne East GP Network, Australia","Jodie Pycroft, Adelaide Northern Division of General Practice Ltd, Australia","Cathy Richardson, NEHTA, Australia","Stephen Royce, NEHTA, Australia","Eleanor Royle","Don Stewart","Michael Thompson, Queensland Health, Australia","Gordon Tomes, Australian Institute of Health and Welfare, Australia","Richard Townley-O'Neill, NEHTA, Australia">
 	details = <
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Dokumentation von Ergebnissen und Interpretationen einer bildgebenden Untersuchung oder einer Reihe von durchgeführten bildgebenden Untersuchungen.">
+			keywords = <"Bildgebung","Diagnostik","Bildgebendes Verfahren","Bildgebende Diagnostik","bildgebend","Untersuchung","Ergebnis","Untersuchungsergebnis">
 			use = <"Zur Dokumentation der Ergebnisse aller durchgeführten bildgebenden Untersuchungen. 
 
 Zur Dokumentation von Bestandteilen einer komplexeren bildgebenden Untersuchung (ausschließlich), inklusive der Untersuchungen, die unter bildgebender Anweisung durchgeführt wurden. 
@@ -42,7 +47,6 @@ Die komplexeren Untersuchungen (wie die Echokardiographie oder die Knochendichte
 Dieser Archetyp wird in der Regel als eine Komponente eines Gesamtberichts innerhalb des Kontexts der COMPOSITION Klasse an den anfragenden Arzt zurückgemeldet. 
 
 ">
-			keywords = <"Bildgebung", "Diagnostik", "Bildgebendes Verfahren", "Bildgebende Diagnostik", "bildgebend", "Untersuchung", "Ergebnis", "Untersuchungsergebnis">
 			misuse = <"Nicht zur Dokumentation anderer Untersuchungsergebnisse oder Aktivitäten verwenden. Wenn die Bildgebung beispielsweise im Rahmen einer Behandlung durchgeführt wird, müssen die Informationen über die Behandlung mit dem Archetyp ACTION.procedure oder einer OBSERVATION-Klasse für die vorliegenden Befunde erfasst werden. Dieser Archetyp wird nur verwendet, um die Ergebnisse aus der Bildgebung aufzuzeichnen.
 
 Nicht zur Dokumentation von parallel durchgeführten Prozeduren verwenden. Für diesen Zweck soll der spezifische Prozeduren bezogene Archetyp, z.B. ACTION.procedure, verwendet werden.
@@ -70,6 +74,7 @@ Brukes ikke til å registrere informasjon om legemidlene som administreres under
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"To record the findings and interpretation of an imaging examination, or series of examinations, performed.">
+			copyright = <"© openEHR Foundation">
 			use = <"Use to record all results related to the diagnostic imaging aspects of any imaging examinations performed. 
 
 Use to record the imaging examination components (only) of a more complex procedure, including those that may have been undertaken under imaging guidance.
@@ -82,11 +87,8 @@ Will normally be reported back to the requesting clinician as one component with
 Not to be used to record details about any parallel procedure undertaken. Use the specific procedure-related archetypes, for example ACTION.procedure.
 
 Not to be used to record details about medications administered during the imaging test. Use specific medication-related archetypes, for example ACTION.medication.">
-			copyright = <"© openEHR Foundation">
 		>
 	>
-	lifecycle_state = <"in_development">
-	other_contributors = <"Silje Ljosland Bakke, Nasjonal IKT HF, Norway (openEHR Editor)", "Sharmila Biswas, Australia", "Eric Browne", "David Cartwright, Queensland Health, Australia", "Stephen Chu, NEHTA, Australia (Editor)", "Matthew Cordell, NEHTA, Australia", "Andre de Wolf, NeHTA, Australia", "David Evans, Queensland Health, Australia", "Hildegard Franke, freshEHR Clinical Informatics Ltd., United Kingdom", "Jacquie Garton-Smith, Royal Perth Hospital and DoHWA, Australia", "Grahame Grieve, Health Intersections Pyty Ltd, Australia (Editor)", "Mary Kelaher, NEHTA, Australia", "Diane Kirkham, NEHTA, Australia", "Robert L'egan, NEHTA, Australia", "Heather Leslie, Ocean Health Systems, Australia (openEHR Editor)", "Mike Martyn, The Hobart Anaesthetic Group, Australia", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)", "Chris Mitchell, RACGP, Australia", "Stewart Morrison, NEHTA, Australia", "Michael Osborne, Mater Health Services, Australia", "Ning Pan", "Chris Pearce, Melbourne East GP Network, Australia", "Jodie Pycroft, Adelaide Northern Division of General Practice Ltd, Australia", "Cathy Richardson, NEHTA, Australia", "Stephen Royce, NEHTA, Australia", "Eleanor Royle", "Don Stewart", "Michael Thompson, Queensland Health, Australia", "Gordon Tomes, Australian Institute of Health and Welfare, Australia", "Richard Townley-O'Neill, NEHTA, Australia">
 	other_details = <
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
 		["custodian_organisation"] = <"openEHR Foundation">
@@ -102,87 +104,97 @@ Imaging examination result, draft archetype, NEHTA Clinical Knowledge Manager [I
 		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"openEHR Foundation">
 		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"0E9B93607383D4EB0377CF5E034D3E4A">
+		["MD5-CAM-1.0.1"] = <"f5d0ec4704458348b8c97f7a34d4c161">
 		["build_uid"] = <"e976cc1f-7902-4ecc-9156-24484406a4bb">
 		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Imaging examination result
+	OBSERVATION[at0000] matches {    -- Imaging examination result
 		data matches {
-			HISTORY[at0001] matches {	-- Event Series
+			HISTORY[at0001] matches {    -- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..*} matches {	-- Any event
+					EVENT[at0002] occurrences matches {0..*} matches {    -- Any event
 						data matches {
-							ITEM_TREE[at0003] matches {	-- Tree
+							ITEM_TREE[at0003] matches {    -- Tree
 								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0004] matches {	-- Examination result name
+									ELEMENT[at0004] matches {    -- Test name
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Modality
+									ELEMENT[at0005] occurrences matches {0..1} matches {    -- Modality
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0043] occurrences matches {0..1} matches {	-- Submodality
+									ELEMENT[at0043] occurrences matches {0..1} matches {    -- Submodality
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {	-- Anatomical site
+									ELEMENT[at0055] occurrences matches {0..1} matches {    -- Anatomical site
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {    -- Structured anatomical site
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v1/}
 									}
-									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Overall result status
+									ELEMENT[at0007] occurrences matches {0..1} matches {    -- Overall result status
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0009, 	-- Registered
-													at0010, 	-- Interim
-													at0011, 	-- Final
-													at0012, 	-- Amended
-													at0013]	-- Cancelled / Aborted
+													at0009,    -- Registered
+													at0010,    -- Interim
+													at0011,    -- Final
+													at0012,    -- Amended
+													at0013]    -- Cancelled / Aborted
 												}
 											}
 										}
 									}
-									ELEMENT[at0024] occurrences matches {0..1} matches {	-- DateTime result issued
+									ELEMENT[at0024] occurrences matches {0..1} matches {    -- DateTime result issued
 										value matches {
 											DV_DATE_TIME matches {*}
 										}
 									}
-									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Clinical information provided
+									ELEMENT[at0014] occurrences matches {0..1} matches {    -- Clinical information provided
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Findings
+									ELEMENT[at0008] occurrences matches {0..1} matches {    -- Findings
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0044] occurrences matches {0..*} matches {	-- Imaging result
+									allow_archetype CLUSTER[at0044] occurrences matches {0..*} matches {    -- Imaging findings
 										include
-											archetype_id/value matches {/openEHR-EHR-CLUSTER\.imaging_result(-[a-zA-Z0-9_]+)*\.v0/}
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.imaging_finding\.v0/}
 									}
-									ELEMENT[at0020] occurrences matches {0..*} matches {	-- Imaging diagnosis
+									ELEMENT[at0021] occurrences matches {0..1} matches {    -- Impression
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Conclusion
+									ELEMENT[at0020] occurrences matches {0..*} matches {    -- Imaging diagnosis
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0045] occurrences matches {0..*} matches {	-- Examination result representation
+									ELEMENT[at0056] occurrences matches {0..1} matches {    -- Comparison with previous
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									allow_archetype CLUSTER[at0045] occurrences matches {0..*} matches {    -- Image representation
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.multimedia(-[a-zA-Z0-9_]+)*\.v1/}
 									}
-									ELEMENT[at0023] occurrences matches {0..*} matches {	-- Comment
+									ELEMENT[at0023] occurrences matches {0..*} matches {    -- Comment
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -191,9 +203,9 @@ definition
 							}
 						}
 						state matches {
-							ITEM_TREE[at0047] matches {	-- Tree
+							ITEM_TREE[at0047] matches {    -- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0048] occurrences matches {0..1} matches {	-- Confounding factors
+									ELEMENT[at0048] occurrences matches {0..1} matches {    -- Confounding factors
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -206,106 +218,108 @@ definition
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0025] matches {	-- Tree
+			ITEM_TREE[at0025] matches {    -- Tree
 				items cardinality matches {0..*; unordered} matches {
-					allow_archetype CLUSTER[at0026] occurrences matches {0..*} matches {	-- Receiving imaging service
+					ELEMENT[at0049] occurrences matches {0..1} matches {    -- Procedure
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0041] occurrences matches {0..*} matches {    -- Structured procedure
 						include
 							archetype_id/value matches {/.*/}
 					}
-					CLUSTER[at0027] occurrences matches {0..*} matches {	-- Examination request details
+					allow_archetype CLUSTER[at0026] occurrences matches {0..*} matches {    -- Receiving imaging service
+						include
+							archetype_id/value matches {/.*/}
+					}
+					CLUSTER[at0027] occurrences matches {0..*} matches {    -- Examination request details
 						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0028] occurrences matches {0..1} matches {	-- Requester order identifier
+							ELEMENT[at0028] occurrences matches {0..1} matches {    -- Requester order identifier
 								value matches {
 									DV_IDENTIFIER matches {*}
 								}
 							}
-							ELEMENT[at0029] occurrences matches {0..*} matches {	-- Examination requested name
+							ELEMENT[at0029] occurrences matches {0..*} matches {    -- Examination requested name
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							allow_archetype CLUSTER[at0030] occurrences matches {0..*} matches {	-- Requester
+							allow_archetype CLUSTER[at0030] occurrences matches {0..*} matches {    -- Requester
 								include
 									archetype_id/value matches {/.*/}
 							}
-							ELEMENT[at0031] occurrences matches {0..1} matches {	-- Receiver order identifier
+							ELEMENT[at0031] occurrences matches {0..1} matches {    -- Receiver order identifier
 								value matches {
 									DV_IDENTIFIER matches {*}
 								}
 							}
-							ELEMENT[at0032] occurrences matches {0..1} matches {	-- DICOM study identifier
+							ELEMENT[at0032] occurrences matches {0..1} matches {    -- DICOM study identifier
 								value matches {
 									DV_URI matches {*}
 								}
 							}
-							ELEMENT[at0033] occurrences matches {0..1} matches {	-- Report identifier
+							ELEMENT[at0033] occurrences matches {0..1} matches {    -- Report identifier
 								value matches {
 									DV_IDENTIFIER matches {*}
 								}
 							}
-							CLUSTER[at0034] occurrences matches {0..*} matches {	-- Image details
+							CLUSTER[at0034] occurrences matches {0..*} matches {    -- Image details
 								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0035] occurrences matches {0..1} matches {	-- Image identifier
+									ELEMENT[at0035] occurrences matches {0..1} matches {    -- Image identifier
 										value matches {
 											DV_IDENTIFIER matches {*}
 										}
 									}
-									ELEMENT[at0036] occurrences matches {0..1} matches {	-- DICOM series identifier
+									ELEMENT[at0036] occurrences matches {0..1} matches {    -- DICOM series identifier
 										value matches {
 											DV_IDENTIFIER matches {*}
 										}
 									}
-									ELEMENT[at0037] occurrences matches {0..1} matches {	-- View
+									ELEMENT[at0037] occurrences matches {0..1} matches {    -- View
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0038] occurrences matches {0..1} matches {	-- Position
+									ELEMENT[at0038] occurrences matches {0..1} matches {    -- Position
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0039] occurrences matches {0..1} matches {	-- Image DateTime
+									ELEMENT[at0039] occurrences matches {0..1} matches {    -- Image DateTime
 										value matches {
 											DV_DATE_TIME matches {*}
 										}
 									}
-									ELEMENT[at0040] occurrences matches {0..1} matches {	-- Image
+									ELEMENT[at0040] occurrences matches {0..1} matches {    -- Image
 										value matches {
 											DV_MULTIMEDIA matches {
 												media_type matches {
 													[openEHR::
-													637, 
-													425, 
-													426, 
-													427, 
-													428, 
+													637,
+													425,
+													426,
+													427,
+													428,
 													429]
 												}
 											}
 										}
 									}
 								}
+								name matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0053,    -- Reported image
+											at0054]    -- Comparison image
+										}
+									}
+								}
 							}
 						}
 					}
-					allow_archetype CLUSTER[at0041] occurrences matches {0..*} matches {	-- Examination procedure
-						include
-							archetype_id/value matches {/.*/}
-					}
-					CLUSTER[at0042] occurrences matches {0..*} matches {	-- Compared image details
-						items cardinality matches {1..*; unordered} matches {
-							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0028]	-- /protocol[Tree]/items[Examination request details]/items[Requester order identifier]
-							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0032]	-- /protocol[Tree]/items[Examination request details]/items[DICOM study identifier]
-							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0034]/items[at0035]	-- /protocol[Tree]/items[Examination request details]/items[Image details]/items[Image identifier]
-							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0034]/items[at0036]	-- /protocol[Tree]/items[Examination request details]/items[Image details]/items[DICOM series identifier]
-							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0034]/items[at0037]	-- /protocol[Tree]/items[Examination request details]/items[Image details]/items[View]
-							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0034]/items[at0038]	-- /protocol[Tree]/items[Examination request details]/items[Image details]/items[Position]
-							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0034]/items[at0039]	-- /protocol[Tree]/items[Examination request details]/items[Image details]/items[Image DateTime]
-							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0034]/items[at0040]	-- /protocol[Tree]/items[Examination request details]/items[Image details]/items[Image]
-						}
-					}
-					allow_archetype CLUSTER[at0046] occurrences matches {0..*} matches {	-- Extension
+					allow_archetype CLUSTER[at0046] occurrences matches {0..*} matches {    -- Extension
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -314,14 +328,13 @@ definition
 		}
 	}
 
-
 ontology
 	term_definitions = <
 		["en"] = <
 			items = <
 				["at0000"] = <
 					text = <"Imaging examination result">
-					description = <"Record the findings and interpretation of an imaging examination, or series of examinations, performed.">
+					description = <"Record the findings and interpretation of an imaging examination performed.">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -336,18 +349,19 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Examination result name">
-					description = <"Identification of the imaging examination or procedure performed, typically including modality and anatomical location (including laterality).">
-					comment = <"Coding with a terminology, potientially a pre-coordinated term specifying both modality and anatomical location, is desirable where possible. Possible candidate terminologies: LOINC, SNOMED CT or RadLex.">
+					text = <"Test name">
+					description = <"The name of the imaging examination or procedure performed.">
+					comment = <"Coding with a terminology, potentially a pre-coordinated term specifying both modality and anatomical location, is desirable where possible. Possible candidate terminologies: LOINC, SNOMED CT or RadLex.">
 				>
 				["at0005"] = <
 					text = <"Modality">
 					description = <"The imaging method used to perform the examination.">
-					comment = <"For example: Ultrasound, CT, X-ray. Coding with a terminology is desirable, where possible. If the modality is specified by a code in the Examination result name, then this field is not required.">
+					comment = <"For example: Ultrasound; CT; or X-ray. Coding with a terminology is desirable, where possible. If the modality is specified by a code in the Examination result name, then this field may be redundant.">
 				>
 				["at0006"] = <
-					text = <"Anatomical site">
-					description = <"Details of the anatomical site of imaging examination, including laterality, if all individual findings and results are related to the same anatomical location. If the anatomical site is sufficiently specified with a code in the Examination test name, then this additional data is not required. Finer-grained multiple anatomical sites may be represented per ‘Result group’.">
+					text = <"Structured anatomical site">
+					description = <"Structured detail about the anatomical site related to the entire result.">
+					comment = <"Identification of an anatomical site related to a specific finding will be recorded within each instance of CLUSTER.imaging_finding.">
 				>
 				["at0007"] = <
 					text = <"Overall result status">
@@ -355,7 +369,7 @@ ontology
 				>
 				["at0008"] = <
 					text = <"Findings">
-					description = <"Narrative description of findings, including comparative findings.">
+					description = <"Narrative description of findings.">
 				>
 				["at0009"] = <
 					text = <"Registered">
@@ -387,8 +401,9 @@ ontology
 					comment = <"Coding with a terminology is preferred, where possible.">
 				>
 				["at0021"] = <
-					text = <"Conclusion">
-					description = <"Concise and clinically contextualised narrative interpretation of the imaging examination findings.">
+					text = <"Impression">
+					description = <"Concise and clinically contextualised narrative summary and/or interpretation of the imaging findings.">
+					comment = <"Also referred to as 'Conclusion'.">
 				>
 				["at0023"] = <
 					text = <"Comment">
@@ -464,12 +479,8 @@ ontology
 					description = <"An attached or referenced image of a current view.">
 				>
 				["at0041"] = <
-					text = <"Examination procedure">
+					text = <"Structured procedure">
 					description = <"Additional structured details of imaging examination methodology followed. For example, structured details about the examination technique, prepraration or contrast medium used.">
-				>
-				["at0042"] = <
-					text = <"Compared image details">
-					description = <"Details of previous images used for comparison.">
 				>
 				["at0043"] = <
 					text = <"Submodality">
@@ -477,17 +488,17 @@ ontology
 					comment = <"Coding with a terminology is desirable, where possible.">
 				>
 				["at0044"] = <
-					text = <"Imaging result">
-					description = <"Slot for detailed structured description of the imaging result.">
+					text = <"Imaging findings">
+					description = <"Structured details about each imaging finding.">
 				>
 				["at0045"] = <
-					text = <"Examination result representation">
-					description = <"Digital image, video or diagram representing the exam result.">
+					text = <"Image representation">
+					description = <"Digital image or video representing the exam result.">
 				>
 				["at0046"] = <
 					text = <"Extension">
-					description = <"Additional information required to capture local content or to align with other reference models/formalisms.">
-					comment = <"For example: local information requirements or additional metadata to align with FHIR or CIMI equivalents.">
+					description = <"Additional information required to extend the model with local content or to align with other reference models or formalisms.">
+					comment = <"For example: local information requirements; or additional metadata to align with FHIR.">
 				>
 				["at0047"] = <
 					text = <"Tree">
@@ -495,7 +506,29 @@ ontology
 				>
 				["at0048"] = <
 					text = <"Confounding factors">
-					description = <"Narrative description of factors, not recorded elsewhere, that may influence the test result.">
+					description = <"Narrative description of factors, not recorded elsewhere, that may influence the examination findings and/or result.">
+				>
+				["at0049"] = <
+					text = <"Procedure">
+					description = <"The method used to perform the imaging examination.">
+					comment = <"For example: AP or PA for chest x-ray.">
+				>
+				["at0053"] = <
+					text = <"Reported image">
+					description = <"Details about the image being reported.">
+				>
+				["at0054"] = <
+					text = <"Comparison image">
+					description = <"Details about an image being compared to the image being reported.">
+					comment = <"For example: narrative description about progression/worsening of a condition. Structured comparison details will require representation in a separate CLUSTER archetype.">
+				>
+				["at0055"] = <
+					text = <"Anatomical site">
+					description = <"Simple description about the physical place on, or in, the body that was imaged.">
+				>
+				["at0056"] = <
+					text = <"Comparison with previous">
+					description = <"Narrative comparison with previous similar examinations">
 				>
 			>
 		>
@@ -518,9 +551,9 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Bildediagnostisk undersøkelse">
-					description = <"Navn på den utførte bildediagnostiske undersøkelsen eller prosedyren, vanligvis inkludert metode og anatomiske område (inkludert lateralitet).">
-					comment = <"Koding med en terminologi som inkluderer både metode og anatomiske område er ønskelig der det er mulig. Mulige kandidater for terminologier: NCRP, LOINC, SNOMED CT eller RadLex.">
+					text = <"*Test name (en)">
+					description = <"*The name of the imaging examination or procedure performed. (en)">
+					comment = <"*Coding with a terminology, potentially a pre-coordinated term specifying both modality and anatomical location, is desirable where possible. Possible candidate terminologies: LOINC, SNOMED CT or RadLex. (en)">
 				>
 				["at0005"] = <
 					text = <"Metode">
@@ -528,7 +561,7 @@ ontology
 					comment = <"For eksempel ultralyd, CT, røntgen. Koding med en terminologi er ønskelig, der det er mulig. Hvis metode er spesifisert av en kode i undersøkelsesnavnet, er dette feltet ikke nødvendig.">
 				>
 				["at0006"] = <
-					text = <"Anatomisk område">
+					text = <"*Structured anatomical site (en)">
 					description = <"Detaljer om det anatomiske området som undersøkes bildediagnostisk, inkludert lateralitet, hvis alle individuelle funn og resultater er knyttet til den samme anatomiske plassering. Hvis det anatomiske området er tilstrekkelig spesifisert med en kode i undersøkelsesnavnet, så er dette felt ikke nødvendig. Bilder med høy oppløsning (fin-kornet) fra multiple anatomiske områder kan presenteres gruppevis som 'Resultatgruppe'.">
 				>
 				["at0007"] = <
@@ -569,7 +602,7 @@ ontology
 					comment = <"Koding med en terminologi foretrekkes når mulig.">
 				>
 				["at0021"] = <
-					text = <"Konklusjon">
+					text = <"*Impression (en)">
 					description = <"Presis og klinisk fyldig sammenhengende friteksttolkning av funn ved bildeundersøkelsen.">
 				>
 				["at0023"] = <
@@ -646,12 +679,8 @@ ontology
 					description = <"Vedlagt eller referert bilde av en aktuelt visning.">
 				>
 				["at0041"] = <
-					text = <"Undersøkelsesprosedyre">
+					text = <"*Structured procedure (en)">
 					description = <"Ytterligere strukturerte detaljer om bildeundersøkelsesprosedyren. F.eks. strukturerte detaljer om undersøkelsesteknikk, forberedelser eller kontrastmedium som ble brukt.">
-				>
-				["at0042"] = <
-					text = <"Detaljer om sammenligningsbilder">
-					description = <"Detaljer om tidligere bilder brukt for sammenligning.">
 				>
 				["at0043"] = <
 					text = <"Undermodalitet">
@@ -659,17 +688,17 @@ ontology
 					comment = <"Koding med en terminologi er ønskelig, der det er mulig.">
 				>
 				["at0044"] = <
-					text = <"Bildediagnostisk svar">
+					text = <"*Imaging findings (en)">
 					description = <"SLOT for detaljerte strukturerte beskrivelser av det bildediagnostiske svaret.">
 				>
 				["at0045"] = <
-					text = <"Resultatrepresentasjon">
+					text = <"*Image representation (en)">
 					description = <"Digitalt bilde, video eller diagram som representerer undersøkelsesresultatet.">
 				>
 				["at0046"] = <
 					text = <"Tilleggsinformasjon">
-					description = <"Ytterligere informasjon som trengs for å kunne registrere lokalt definert innhold eller for å tilpasse til andre referansemodeller/formalismer.">
-					comment = <"For eksempel lokale informasjonsbehov eller ytterligere metadata for å kunne tilpasse til tilsvarende konsepter i FHIR eller CIMI.">
+					description = <"*Additional information required to extend the model with local content or to align with other reference models or formalisms. (en)">
+					comment = <"*For example: local information requirements; or additional metadata to align with FHIR. (en)">
 				>
 				["at0047"] = <
 					text = <"*Tree(en)">
@@ -678,6 +707,26 @@ ontology
 				["at0048"] = <
 					text = <"*Confounding factors(en)">
 					description = <"*Narrative description of factors, not recorded elsewhere, that may influence the test result.(en)">
+				>
+				["at0049"] = <
+					text = <"*Procedure (en)">
+					description = <"*">
+				>
+				["at0053"] = <
+					text = <"*Reported image (en)">
+					description = <"*Details about the image being reported. (en)">
+				>
+				["at0054"] = <
+					text = <"*Comparison image (en)">
+					description = <"*Details about an image being compared to the image being reported. (en)">
+				>
+				["at0055"] = <
+					text = <"*Anatomical site (en)">
+					description = <"*">
+				>
+				["at0056"] = <
+					text = <"*Comparison with previous (en)">
+					description = <"*">
 				>
 			>
 		>
@@ -700,9 +749,9 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Name des Untersuchungsergebnisses">
-					description = <"Identifizierung der bildgebenden Untersuchung oder des durchgeführten Verfahrens, typischerweise einschließlich Modalität und anatomischer Lage (einschließlich Lateralität).">
-					comment = <"Eine Kodierung mit einer Terminologie, möglicherweise einem präkoordinierten Begriff, der sowohl die Modalität als auch die anatomische Lage angibt, wird bevorzugt. Mögliche Terminologien: LOINC, SNOMED CT oder RadLex.">
+					text = <"*Test name (en)">
+					description = <"*The name of the imaging examination or procedure performed. (en)">
+					comment = <"*Coding with a terminology, potentially a pre-coordinated term specifying both modality and anatomical location, is desirable where possible. Possible candidate terminologies: LOINC, SNOMED CT or RadLex. (en)">
 				>
 				["at0005"] = <
 					text = <"Modalität">
@@ -710,7 +759,7 @@ ontology
 					comment = <"Zum Beispiel: Ultraschall, CT, Röntgen. Die Kodierung mit einer Terminologie ist, wenn möglich, erwünscht. Ist die Modalität bereits im Namen des Untersuchungsergebnisses kodiert, ist dieses Feld nicht erforderlich.">
 				>
 				["at0006"] = <
-					text = <"Anatomische Lagebezeichnung">
+					text = <"*Structured anatomical site (en)">
 					description = <"Angaben zur anatomischen Lagebezeichnung der bildgebenden Untersuchung, einschließlich der Lateralität, wenn sich alle einzelnen Befunde und Ergebnisse auf denselben anatomischen Ort beziehen. Wenn die anatomische Lagebezeichnung im Namen des Untersuchungsergebnisses ausreichend kodiert ist, sind diese zusätzlichen Daten nicht erforderlich. Präzisere anatomische Lagebezeichnungen können pro \"Ergebnisgruppe\" dargestellt werden.">
 				>
 				["at0007"] = <
@@ -751,7 +800,7 @@ ontology
 					comment = <"Die Kodierung mit einer Terminologie wird, wenn möglich, bevorzugt.">
 				>
 				["at0021"] = <
-					text = <"Schlussfolgerung">
+					text = <"*Impression (en)">
 					description = <"Prägnante und klinisch kontextbezogene narrative Interpretation der bildgebenden Untersuchungsergebnisse.">
 				>
 				["at0023"] = <
@@ -829,12 +878,8 @@ ontology
 					description = <"Ein angehängtes oder referenziertes Bild einer aktuellen Aufnahme.">
 				>
 				["at0041"] = <
-					text = <"Untersuchungsverfahren">
+					text = <"*Structured procedure (en)">
 					description = <"Zusätzliche strukturierte Details, über die bildgebende Untersuchungsmethodik. Zum Beispiel: strukturierte Details über die verwendete Untersuchungstechnik, die Vorbereitung oder über das verwendete Kontrastmittel.">
-				>
-				["at0042"] = <
-					text = <"Vergleich von Bilddetails">
-					description = <"Details von vorhergegangenen Bildern, die zum Vergleich herangezogen werden.">
 				>
 				["at0043"] = <
 					text = <"Submodalität">
@@ -842,17 +887,17 @@ ontology
 					comment = <"Die Kodierung mit einer Terminologie wird, wenn möglich, bevorzugt.">
 				>
 				["at0044"] = <
-					text = <"Ergebnis der Bildgebung">
+					text = <"*Imaging findings (en)">
 					description = <"Slot für eine detaillierte und strukturierte Beschreibung des Ergebnisses der Bildgebung.">
 				>
 				["at0045"] = <
-					text = <"Präsentation des Untersuchungsergebnisses">
+					text = <"*Image representation (en)">
 					description = <"Digitalisiertes Bild, Video oder Diagramm, welches das Untersuchungsergebnis darstellt.">
 				>
 				["at0046"] = <
 					text = <"Erweiterung">
-					description = <"Zusätzliche Informationen zur Erfassung lokaler Inhalte oder Anpassung an andere Referenzmodelle/Formalismen.">
-					comment = <"Zum Beispiel: Lokaler Informationsbedarf oder zusätzliche Metadaten zur Anpassung an FHIR-Ressourcen oder CIMI-Modelle.">
+					description = <"*Additional information required to extend the model with local content or to align with other reference models or formalisms. (en)">
+					comment = <"*For example: local information requirements; or additional metadata to align with FHIR. (en)">
 				>
 				["at0047"] = <
 					text = <"Tree">
@@ -861,6 +906,26 @@ ontology
 				["at0048"] = <
 					text = <"Störfaktoren">
 					description = <"Eine Beschreibung von Faktoren, welche noch nicht an anderer Stelle erfasst werden und das Ergebnis beeinflussen könnten.">
+				>
+				["at0049"] = <
+					text = <"*Procedure (en)">
+					description = <"*">
+				>
+				["at0053"] = <
+					text = <"*Reported image (en)">
+					description = <"*Details about the image being reported. (en)">
+				>
+				["at0054"] = <
+					text = <"*Comparison image (en)">
+					description = <"*Details about an image being compared to the image being reported. (en)">
+				>
+				["at0055"] = <
+					text = <"*Anatomical site (en)">
+					description = <"*">
+				>
+				["at0056"] = <
+					text = <"*Comparison with previous (en)">
+					description = <"*">
 				>
 			>
 		>

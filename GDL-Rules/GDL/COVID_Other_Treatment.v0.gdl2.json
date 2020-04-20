@@ -7,7 +7,7 @@
   },
   "description": {
     "original_author": {
-      "date": "2020-03-12",
+      "date": "2020-04-07",
       "name": "Hongshuo Feng",
       "organisation": "Zhejiang University",
       "email": "842089819@qq.com"
@@ -30,7 +30,7 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
     }
   },
   "definition": {
@@ -48,10 +48,6 @@
           "gt0004": {
             "id": "gt0004",
             "path": "/data[at0001]/items[at0005]"
-          },
-          "gt0038": {
-            "id": "gt0038",
-            "path": "/data[at0001]/items[at0002]"
           }
         }
       },
@@ -67,113 +63,99 @@
           }
         }
       },
-      "gt0024": {
-        "id": "gt0024",
-        "model_id": "openEHR-EHR-OBSERVATION.story.v1",
-        "template_id": "openEHR-EHR-OBSERVATION.story.v1",
+      "gt0041": {
+        "id": "gt0041",
+        "model_id": "openEHR-EHR-OBSERVATION.age.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.age.v0",
         "type": "INPUT",
         "elements": {
-          "gt0025": {
-            "id": "gt0025",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0001]"
-          },
-          "gt0026": {
-            "id": "gt0026",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0021]"
+          "gt0042": {
+            "id": "gt0042",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0004]"
           }
         }
       },
-      "gt0027": {
-        "id": "gt0027",
-        "model_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
-        "template_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
-        "type": "INPUT",
-        "elements": {
-          "gt0028": {
-            "id": "gt0028",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0008]"
-          }
-        }
-      },
-      "gt0029": {
-        "id": "gt0029",
-        "model_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
-        "template_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
-        "type": "INPUT",
-        "elements": {
-          "gt0030": {
-            "id": "gt0030",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0024]"
-          },
-          "gt0031": {
-            "id": "gt0031",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0001]"
-          }
-        }
-      },
-      "gt0032": {
-        "id": "gt0032",
-        "model_id": "openEHR-EHR-OBSERVATION.respiration.v2",
-        "template_id": "openEHR-EHR-OBSERVATION.respiration.v2",
-        "type": "INPUT",
-        "elements": {
-          "gt0033": {
-            "id": "gt0033",
-            "path": "/data[at0001]/events[at0002]/state[at0022]/items[openEHR-EHR-CLUSTER.inspired_oxygen.v1]/items[at0051]"
-          }
-        }
-      },
-      "gt0036": {
-        "id": "gt0036",
-        "model_id": "openEHR-EHR-EVALUATION.recommendation.v1",
-        "template_id": "openEHR-EHR-EVALUATION.recommendation.v1",
+      "gt0046": {
+        "id": "gt0046",
+        "model_id": "openEHR-EHR-INSTRUCTION.therapeutic_order.v0",
+        "template_id": "openEHR-EHR-INSTRUCTION.therapeutic_order.v0",
         "type": "OUTPUT",
         "elements": {
-          "gt0037": {
-            "id": "gt0037",
-            "path": "/data[at0001]/items[at0002]"
+          "gt0047": {
+            "id": "gt0047",
+            "path": "/activities[at0001]/description[at0009]/items[at0121]"
+          }
+        }
+      },
+      "gt0050": {
+        "id": "gt0050",
+        "model_id": "openEHR-EHR-OBSERVATION.condition_screening.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.condition_screening.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt0051": {
+            "id": "gt0051",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0004]"
+          },
+          "gt0052": {
+            "id": "gt0052",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]"
+          }
+        }
+      },
+      "gt0054": {
+        "id": "gt0054",
+        "model_id": "openEHR-EHR-EVALUATION.health_risk.v1",
+        "template_id": "openEHR-EHR-EVALUATION.health_risk.v1",
+        "type": "INPUT",
+        "elements": {
+          "gt0055": {
+            "id": "gt0055",
+            "path": "/data[at0001]/items[at0016]/items[at0013]"
+          },
+          "gt0056": {
+            "id": "gt0056",
+            "path": "/data[at0001]/items[at0016]/items[at0017]"
           }
         }
       }
     },
     "rules": {
-      "gt0034": {
-        "id": "gt0034",
-        "priority": 3,
-        "when": [
-          "$gt0030|Analyte name|=='PaO₂'",
-          "$gt0033|Flow rate|.unit=='l/min'"
-        ],
-        "then": [
-          "$gt0035|PaO2/FiO2|=$gt0031/(21+4*$gt0033.magnitude)*100"
-        ]
-      },
       "gt0011": {
         "id": "gt0011",
-        "priority": 2,
+        "priority": 3,
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "$gt0028|Findings|=='The condition of imaging findings degenerates rapidly'",
-          "$gt0035|PaO2/FiO2|<=300",
-          "$gt0038|Problem/Diagnosis name|=='Cytokine-associated toxicity'",
-          "($gt0004|Severity|==local::at0079|Critical|)||($gt0004|Severity|==local::at0049|Severe|)"
+          "($gt0004|Severity|==local::at0078|Critical|)||($gt0004|Severity|==local::at0049|Severe|)",
+          "$gt0055|Risk factor|=='Rapid progression of lung lesions AND Progressive deterioration of oxygenation index AND Cytokine-associated toxicity'",
+          "$gt0056|Presence|==local::at0018|Present|"
         ],
         "then": [
           "$gt0016|Medication item|='Glucocorticoids, Xuebijing injection, Intestines Micro-ecological regulators'",
-          "$gt0037|Recommendation|='Enhance psychological counseling'"
+          "$gt0047|Activity name|='Psychological counselling'"
         ]
       },
-      "gt0019": {
-        "id": "gt0019",
-        "priority": 1,
+      "gt0040": {
+        "id": "gt0040",
+        "priority": 2,
         "when": [
-          "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "$gt0004|Severity|==local::at0079|Critical|",
-          "($gt0025|Symptom/Sign name|=='Redness')||($gt0025|Symptom/Sign name|=='Fever')",
-          "$gt0026|Severity category|==local::at0025|Severe|"
+          "($gt0004|Severity|==local::at0049|Severe|)||($gt0004|Severity|==local::at0078|Critical|)",
+          "$gt0042|Chronological age|<14,a"
         ],
         "then": [
-          "$gt0037|Recommendation|='Plasmapheresis, Plasma adsorption, Plasma perfusion, Hemofiltration, Plasma filtration'"
+          "$gt0016|Medication item|='Gamma globulin'"
+        ]
+      },
+      "gt0043": {
+        "id": "gt0043",
+        "priority": 1,
+        "when": [
+          "($gt0004|Severity|==local::at0049|Severe|)||($gt0004|Severity|==local::at0078|Critical|)",
+          "$gt0051|Condition name|=='Pregnant'",
+          "$gt0052|Presence?|==local::at0023|Present|"
+        ],
+        "then": [
+          "$gt0047|Activity name|='Termination of pregnancy'"
         ]
       }
     }
@@ -207,58 +189,43 @@
             "text": "Medication item",
             "description": "Name of the medication, vaccine or other therapeutic/prescribable item being ordered."
           },
-          "gt0019": {
-            "id": "gt0019",
-            "text": "Inflammatory _Treatment"
+          "gt0040": {
+            "id": "gt0040",
+            "text": "Child_Other_Treatment"
           },
-          "gt0025": {
-            "id": "gt0025",
-            "text": "Symptom/Sign name",
-            "description": "The name of the reported symptom or sign. "
+          "gt0042": {
+            "id": "gt0042",
+            "text": "Chronological age",
+            "description": "Age based on actual date of birth."
           },
-          "gt0026": {
-            "id": "gt0026",
-            "text": "Severity category",
-            "description": "Category representing the overall severity of the symptom or sign."
+          "gt0043": {
+            "id": "gt0043",
+            "text": "Pregent_Treatment"
           },
-          "gt0028": {
-            "id": "gt0028",
-            "text": "Findings",
-            "description": "Narrative description of findings, including comparative findings."
+          "gt0047": {
+            "id": "gt0047",
+            "text": "Activity name",
+            "description": "The name of the single therapy or activity requested."
           },
-          "gt0030": {
-            "id": "gt0030",
-            "text": "Analyte name",
-            "description": "The name of the analyte result."
+          "gt0051": {
+            "id": "gt0051",
+            "text": "Condition name",
+            "description": "Name of the condition being screened."
           },
-          "gt0031": {
-            "id": "gt0031",
-            "text": "Analyte result",
-            "description": "The value of the analyte result."
+          "gt0052": {
+            "id": "gt0052",
+            "text": "Presence?",
+            "description": "Presence of the condition."
           },
-          "gt0033": {
-            "id": "gt0033",
-            "text": "Flow rate",
-            "description": "Oxygen flow rate given to an individual."
+          "gt0055": {
+            "id": "gt0055",
+            "text": "Risk factor",
+            "description": "Identification of the risk factor, by name."
           },
-          "gt0034": {
-            "id": "gt0034",
-            "text": "Calculate PaO2/FiO2"
-          },
-          "gt0035": {
-            "id": "gt0035",
-            "text": "PaO2/FiO2",
-            "description": ""
-          },
-          "gt0037": {
-            "id": "gt0037",
-            "text": "Recommendation",
-            "description": "Narrative description of the recommendation."
-          },
-          "gt0038": {
-            "id": "gt0038",
-            "text": "Problem/Diagnosis name",
-            "description": "Identification of the problem or diagnosis, by name."
+          "gt0056": {
+            "id": "gt0056",
+            "text": "Presence",
+            "description": "Presence of the risk factor."
           }
         }
       }

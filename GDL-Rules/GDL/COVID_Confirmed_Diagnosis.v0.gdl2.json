@@ -7,7 +7,7 @@
   },
   "description": {
     "original_author": {
-      "date": "2020-03-12",
+      "date": "2020-04-07",
       "name": "Hongshuo Feng",
       "organisation": "Zhejiang University",
       "email": "842089819@qq.com"
@@ -21,7 +21,7 @@
     "details": {
       "en": {
         "id": "en",
-        "purpose": "Quickly confirm whether a patient is a confirmed case of COVID-19, according to Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition).",
+        "purpose": "Quickly confirm whether a patient is a confirmed case of COVID-19, according to Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition).",
         "keywords": [
           "COVID-19"
         ],
@@ -30,7 +30,7 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
     }
   },
   "definition": {
@@ -59,19 +59,19 @@
           }
         }
       },
-      "gt0010": {
-        "id": "gt0010",
-        "model_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
-        "template_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
+      "gt0028": {
+        "id": "gt0028",
+        "model_id": "openEHR-EHR-EVALUATION.health_risk.v1",
+        "template_id": "openEHR-EHR-EVALUATION.health_risk.v1",
         "type": "INPUT",
         "elements": {
-          "gt0023": {
-            "id": "gt0023",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0001]"
+          "gt0029": {
+            "id": "gt0029",
+            "path": "/data[at0001]/items[at0016]/items[at0013]"
           },
-          "gt0024": {
-            "id": "gt0024",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0024]"
+          "gt0030": {
+            "id": "gt0030",
+            "path": "/data[at0001]/items[at0016]/items[at0017]"
           }
         }
       }
@@ -79,11 +79,11 @@
     "rules": {
       "gt0014": {
         "id": "gt0014",
-        "priority": 2,
+        "priority": 3,
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0074|Suspected|",
-          "$gt0024|Analyte name|=='SARS-CoV-2 Nucleic Acid'",
-          "$gt0023|Analyte result|=='Positive'"
+          "$gt0029|Risk factor|=='RT-PCR positive for COVID-19'",
+          "$gt0030|Presence|==local::at0018|Present|"
         ],
         "then": [
           "$gt0006|Diagnostic certainty|=local::at0076|Confirmed|"
@@ -91,11 +91,22 @@
       },
       "gt0015": {
         "id": "gt0015",
+        "priority": 2,
+        "when": [
+          "$gt0003|Diagnostic certainty|==local::at0074|Suspected|",
+          "$gt0029|Risk factor|=='Gene sequencing highly homologous with COVID-19'",
+          "$gt0030|Presence|==local::at0018|Present|"
+        ],
+        "then": [
+          "$gt0006|Diagnostic certainty|=local::at0076|Confirmed|"
+        ]
+      },
+      "gt0024": {
+        "id": "gt0024",
         "priority": 1,
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0074|Suspected|",
-          "$gt0024|Analyte name|=='Severe Acute Respiratory Syndrome Coronavirus 2(SARS-CoV-2)'",
-          "$gt0023|Analyte result|=='Positive'"
+          "(($gt0029|Risk factor|=='IgM and IGM positive for COVID-19')&&($gt0030|Presence|==local::at0018|Present|))||((($gt0029|Risk factor|=='IgG antibody changed from negative to positive')&&($gt0030|Presence|==local::at0018|Present|))||(($gt0029|Risk factor|=='The recovery period of IgG antibodies is four times or more higher than the acute period')&&($gt0030|Presence|==local::at0018|Present|)))"
         ],
         "then": [
           "$gt0006|Diagnostic certainty|=local::at0076|Confirmed|"
@@ -131,15 +142,19 @@
             "id": "gt0015",
             "text": "Confirmed Diagnosis2"
           },
-          "gt0023": {
-            "id": "gt0023",
-            "text": "Analyte result",
-            "description": "The value of the analyte result."
-          },
           "gt0024": {
             "id": "gt0024",
-            "text": "Analyte name",
-            "description": "The name of the analyte result."
+            "text": "Confirmed Diagnosis3"
+          },
+          "gt0029": {
+            "id": "gt0029",
+            "text": "Risk factor",
+            "description": "Identification of the risk factor, by name."
+          },
+          "gt0030": {
+            "id": "gt0030",
+            "text": "Presence",
+            "description": "Presence of the risk factor."
           }
         }
       }

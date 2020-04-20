@@ -7,7 +7,7 @@
   },
   "description": {
     "original_author": {
-      "date": "2020-03-12",
+      "date": "2020-04-07",
       "name": "Hongshuo Feng",
       "organisation": "Zhejiang University",
       "email": "842089819@qq.com"
@@ -30,7 +30,7 @@
       }
     },
     "other_details": {
-      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (6th edition)"
+      "references": "Chinese COVID-19 Diagnosis and Treatment Guideline (7th edition)"
     }
   },
   "definition": {
@@ -44,10 +44,6 @@
           "gt0003": {
             "id": "gt0003",
             "path": "/data[at0001]/items[at0073]"
-          },
-          "gt0030": {
-            "id": "gt0030",
-            "path": "/data[at0001]/items[at0002]"
           }
         }
       },
@@ -69,41 +65,13 @@
         "template_id": "openEHR-EHR-OBSERVATION.imaging_exam_result.v0",
         "type": "INPUT",
         "elements": {
-          "gt0036": {
-            "id": "gt0036",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.imaging_result-COVID_19.v0]/items[at0.15]/items[at0.16]"
-          }
-        }
-      },
-      "gt0010": {
-        "id": "gt0010",
-        "model_id": "openEHR-EHR-OBSERVATION.story.v1",
-        "template_id": "openEHR-EHR-OBSERVATION.story.v1",
-        "type": "INPUT",
-        "elements": {
-          "gt0011": {
-            "id": "gt0011",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0001]"
+          "gt0054": {
+            "id": "gt0054",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0020]"
           },
-          "gt0033": {
-            "id": "gt0033",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0002]"
-          }
-        }
-      },
-      "gt0012": {
-        "id": "gt0012",
-        "model_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
-        "template_id": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
-        "type": "INPUT",
-        "elements": {
-          "gt0013": {
-            "id": "gt0013",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0024]"
-          },
-          "gt0014": {
-            "id": "gt0014",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1]/items[at0001]"
+          "gt0055": {
+            "id": "gt0055",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0056]"
           }
         }
       },
@@ -113,9 +81,9 @@
         "template_id": "openEHR-EHR-OBSERVATION.pulse_oximetry.v1",
         "type": "INPUT",
         "elements": {
-          "gt0032": {
-            "id": "gt0032",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0036]"
+          "gt0052": {
+            "id": "gt0052",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0006]"
           }
         }
       },
@@ -125,36 +93,97 @@
         "template_id": "openEHR-EHR-OBSERVATION.respiration.v2",
         "type": "INPUT",
         "elements": {
-          "gt0019": {
-            "id": "gt0019",
-            "path": "/data[at0001]/events[at0002]/state[at0022]/items[openEHR-EHR-CLUSTER.inspired_oxygen.v1]/items[at0051]"
-          },
           "gt0020": {
             "id": "gt0020",
             "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0004]"
           }
         }
+      },
+      "gt0040": {
+        "id": "gt0040",
+        "model_id": "openEHR-EHR-OBSERVATION.age.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.age.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt0041": {
+            "id": "gt0041",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0004]"
+          }
+        }
+      },
+      "gt0056": {
+        "id": "gt0056",
+        "model_id": "openEHR-EHR-OBSERVATION.symptom_sign_screening.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.symptom_sign_screening.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt0057": {
+            "id": "gt0057",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0004]"
+          },
+          "gt0058": {
+            "id": "gt0058",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0035]"
+          },
+          "gt0067": {
+            "id": "gt0067",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]"
+          }
+        }
+      },
+      "gt0059": {
+        "id": "gt0059",
+        "model_id": "openEHR-EHR-OBSERVATION.pf_ratio.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.pf_ratio.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt0060": {
+            "id": "gt0060",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0004]"
+          }
+        }
+      },
+      "gt0061": {
+        "id": "gt0061",
+        "model_id": "openEHR-EHR-OBSERVATION.symptom_sign_screening.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.symptom_sign_screening.v0",
+        "type": "OUTPUT",
+        "elements": {
+          "gt0062": {
+            "id": "gt0062",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0004]"
+          },
+          "gt0063": {
+            "id": "gt0063",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]"
+          }
+        }
+      },
+      "gt0064": {
+        "id": "gt0064",
+        "model_id": "openEHR-EHR-OBSERVATION.condition_screening.v0",
+        "template_id": "openEHR-EHR-OBSERVATION.condition_screening.v0",
+        "type": "INPUT",
+        "elements": {
+          "gt0065": {
+            "id": "gt0065",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0004]"
+          },
+          "gt0066": {
+            "id": "gt0066",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0022]/items[at0005]"
+          }
+        }
       }
     },
     "rules": {
-      "gt0024": {
-        "id": "gt0024",
-        "priority": 5,
-        "when": [
-          "$gt0013|Analyte name|=='PaO₂'",
-          "$gt0019|Flow rate|.unit=='l/min'"
-        ],
-        "then": [
-          "$gt0025|PaO2/FiO2|=$gt0014/(21+4*$gt0019.magnitude)*100"
-        ]
-      },
       "gt0026": {
         "id": "gt0026",
-        "priority": 4,
+        "priority": 6,
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "$gt0033|Symptom Description|=='slight clinical symptoms'",
-          "$gt0036|Imaging result details|=='no imaging findings of COVID-19'"
+          "$gt0054|Imaging diagnosis|=='No obvious signs of pneumonia'",
+          "$gt0058|Symptom Comment|=='Mild'"
         ],
         "then": [
           "$gt0006|Severity|=local::at0047|Mild|"
@@ -162,11 +191,11 @@
       },
       "gt0027": {
         "id": "gt0027",
-        "priority": 3,
+        "priority": 5,
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "($gt0011|Symptom/Sign name|=='Fever')||((($gt0011|Symptom/Sign name|=='Dry Cough')||($gt0011|Symptom/Sign name|=='Pain in throat'))||((($gt0011|Symptom/Sign name|=='Rhinorrhea')||($gt0011|Symptom/Sign name|=='Nasal Congestion'))||($gt0011|Symptom/Sign name|=='Difficulty breathing')))",
-          "$gt0036|Imaging result details|=='With imaging findings of COVID-19'"
+          "($gt0057|Symptom or sign name|=='Fever')||((($gt0057|Symptom or sign name|=='Dry Cough')||($gt0057|Symptom or sign name|=='Pain in throat'))||((($gt0057|Symptom or sign name|=='Rhinorrhea')||($gt0057|Symptom or sign name|=='Nasal Congestion'))||($gt0057|Symptom or sign name|=='Difficulty breathing')))",
+          "$gt0054|Imaging diagnosis|=='Presenting with pneumonia'"
         ],
         "then": [
           "$gt0006|Severity|=local::at0048|Moderate|"
@@ -174,10 +203,34 @@
       },
       "gt0028": {
         "id": "gt0028",
+        "priority": 4,
+        "when": [
+          "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
+          "(($gt0020|Rate|>=30,/min)||($gt0052|SpO₂|<=93,%))||(($gt0060|PaO2/FiO2 ratio|<=300,mm[Hg])||($gt0055|Comparison with previous|=='Lesion progression ≥ 50%'))",
+          "$gt0041|Chronological age|>14,a"
+        ],
+        "then": [
+          "$gt0006|Severity|=local::at0049|Severe|"
+        ]
+      },
+      "gt0043": {
+        "id": "gt0043",
+        "priority": 3,
+        "when": [
+          "((($gt0020|Rate|>=60,/min)&&($gt0041|Chronological age|<=2,mo))||((($gt0020|Rate|>=50,/min)&&($gt0041|Chronological age|>2,mo))&&($gt0041|Chronological age|<=12,mo)))||(((($gt0020|Rate|>=40,/min)&&($gt0041|Chronological age|>1,a))&&($gt0041|Chronological age|<=5,a))||((($gt0020|Rate|>=30,/min)&&($gt0041|Chronological age|>5,a))&&($gt0041|Chronological age|<=14,a)))"
+        ],
+        "then": [
+          "$gt0062|Symptom or sign name|='Shortness of breath'",
+          "$gt0063|Presence?|=local::at0023|Present|"
+        ]
+      },
+      "gt0070": {
+        "id": "gt0070",
         "priority": 2,
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "(($gt0020|Respiratoty Rate|>=30,/min)||($gt0032|Pulse oximetry Comment|=='Blood oxygen saturation of finger is less than or equal to 93% in the resting state'))||(($gt0025|PaO2/FiO2|<=300)||($gt0036|Imaging result details|=='Cases with chest imaging that showed obvious lesion progression within 24-48 hours >50%'))"
+          "$gt0041|Chronological age|<=14,a",
+          "((($gt0062|Symptom or sign name|=='Shortness of breath')&&($gt0063|Symptom Presence?|==local::at0023|Present|))||($gt0052|SpO₂|<=92,%))||(((($gt0065|Condition name|=='Cyanosis')&&($gt0066|Condition Presence?|==local::at0023|Present|))||(($gt0057|Symptom or sign name|=='Distressed breathing')&&($gt0067|Symptom Presence?|==local::at0023|Present|)))||(((($gt0057|Symptom or sign name|=='Lethargy')&&($gt0067|Symptom Presence?|==local::at0023|Present|))||(($gt0057|Symptom or sign name|=='Convulsion')&&($gt0067|Symptom Presence?|==local::at0023|Present|)))||((($gt0057|Symptom or sign name|=='Dehydration')&&($gt0067|Symptom Presence?|==local::at0023|Present|))||(($gt0057|Symptom or sign name|=='Infant feeding problem')&&($gt0067|Symptom Presence?|==local::at0023|Present|)))))"
         ],
         "then": [
           "$gt0006|Severity|=local::at0049|Severe|"
@@ -188,10 +241,10 @@
         "priority": 1,
         "when": [
           "$gt0003|Diagnostic certainty|==local::at0076|Confirmed|",
-          "($gt0030|Problem/Diagnosis name|=='Respiratory failure ')||(($gt0030|Problem/Diagnosis name|=='Shock')||($gt0030|Problem/Diagnosis name|=='Multiple organ failure '))"
+          "(($gt0065|Condition name|=='Acute respiratory failure')&&($gt0066|Presence?|==local::at0023|Present|))||((($gt0065|Condition name|=='Shock')&&($gt0066|Presence?|==local::at0023|Present|))||(($gt0065|Condition name|=='Multiple organ failure')&&($gt0066|Presence?|==local::at0023|Present|)))"
         ],
         "then": [
-          "$gt0006|Severity|=local::at0079|Critical|"
+          "$gt0006|Severity|=local::at0078|Critical|"
         ]
       }
     }
@@ -216,44 +269,10 @@
             "text": "Severity",
             "description": "An assessment of the overall severity of the problem or diagnosis."
           },
-          "gt0011": {
-            "id": "gt0011",
-            "text": "Symptom/Sign name",
-            "description": "The name of the reported symptom or sign."
-          },
-          "gt0013": {
-            "id": "gt0013",
-            "text": "Analyte name",
-            "description": "The name of the analyte result."
-          },
-          "gt0014": {
-            "id": "gt0014",
-            "text": "Analyte result",
-            "description": "The value of the analyte result."
-          },
-          "gt0019": {
-            "id": "gt0019",
-            "text": "Flow rate",
-            "description": "Oxygen flow rate given to an individual."
-          },
           "gt0020": {
             "id": "gt0020",
-            "text": "Respiratoty Rate",
+            "text": "Rate",
             "description": "The frequency of spontaneous breathing."
-          },
-          "gt0023": {
-            "id": "gt0023",
-            "text": "FiO₂",
-            "description": "Fraction of oxygen in inspired air."
-          },
-          "gt0024": {
-            "id": "gt0024",
-            "text": "Calculate PaO2/FiO2"
-          },
-          "gt0025": {
-            "id": "gt0025",
-            "text": "PaO2/FiO2",
-            "description": ""
           },
           "gt0026": {
             "id": "gt0026",
@@ -265,31 +284,79 @@
           },
           "gt0028": {
             "id": "gt0028",
-            "text": "Severe Diagnosis"
+            "text": "Adult Severe Diagnosis"
           },
           "gt0029": {
             "id": "gt0029",
             "text": "Critical Diagnosis"
           },
-          "gt0030": {
-            "id": "gt0030",
-            "text": "Problem/Diagnosis name",
-            "description": "Identification of the problem or diagnosis, by name."
+          "gt0041": {
+            "id": "gt0041",
+            "text": "Chronological age",
+            "description": "Age based on actual date of birth."
           },
-          "gt0032": {
-            "id": "gt0032",
-            "text": "Pulse oximetry Comment",
-            "description": "A text comment about the pulse oximetry result."
+          "gt0043": {
+            "id": "gt0043",
+            "text": "Shortness of breath Diagnosis"
           },
-          "gt0033": {
-            "id": "gt0033",
-            "text": "Symptom Description",
-            "description": "Narrative description about the reported symptom or sign."
+          "gt0052": {
+            "id": "gt0052",
+            "text": "SpO₂",
+            "description": "The saturation of oxygen in the peripheral blood, measured via pulse oximetry."
           },
-          "gt0036": {
-            "id": "gt0036",
-            "text": "Imaging result details",
-            "description": "*"
+          "gt0054": {
+            "id": "gt0054",
+            "text": "Imaging diagnosis",
+            "description": "Single word, phrase or brief description representing the 'Conclusion'."
+          },
+          "gt0055": {
+            "id": "gt0055",
+            "text": "Comparison with previous",
+            "description": "Narrative comparison with previous similar examinations"
+          },
+          "gt0057": {
+            "id": "gt0057",
+            "text": "Symptom or sign name",
+            "description": "Name of the symptom or sign being screened."
+          },
+          "gt0058": {
+            "id": "gt0058",
+            "text": "Symptom Comment",
+            "description": "Additional narrative about the specific symptom or sign, not captured in other fields."
+          },
+          "gt0060": {
+            "id": "gt0060",
+            "text": "PaO2/FiO2 ratio",
+            "description": "Calculated ration value."
+          },
+          "gt0062": {
+            "id": "gt0062",
+            "text": "Symptom or sign name",
+            "description": "Name of the symptom or sign being screened."
+          },
+          "gt0063": {
+            "id": "gt0063",
+            "text": "Symptom Presence?",
+            "description": "Presence of the symptom or sign."
+          },
+          "gt0065": {
+            "id": "gt0065",
+            "text": "Condition name",
+            "description": "Name of the condition being screened."
+          },
+          "gt0066": {
+            "id": "gt0066",
+            "text": "Condition Presence?",
+            "description": "Presence of the condition."
+          },
+          "gt0067": {
+            "id": "gt0067",
+            "text": "Symptom Presence?",
+            "description": "Presence of the symptom or sign."
+          },
+          "gt0070": {
+            "id": "gt0070",
+            "text": "Children Severe Diagnosis"
           }
         }
       }
